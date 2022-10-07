@@ -5,11 +5,14 @@ import java.lang.reflect.Array;
 public class TreeNode
 {
     private TreeNode[] children;
+    private float score;
+
 
     // Create leaf node
-    public TreeNode(int score)
+    public TreeNode(float score)
     {
         this.children = new TreeNode[0];
+        this.score = score;
     }
 
     // Create branch node
@@ -26,5 +29,10 @@ public class TreeNode
     public TreeNode getChild(int i)
     {
         return this.children[i];
+    }
+
+    public float getScore()
+    {
+        return this.score;
     }
 }
