@@ -41,6 +41,11 @@ public class TreeNode
         return this.score;
     }
 
+    protected  void setScore(float score)
+    {
+        this.score = score;
+    }
+
     public float getWeightedScore()
     {
         return this.score * this.weight;
