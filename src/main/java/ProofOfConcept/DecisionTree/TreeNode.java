@@ -1,5 +1,8 @@
 package ProofOfConcept.DecisionTree;
 
+import com.sun.source.tree.Tree;
+import jdk.jshell.spi.ExecutionControl;
+
 import java.lang.reflect.Array;
 
 public class TreeNode
@@ -44,6 +47,11 @@ public class TreeNode
     protected  void setScore(float score)
     {
         this.score = score;
+    }
+
+    public TreeNode getNextNode()
+    {
+        return this;
     }
 
     public float getWeightedScore()

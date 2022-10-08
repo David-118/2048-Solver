@@ -4,6 +4,8 @@ import ProofOfConcept.DecisionTree.TreeNode;
 
 public class MaxNode extends TreeNode
 {
+    private TreeNode optimalChild;
+
     public MaxNode(float weight, TreeNode ... children)
     {
         super(1f, children);
@@ -21,8 +23,15 @@ public class MaxNode extends TreeNode
             if (childWeight > max)
             {
                 max = childWeight;
+                this.optimalChild = this.getChild(i);
             }
         }
         this.setScore(max);
+    }
+
+    @Override
+    public TreeNode getNextNode()
+    {
+        return this.optimalChild;
     }
 }
