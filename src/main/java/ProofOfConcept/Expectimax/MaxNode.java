@@ -8,7 +8,7 @@ public class MaxNode extends TreeNode
 
     public MaxNode(float weight, TreeNode ... children)
     {
-        super(1f, children);
+        super(weight, children);
         this.calcScore();
     }
 
