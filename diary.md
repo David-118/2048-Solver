@@ -1,3 +1,8 @@
+# Week 3
+> ### Notes
+> * Complete a proof of concept for the expectimax algorithm
+> * Setup skeleton for report
+
 # Week 2
 
 ## Week 2.2
