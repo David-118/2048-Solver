@@ -5,6 +5,12 @@ public class LeafNode implements Node
     private float weight;
     private float score;
 
+    @Override
+    public float getWeight()
+    {
+        return weight;
+    }
+
     public LeafNode(float weight, float score)
     {
         this.weight = weight;

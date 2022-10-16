@@ -2,6 +2,12 @@ package uk.ac.rhul.project.expectimax;
 
 public class MaxNode implements Node
 {
+    @Override
+    public float getWeight()
+    {
+        return weight;
+    }
+
     private float weight;
     private Node[] children;
     public MaxNode(float weight, Node ... children)
