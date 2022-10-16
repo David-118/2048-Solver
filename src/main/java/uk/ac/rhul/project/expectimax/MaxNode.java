@@ -24,4 +24,18 @@ public class MaxNode implements Node
         }
         return max * weight;
     }
+
+    public Node nextNode()
+    {
+        Node max = children[0];
+        for (int i = 1; i < children.length; i++)
+        {
+            Node current = children[i];
+            if (current.getScore() > max.getScore())
+            {
+                max = current;
+            }
+        }
+        return max;
+    }
 }

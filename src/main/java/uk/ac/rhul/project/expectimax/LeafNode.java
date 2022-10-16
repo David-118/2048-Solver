@@ -16,4 +16,9 @@ public class LeafNode implements Node
     {
         return this.score * this.weight;
     }
+
+    public Node nextNode()
+    {
+        return null;
+    }
 }
