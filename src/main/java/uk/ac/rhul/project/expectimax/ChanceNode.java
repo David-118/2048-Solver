@@ -1,5 +1,6 @@
 package uk.ac.rhul.project.expectimax;
 
+import java.util.Collection;
 import java.util.Random;
 
 public class ChanceNode implements Node
@@ -8,10 +9,15 @@ public class ChanceNode implements Node
     private Node[] children;
     private Random random;
 
-    public ChanceNode(float weight, Node ... children)
+    public ChanceNode(float weight, Node ... children) throws InvalidTreeException
     {
         this.weight = weight;
         this.children = children;
+
+        if (!this.validate())
+        {
+            throw new InvalidTreeException("Weights of chance node should add up to 1f.");
+        }
     }
 
     public void setRandom(Random random)
@@ -50,5 +56,17 @@ public class ChanceNode implements Node
     public float getWeight()
     {
         return this.weight;
+    }
+
+    @Override
+    public boolean validate()
+    {
+        float sum = 0f;
+        for (int i = 0; i < children.length; i++)
+        {
+            sum += children[i].getWeight();
+        }
+
+        return sum == 1f;
     }
 }

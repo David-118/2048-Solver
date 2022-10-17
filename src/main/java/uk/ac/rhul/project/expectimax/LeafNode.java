@@ -27,4 +27,10 @@ public class LeafNode implements Node
     {
         return null;
     }
+
+    @Override
+    public boolean validate()
+    {
+        return true;
+    }
 }

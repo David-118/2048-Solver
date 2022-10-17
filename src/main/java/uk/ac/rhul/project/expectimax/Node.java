@@ -5,4 +5,5 @@ public interface Node
     float getScore();
     Node nextNode();
     float getWeight();
+    boolean validate();
 }

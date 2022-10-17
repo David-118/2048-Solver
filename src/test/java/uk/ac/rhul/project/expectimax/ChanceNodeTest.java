@@ -14,7 +14,7 @@ class ChanceNodeTest
     private Node chanceB;
 
     @BeforeEach
-    void setup()
+    void setup() throws InvalidTreeException
     {
         Random rnd = new Random(0);
 
@@ -66,5 +66,27 @@ class ChanceNodeTest
         assertEquals(80f, chanceB.nextNode().getScore());
         assertEquals(80f, chanceB.nextNode().getScore());
         assertEquals(-160f, chanceB.nextNode().getScore());
+    }
+
+    @Test
+    void test_validate()
+    {
+        assertTrue(chanceA.validate());
+        assertTrue(chanceB.validate());
+    }
+
+    @Test
+    void invalid()
+    {
+        assertThrows(InvalidTreeException.class,
+                () -> new ChanceNode(1f,
+                    new LeafNode(1f, 100),
+                    new LeafNode(0.1f, 100)));
+
+        assertThrows(InvalidTreeException.class,
+                () -> new ChanceNode(1f));
+
+        assertThrows(InvalidTreeException.class,
+                () -> new ChanceNode(1f, new LeafNode(0.1f, 100)));
     }
 }

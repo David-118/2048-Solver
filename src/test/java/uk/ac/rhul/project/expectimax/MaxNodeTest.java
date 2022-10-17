@@ -13,7 +13,7 @@ class MaxNodeTest
     private Node maxLeafB;
 
     @BeforeEach
-    void setup()
+    void setup() throws InvalidTreeException
     {
         maxLeafA = new LeafNode(1, 10);
         maxLeafB = new LeafNode(1, 50);
@@ -32,5 +32,19 @@ class MaxNodeTest
     {
         assertEquals(maxLeafA, maxA.nextNode());
         assertEquals(maxLeafB, maxB.nextNode());
+    }
+
+    @Test
+    void test_valid()
+    {
+        assertTrue(maxA.validate());
+        assertTrue(maxB.validate());
+    }
+
+    @Test
+    void test_invalid()
+    {
+        assertThrows(InvalidTreeException.class,
+                () -> new MaxNode(1f));
     }
 }
