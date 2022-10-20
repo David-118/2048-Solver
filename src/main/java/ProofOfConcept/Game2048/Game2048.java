@@ -31,6 +31,11 @@ public class Game2048
         addRndCell();
     }
 
+    public void loadCustomGame(int[][] grid)
+    {
+        this.grid = grid;
+    }
+
     /*
      * Populates random free cells in the grid with free cells.
      */
@@ -55,6 +60,16 @@ public class Game2048
             }
         }
         return cells;
+    }
+
+    public void move(DirectionVect dir)
+    {
+        dir.getVRange(this.height).forEach(i -> {
+            dir.getHRange(this.width).forEach(j -> {
+                this.grid[i + dir.getI()][j + dir.getJ()] = this.grid[i][j];
+                this.grid[i][j] = 0;
+            });
+        });
     }
 
 
