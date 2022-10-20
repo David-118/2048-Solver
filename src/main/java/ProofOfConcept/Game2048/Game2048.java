@@ -66,8 +66,11 @@ public class Game2048
     {
         dir.getVRange(this.height).forEach(i -> {
             dir.getHRange(this.width).forEach(j -> {
-                this.grid[i + dir.getI()][j + dir.getJ()] = this.grid[i][j];
-                this.grid[i][j] = 0;
+                if (grid[i][j] != 0)
+                {
+                    this.grid[i + dir.getI()][j + dir.getJ()] = this.grid[i][j];
+                    this.grid[i][j] = 0;
+                }
             });
         });
     }

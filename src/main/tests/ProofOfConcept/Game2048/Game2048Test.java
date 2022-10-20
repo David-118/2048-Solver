@@ -59,4 +59,18 @@ class Game2048Test
         this.game2_2.move(DirectionVect.LEFT);
         assertEquals("Game2048{width=2, height=2, grid=[[2, 0], [4, 0]]}",this.game2_2.toString());
     }
+
+    @Test
+    void test_2_2_move2()
+    {
+        this.game2_2.loadCustomGame(new int[][]{{2, 4}, {0, 0}});
+        this.game2_2.move(DirectionVect.UP);
+        assertEquals("Game2048{width=2, height=2, grid=[[2, 4], [0, 0]]}",this.game2_2.toString());
+
+        this.game2_2.move(DirectionVect.DOWN);
+        assertEquals("Game2048{width=2, height=2, grid=[[0, 0], [2, 4]]}",this.game2_2.toString());
+
+        this.game2_2.move(DirectionVect.DOWN);
+        assertEquals("Game2048{width=2, height=2, grid=[[0, 0], [2, 4]]}",this.game2_2.toString());
+    }
 }
