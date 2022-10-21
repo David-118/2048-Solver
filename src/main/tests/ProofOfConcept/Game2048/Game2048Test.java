@@ -181,4 +181,13 @@ class Game2048Test
             this.game4_4.addRndCell();
         assertEquals(16, this.game4_4.getScore());
     }
+
+    @Test
+    void test_merge_bug()
+    {
+        game4_4.loadCustomGame(new int[][]{{4,2,2,0}, {0,0,0,0},{0,0,0,0}, {0,0,0,0}});
+        game4_4.move(DirectionVect.RIGHT);
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[0, 0, 4, 4], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]}", this.game4_4.toString());
+    }
 }

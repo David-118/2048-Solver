@@ -66,6 +66,7 @@ public class Game2048
 
     public boolean move(DirectionVect dir)
     {
+        boolean[][] merged = new boolean[height][width];
         boolean flag = false;
         for (int i: dir.getVRange(this.height).toArray())
         {
@@ -73,7 +74,7 @@ public class Game2048
             {
                 if (grid[i][j] != 0)
                 {
-                    if (moveCell(i, j, dir))
+                    if (moveCell(i, j, dir, merged))
                     {
                         flag = true;
                     }
@@ -94,8 +95,9 @@ public class Game2048
                 '}';
     }
 
-    private boolean  moveCell(final int row, final int col, DirectionVect dir)
+    private boolean  moveCell(final int row, final int col, DirectionVect dir, boolean[][] merged)
     {
+
         int i = row; int j = col;
 
         while(inGrid(i + dir.getI(), j + dir.getJ()) &&
@@ -106,9 +108,11 @@ public class Game2048
         }
 
         if (inGrid(i + dir.getI(), j + dir.getJ()) &&
-                grid[row][col] == grid[i + dir.getI()][j + dir.getJ()])
+                grid[row][col] == grid[i + dir.getI()][j + dir.getJ()] &&
+                !merged[i + dir.getI()][j + dir.getJ()])
         {
             this.grid[i + dir.getI()][j + dir.getJ()] <<= 1;
+            merged[i + dir.getI()][j + dir.getJ()] = true;
             this.grid[row][col] = 0;
             this.score += this.grid[i + dir.getI()][j + dir.getJ()];
             return true;
