@@ -149,4 +149,36 @@ class Game2048Test
         assertEquals("Game2048{width=4, height=4, " +
                 "grid=[[16, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]}", this.game4_4.toString());
     }
+
+    @Test
+    void test_full_game()
+    {
+        this.game4_4.init();
+        assertEquals(0, this.game4_4.getScore());
+
+        if (this.game4_4.move(DirectionVect.DOWN))
+            this.game4_4.addRndCell();
+
+        assertEquals(4, this.game4_4.getScore());
+
+
+        if (this.game4_4.move(DirectionVect.DOWN))
+            this.game4_4.addRndCell();
+        assertEquals(4, this.game4_4.getScore());
+
+
+        if (this.game4_4.move(DirectionVect.RIGHT))
+            this.game4_4.addRndCell();
+        assertEquals(12, this.game4_4.getScore());
+
+
+        if (this.game4_4.move(DirectionVect.RIGHT))
+            this.game4_4.addRndCell();
+        assertEquals(12, this.game4_4.getScore());
+
+
+        if (this.game4_4.move(DirectionVect.DOWN))
+            this.game4_4.addRndCell();
+        assertEquals(16, this.game4_4.getScore());
+    }
 }

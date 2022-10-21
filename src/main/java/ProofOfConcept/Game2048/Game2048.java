@@ -10,6 +10,7 @@ public class Game2048
 {
     private int width;
     private int height;
+    private long score;
     private Random rnd;
     private int[][] grid;
 
@@ -27,6 +28,7 @@ public class Game2048
     public void init()
     {
         this.grid = new int[width][height];
+        this.score = 0;
         addRndCell();
         addRndCell();
     }
@@ -108,6 +110,7 @@ public class Game2048
         {
             this.grid[i + dir.getI()][j + dir.getJ()] <<= 1;
             this.grid[row][col] = 0;
+            this.score += this.grid[i + dir.getI()][j + dir.getJ()];
             return true;
         }
         else if (!(i == row && j == col))
@@ -123,5 +126,10 @@ public class Game2048
     private boolean inGrid(int i, int j)
     {
         return 0 <= i && i < this.width && 0 <= j && j < this.height;
+    }
+
+    public long getScore()
+    {
+        return score;
     }
 }
