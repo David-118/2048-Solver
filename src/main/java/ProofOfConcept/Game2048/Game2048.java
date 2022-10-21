@@ -132,4 +132,16 @@ public class Game2048
     {
         return score;
     }
+
+    public void print()
+    {
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                System.out.printf("%5d", this.grid[i][j]);
+            }
+            System.out.println();
+        }
+    }
 }
