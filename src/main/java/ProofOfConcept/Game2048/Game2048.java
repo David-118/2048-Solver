@@ -27,7 +27,7 @@ public class Game2048
      */
     public void init()
     {
-        this.grid = new int[width][height];
+        this.grid = new int[height][width];
         this.score = 0;
         addRndCell();
         addRndCell();
@@ -50,7 +50,7 @@ public class Game2048
 
     private List<Point> getFreeCells()
     {
-        List<Point> cells = new ArrayList<Point>(width*height);
+        List<Point> cells = new ArrayList<>(width*height);
         for (int i = 0; i < this.height; i++)
         {
             for (int j = 0; j < this.width; j++)
@@ -129,7 +129,7 @@ public class Game2048
 
     private boolean inGrid(int i, int j)
     {
-        return 0 <= i && i < this.width && 0 <= j && j < this.height;
+        return 0 <= i && i < this.height && 0 <= j && j < this.width;
     }
 
     public long getScore()

@@ -190,4 +190,16 @@ class Game2048Test
         assertEquals("Game2048{width=4, height=4, " +
                 "grid=[[0, 0, 4, 4], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]}", this.game4_4.toString());
     }
+
+    @Test
+    void test_rectangular()
+    {
+        Game2048 game_9_3 = new Game2048(9, 3, new Random(21102022));
+        game_9_3.init();
+        game_9_3.move(DirectionVect.RIGHT);
+        assertEquals("Game2048{width=9, height=3, " + "" +
+                "grid=[[0, 0, 0, 0, 0, 0, 0, 0, 4], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]}",
+                game_9_3.toString());
+
+    }
 }
