@@ -39,7 +39,7 @@ public class Game2048
     /*
      * Populates random free cells in the grid with free cells.
      */
-    private void addRndCell()
+    public void addRndCell()
     {
         List<Point> freeCells = this.getFreeCells();
         int i = this.rnd.nextInt(freeCells.size());
@@ -62,17 +62,23 @@ public class Game2048
         return cells;
     }
 
-    public void move(DirectionVect dir)
+    public boolean move(DirectionVect dir)
     {
-        dir.getVRange(this.height).forEach(i -> {
-            dir.getHRange(this.width).forEach(j -> {
+        boolean flag = false;
+        for (int i: dir.getVRange(this.height).toArray())
+        {
+            for (int j: dir.getHRange(this.width).toArray())
+            {
                 if (grid[i][j] != 0)
                 {
-                    this.grid[i + dir.getI()][j + dir.getJ()] = this.grid[i][j];
-                    this.grid[i][j] = 0;
+                    if (moveCell(i, j, dir))
+                    {
+                        flag = true;
+                    }
                 }
-            });
-        });
+            }
+        }
+        return flag;
     }
 
 
@@ -84,5 +90,38 @@ public class Game2048
                 ", height=" + height +
                 ", grid=" + Arrays.deepToString(grid) +
                 '}';
+    }
+
+    private boolean  moveCell(final int row, final int col, DirectionVect dir)
+    {
+        int i = row; int j = col;
+
+        while(inGrid(i + dir.getI(), j + dir.getJ()) &&
+                grid[i + dir.getI()][j + dir.getJ()] == 0)
+        {
+            i += dir.getI();
+            j += dir.getJ();
+        }
+
+        if (inGrid(i + dir.getI(), j + dir.getJ()) &&
+                grid[row][col] == grid[i + dir.getI()][j + dir.getJ()])
+        {
+            this.grid[i + dir.getI()][j + dir.getJ()] <<= 1;
+            this.grid[row][col] = 0;
+            return true;
+        }
+        else if (!(i == row && j == col))
+        {
+            this.grid[i][j] = this.grid[row][col];
+            this.grid[row][col] = 0;
+            return true;
+        }
+        return false;
+
+    }
+
+    private boolean inGrid(int i, int j)
+    {
+        return 0 <= i && i < this.width && 0 <= j && j < this.height;
     }
 }

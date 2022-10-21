@@ -48,15 +48,17 @@ class Game2048Test
     void test_2_2_move()
     {
         this.game2_2.loadCustomGame(new int[][]{{2, 4}, {0, 0}});
-        this.game2_2.move(DirectionVect.DOWN);
+        assertTrue(this.game2_2.move(DirectionVect.DOWN));
         assertEquals("Game2048{width=2, height=2, grid=[[0, 0], [2, 4]]}",this.game2_2.toString());
-        this.game2_2.move(DirectionVect.UP);
+
+        assertTrue(this.game2_2.move(DirectionVect.UP));
         assertEquals("Game2048{width=2, height=2, grid=[[2, 4], [0, 0]]}",this.game2_2.toString());
 
         this.game2_2.loadCustomGame(new int[][]{{2, 0}, {4, 0}});
-        this.game2_2.move(DirectionVect.RIGHT);
+        assertTrue(this.game2_2.move(DirectionVect.RIGHT));
         assertEquals("Game2048{width=2, height=2, grid=[[0, 2], [0, 4]]}",this.game2_2.toString());
-        this.game2_2.move(DirectionVect.LEFT);
+
+        assertTrue(this.game2_2.move(DirectionVect.LEFT));
         assertEquals("Game2048{width=2, height=2, grid=[[2, 0], [4, 0]]}",this.game2_2.toString());
     }
 
@@ -64,13 +66,87 @@ class Game2048Test
     void test_2_2_move2()
     {
         this.game2_2.loadCustomGame(new int[][]{{2, 4}, {0, 0}});
-        this.game2_2.move(DirectionVect.UP);
+        assertFalse(this.game2_2.move(DirectionVect.UP));
         assertEquals("Game2048{width=2, height=2, grid=[[2, 4], [0, 0]]}",this.game2_2.toString());
 
-        this.game2_2.move(DirectionVect.DOWN);
+        assertTrue(this.game2_2.move(DirectionVect.DOWN));
         assertEquals("Game2048{width=2, height=2, grid=[[0, 0], [2, 4]]}",this.game2_2.toString());
 
-        this.game2_2.move(DirectionVect.DOWN);
+        assertFalse(this.game2_2.move(DirectionVect.DOWN));
         assertEquals("Game2048{width=2, height=2, grid=[[0, 0], [2, 4]]}",this.game2_2.toString());
+    }
+
+    @Test
+    void test_4_4_move()
+    {
+        this.game4_4.loadCustomGame(new int[][]{{2, 0, 0, 2}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}});
+        assertTrue(this.game4_4.move(DirectionVect.DOWN));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [2, 0, 0, 2]]}", this.game4_4.toString());
+
+        assertTrue(this.game4_4.move(DirectionVect.UP));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[2, 0, 0, 2], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]}", this.game4_4.toString());
+
+
+        this.game4_4.loadCustomGame(new int[][]{{2, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {2, 0, 0, 0}});
+        assertTrue(this.game4_4.move(DirectionVect.RIGHT));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[0, 0, 0, 2], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 2]]}", this.game4_4.toString());
+
+        assertTrue(this.game4_4.move(DirectionVect.LEFT));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[2, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [2, 0, 0, 0]]}", this.game4_4.toString());
+    }
+
+    @Test
+    void test_4_4_move2()
+    {
+        this.game4_4.loadCustomGame(new int[][]{{4, 2, 0, 0}, {4, 0, 0, 2}, {2, 0, 4, 0}, {0, 0, 4, 2}});
+        assertTrue(this.game4_4.move(DirectionVect.RIGHT));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[0, 0, 4, 2], [0, 0, 4, 2], [0, 0, 2, 4], [0, 0, 4, 2]]}", this.game4_4.toString());
+
+        this.game4_4.loadCustomGame(new int[][]{{4, 2, 0, 0}, {4, 0, 0, 2}, {2, 0, 4, 0}, {0, 0, 4, 2}});
+        assertTrue(this.game4_4.move(DirectionVect.LEFT));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[4, 2, 0, 0], [4, 2, 0, 0], [2, 4, 0, 0], [4, 2, 0, 0]]}", this.game4_4.toString());
+
+        this.game4_4.loadCustomGame(new int[][]{{4, 4, 2, 0}, {2, 0, 0, 0}, {0, 0, 4, 4}, {0, 2, 0, 2}});
+        assertTrue(this.game4_4.move(DirectionVect.DOWN));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[0, 0, 0, 0], [0, 0, 0, 0], [4, 4, 2, 4], [2, 2, 4, 2]]}", this.game4_4.toString());
+
+        this.game4_4.loadCustomGame(new int[][]{{4, 4, 2, 0}, {2, 0, 0, 0}, {0, 0, 4, 4}, {0, 2, 0, 2}});
+        assertTrue(this.game4_4.move(DirectionVect.UP));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[4, 4, 2, 4], [2, 2, 4, 2], [0, 0, 0, 0], [0, 0, 0, 0]]}", this.game4_4.toString());
+
+    }
+
+    @Test
+    void test_4_4_move3()
+    {
+        this.game4_4.loadCustomGame(new int[][]{{2, 2, 0, 0}, {2, 2, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}});
+        assertTrue(this.game4_4.move(DirectionVect.DOWN));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [4, 4, 0, 0]]}", this.game4_4.toString());
+
+        assertTrue(this.game4_4.move(DirectionVect.RIGHT));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 8]]}", this.game4_4.toString());
+
+        this.game4_4.loadCustomGame(new int[][]{{2, 2, 2, 2}, {2, 2, 2, 2}, {0, 0, 0, 0}, {0, 0, 0, 0}});
+        assertTrue(this.game4_4.move(DirectionVect.LEFT));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[4, 4, 0, 0], [4, 4, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]}", this.game4_4.toString());
+
+        assertTrue(this.game4_4.move(DirectionVect.LEFT));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[8, 0, 0, 0], [8, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]}", this.game4_4.toString());
+
+        assertTrue(this.game4_4.move(DirectionVect.UP));
+        assertEquals("Game2048{width=4, height=4, " +
+                "grid=[[16, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]}", this.game4_4.toString());
     }
 }
