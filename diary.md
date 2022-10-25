@@ -1,7 +1,11 @@
 # Week 3
-> ### Notes
-> * Complete a proof of concept for the expectimax algorithm
-> * Setup skeleton for report
+
+This week I completed the expectimax early deliverable by adding both chance nodes
+maximum nodes to the tree strucutre. I've also used what I learn't in the proof of
+concept programs to develop the expectiman algorithm in the main branch. While the
+algorithm currently works I would like to check validity of the tree. I also created 
+a skeleton for the report and added some information about what I did for the first 
+two early deliverables.
 
 # Week 2
 
@@ -24,6 +28,8 @@ Nodes are currently not able to store score and edges are not weighted.
 
 This week I have only done two major things
 
-* Firstly I have worked on my project plan ensuring that I know what to do over the project as well as what could go wrong.
-* Secondly I have worked on reading sources relating to my project. These include previous attempts to solve 2048 with the
-  expectimax algorithm as well as some material on the expetimax algorithm.
+* Firstly I have worked on my project plan ensuring that I know what to do over the
+  project as well as what could go wrong.
+* Secondly I have worked on reading sources relating to my project. These include 
+  previous attempts to solve 2048 with the expectimax algorithm as well as some 
+  material on the expetimax algorithm.
