@@ -98,8 +98,81 @@ public final class GameModel
        return freeCells;
     }
 
+    public void move(Direction dir)
+    {
+        boolean[][] merged = new boolean[this.height][this.width];
+        boolean flag = false;
+
+        for (int i : dir.getVerticalStream(this.height))
+        {
+            for (int j: dir.getHorizontalStream(this.width))
+            {
+                if (grid[i][j] != 0 && this.slideTile(i, j, dir, merged))
+                {
+                    flag = true;
+                }
+            }
+        }
+        if (flag)
+        {
+            this.addRandomCell();
+        }
+    }
+
+    private boolean slideTile(final int row, final int col, Direction dir, boolean[][] merged)
+    {
+        int target_row = row;
+        int target_col = col;
+
+        // Calculate how far the tile can be moved (assuming no merge)
+        while (nextCellInGrid(target_row, target_col, dir) && this.nextCellValue(target_row, target_col, dir) == 0)
+        {
+            target_row += dir.getRows();
+            target_col += dir.getCols();
+        }
+
+        // Check for possible merge
+        if (nextCellInGrid(target_row, target_col, dir) &&
+                this.nextCellValue(target_row, target_col, dir) == this.grid[row][col])
+        {
+            target_row += dir.getRows();
+            target_col += dir.getCols();
+
+            this.grid[target_row][target_col] <<= 1;
+            this.score += this.grid[target_row][target_col];
+        }  // move but no merge
+        else if (target_row != row || target_col != col)
+        {
+            this.grid[target_row][target_col] = this.grid[row][col];
+        }  // No move made
+        else {
+            return false;
+        }
+
+        this.grid[row][col] = 0;
+
+        return true;
+
+    }
+
+    private int nextCellValue(int row, int col, Direction dir)
+    {
+        return this.grid[row + dir.getRows()][col + dir.getCols()];
+    }
+    private boolean nextCellInGrid(int row, int col, Direction dir)
+    {
+        row += dir.getRows();
+        col += dir.getCols();
+        return 0 <= row && row < this.height && 0 <= col && col < this.width;
+    }
+
     public int[][] getGrid()
     {
         return this.grid;
+    }
+
+    public int getScore()
+    {
+        return this.score;
     }
 }
