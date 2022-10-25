@@ -197,7 +197,7 @@ class Game2048Test
         Game2048 game_9_3 = new Game2048(9, 3, new Random(21102022));
         game_9_3.init();
         game_9_3.move(DirectionVect.RIGHT);
-        assertEquals("Game2048{width=9, height=3, " + "" +
+        assertEquals("Game2048{width=9, height=3, " +
                 "grid=[[0, 0, 0, 0, 0, 0, 0, 0, 4], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]}",
                 game_9_3.toString());
 
