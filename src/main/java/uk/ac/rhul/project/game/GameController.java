@@ -2,8 +2,8 @@ package uk.ac.rhul.project.game;
 
 public class GameController
 {
-    private GameModel model;
-    private GameView view;
+    private final GameModel model;
+    private final GameView view;
 
     public GameController(GameModel model, GameView view)
     {

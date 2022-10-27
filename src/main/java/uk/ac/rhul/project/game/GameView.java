@@ -19,12 +19,36 @@ import javafx.stage.Stage;
 import uk.ac.rhul.project.MoveObserver;
 import uk.ac.rhul.project.Observer;
 
+import java.util.HashMap;
+
 public class GameView extends Application
 {
     Label[][] labels;
     private int height;
     private int width;
     private static volatile GameView instance = null;
+
+
+    // Colour comes from [5]. It is the colour of an empty cell.
+    private static final HashMap<Integer, String> backColours = new HashMap<Integer, String>() {{
+        put(0, "rgba(238, 228, 218, 0.35)");
+        put(2, "#eee4da");
+        put(4, "#eee1c9");
+        put(8, "#f3b27a");
+        put(16, "#f69664");
+        put(32, "#f77c5f");
+        put(64, "#f75f3b");
+        put(128, "#edd073");
+        put(256, "#edcc62");
+        put(512, "#edc950");
+        put(1024, "#edc53f");
+        put(2048, "#edc22e");
+    }};
+
+    private static final HashMap<Integer, String> foreColours = new HashMap<Integer, String>() {{
+        put(2, "#776e65");
+        put(4, "#776e65");
+    }};
 
     private Observer newGameObserver;
 
@@ -44,7 +68,6 @@ public class GameView extends Application
     void initialize()
     {
         this.make2048Grid(4, 4);
-        System.out.println("Loaded");
         instance = this;
     }
 
@@ -135,8 +158,8 @@ public class GameView extends Application
                 labels[row][col].setMaxWidth(Double.MAX_VALUE);
                 labels[row][col].setMaxHeight(Double.MAX_VALUE);
 
-                // Colour comes from [5]. It is the colour of an empty cell.
-                labels[row][col].setBackground(Background.fill(Paint.valueOf("rgba(238, 228, 218, 0.35)")));
+
+                this.setLabel(row, col, 0);
 
                 this.gameView.add(labels[row][col], col, row);
                 GridPane.setMargin(labels[row][col], new Insets(10));
@@ -152,18 +175,39 @@ public class GameView extends Application
             {
                 for (int col = 0; col < width; col++)
                 {
-                    if (arr[row][col] != 0)
-                    {
-                        this.labels[row][col].setText(Integer.toString(arr[row][col]));
-                        this.labels[row][col].setBackground(Background.fill(Paint.valueOf("#eee4da")));
-                    } else
-                    {
-                        this.labels[row][col].setText("");
-                        labels[row][col].setBackground(Background.fill(Paint.valueOf("rgba(238, 228, 218, 0.35)")));
-                    }
+                    setLabel(row, col, arr[row][col]);
                 }
             }
         }
         this.score.setText(Integer.toString(score));
+    }
+
+    public void setLabel(int row, int col, int value)
+    {
+        String str_value = Integer.toString(value);
+        if (value == 0)
+        {
+            str_value = "";
+        }
+
+        double font_size = 48D;
+        if (str_value.length() >= 5)
+        {
+            font_size = 24D;
+        }
+        else if (str_value.length() >= 3)
+        {
+            font_size = 36D;
+        }
+
+
+        labels[row][col].setFont(Font.font("System", FontWeight.BOLD, font_size));
+
+        this.labels[row][col].setText(str_value);
+        this.labels[row][col].setBackground(
+                Background.fill(Paint.valueOf(backColours.getOrDefault(value, "#3c3a33"))));
+
+        this.labels[row][col].setTextFill(
+                 Paint.valueOf(foreColours.getOrDefault(value, "#f9f6f2")));
     }
 }
