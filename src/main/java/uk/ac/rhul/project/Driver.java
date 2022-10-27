@@ -5,18 +5,22 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import uk.ac.rhul.project.game.GameView;
 
 public class Driver extends Application
 {
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        Parent gui = FXMLLoader.load(Driver.class.getResource("main.fxml"));
-        Scene scene = new Scene(gui);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main.fxml"));
+        GameView controller = new GameView();
+        fxmlLoader.setController(controller);
 
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("2048 Solver");
+        Scene root = fxmlLoader.load();
+
+        primaryStage.setScene(root);
         primaryStage.show();
     }
 

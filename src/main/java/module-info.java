@@ -10,4 +10,6 @@ module PROJECT {
 
     opens uk.ac.rhul.project to javafx.fxml;
     exports uk.ac.rhul.project;
+    exports uk.ac.rhul.project.game;
+    opens uk.ac.rhul.project.game to javafx.fxml;
 }
