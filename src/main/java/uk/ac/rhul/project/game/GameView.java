@@ -35,6 +35,9 @@ public class GameView extends Application
     private Button newGame;
 
     @FXML
+    private Label score;
+
+    @FXML
     private Scene root;
 
     @FXML
@@ -141,7 +144,7 @@ public class GameView extends Application
         }
     }
 
-    public void setValues(int[][] arr)
+    public void setValues(int[][] arr, int score)
     {
         if (arr.length == height && arr[0].length == width)
         {
@@ -161,5 +164,6 @@ public class GameView extends Application
                 }
             }
         }
+        this.score.setText(Integer.toString(score));
     }
 }

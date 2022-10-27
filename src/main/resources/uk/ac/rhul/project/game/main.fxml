@@ -31,7 +31,7 @@
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Label>
-               <Label maxWidth="1.7976931348623157E308" text="0">
+               <Label fx:id="score" maxWidth="1.7976931348623157E308" text="0">
                   <font>
                      <Font name="System Bold" size="21.0" />
                   </font>
