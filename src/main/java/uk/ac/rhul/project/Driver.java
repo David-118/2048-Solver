@@ -7,25 +7,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import uk.ac.rhul.project.game.GameController;
+import uk.ac.rhul.project.game.GameModel;
 import uk.ac.rhul.project.game.GameView;
 
-public class Driver extends Application
+public class Driver
 {
-    @Override
-    public void start(Stage primaryStage) throws Exception
-    {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main.fxml"));
-        GameView controller = new GameView();
-        fxmlLoader.setController(controller);
 
-        Scene root = fxmlLoader.load();
-
-        primaryStage.setScene(root);
-        primaryStage.show();
-    }
 
     public static void main(String[] args)
     {
-        launch();
+        GameView view = GameView.getInstance();
+        GameModel model = new GameModel(4, 4);
+        new GameController(model, view);
     }
 }

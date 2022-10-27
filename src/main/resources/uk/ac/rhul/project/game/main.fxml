@@ -12,7 +12,7 @@
 
 <!-- Based on user interface at [5] -->
 
-<Scene xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Scene fx:id="root" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="447.0" prefWidth="374.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
       <columnConstraints>
          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="390.0" prefWidth="500.0" />
@@ -41,11 +41,6 @@
                <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
             </GridPane.margin>
          </VBox>
-         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #8f7a66; -fx-background-radius: 1;" text="New Game" textFill="#f9f6f2" GridPane.columnIndex="1" GridPane.rowIndex="1">
-            <GridPane.margin>
-               <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
-            </GridPane.margin>
-         </Button>
          <VBox alignment="CENTER" GridPane.columnSpan="2" GridPane.rowSpan="2">
             <children>
                <Label text="2048">
@@ -60,6 +55,11 @@
                </Label>
             </children>
          </VBox>
+         <Button fx:id="newGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #8f7a66; -fx-background-radius: 1;" text="New Game" textFill="#f9f6f2" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane.margin>
+               <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
+            </GridPane.margin>
+         </Button>
          <GridPane fx:id="gameView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #bbada0;" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
             <padding>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
