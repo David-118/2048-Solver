@@ -6,8 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -17,9 +16,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import uk.ac.rhul.project.MoveObserver;
-import uk.ac.rhul.project.Observer;
+import uk.ac.rhul.project.NewGameObserver;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 public class GameView extends Application
 {
@@ -50,7 +50,7 @@ public class GameView extends Application
         put(4, "#776e65");
     }};
 
-    private Observer newGameObserver;
+    private NewGameObserver newGameObserver;
 
     @FXML
     private GridPane gameView;
@@ -63,11 +63,61 @@ public class GameView extends Application
 
     @FXML
     private Scene root;
+    
+    private Dialog<int[]> newGameDialog;
 
     @FXML
     void initialize()
     {
-        this.make2048Grid(4, 4);
+        this.height = 4;
+        this.width = 4;
+        this.make2048Grid(height, width);
+
+        this.newGameDialog = new Dialog<>();
+        this.newGameDialog.setResizable(false);
+        this.newGameDialog.setTitle("New Game");
+        this.newGameDialog.setHeaderText("Enter dimensions of new game");
+
+        ButtonType submitButton = new ButtonType("Submit", ButtonBar.ButtonData.OK_DONE);
+        this.newGameDialog.getDialogPane().getButtonTypes().addAll(submitButton, ButtonType.CANCEL);
+
+        GridPane pane = new GridPane();
+
+        pane.setHgap(10d);
+        pane.setVgap(10d);
+
+        pane.addColumn(0);
+        ColumnConstraints lables = new ColumnConstraints(50);
+        ColumnConstraints spinners = new ColumnConstraints(200);
+        pane.getColumnConstraints().addAll(lables, spinners);
+
+        Spinner<Integer> widthIn = new Spinner<Integer>();
+        widthIn.setMaxWidth(Double.MAX_VALUE);
+        widthIn.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 20, 4));
+
+        Label widthLabel = new Label("Width:");
+
+        Spinner<Integer> heightIn = new Spinner<Integer>();
+        widthIn.setMaxWidth(Double.MAX_VALUE);
+        heightIn.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 20, 4));
+
+        Label heightLabel = new Label("Height:");
+
+        pane.add(widthLabel, 0, 0);
+        pane.add(widthIn, 1, 0);
+        pane.add(heightLabel, 0, 1);
+        pane.add(heightIn, 1, 1);
+
+        this.newGameDialog.getDialogPane().setContent(pane);
+
+        this.newGameDialog.setResultConverter(buttonType -> {
+            if (buttonType == submitButton)
+            {
+                return new int[]{heightIn.getValue(), widthIn.getValue()};
+            }
+            return new int[]{};
+        });
+
         instance = this;
     }
 
@@ -84,7 +134,7 @@ public class GameView extends Application
 
     public void startNewGame()
     {
-        this.newGameObserver.notifyObservers();
+        this.newGameObserver.notifyObservers(4, 4);
     }
 
     @Override
@@ -100,11 +150,18 @@ public class GameView extends Application
         primaryStage.show();
     }
 
-    public void addNewGameObserver(Observer method)
+    public void addNewGameObserver(NewGameObserver method)
     {
         this.newGameObserver = method;
-        this.newGame.setOnAction(event -> method.notifyObservers());
-        this.newGame.setOnMouseClicked(event -> method.notifyObservers());
+        this.newGame.setOnAction(event ->
+        {
+            Optional<int[]> result = this.newGameDialog.showAndWait();
+            result.ifPresent(size -> {
+                this.make2048Grid(size[0], size[1]);
+                method.notifyObservers(size[0], size[1]);
+            });
+
+        });
     }
 
     public void addMoveObserver(MoveObserver method)
@@ -126,12 +183,11 @@ public class GameView extends Application
         this.height = height;
         this.width = width;
 
+        this.gameView.getChildren().removeAll(this.gameView.getChildren());
+        this.gameView.getRowConstraints().removeAll(this.gameView.getRowConstraints());
+        this.gameView.getColumnConstraints().removeAll(this.gameView.getColumnConstraints());
+
         this.labels = new Label[height][width];
-
-
-        this.gameView.getColumnConstraints().removeAll();
-        this.gameView.getRowConstraints().removeAll();
-        this.gameView.getChildren().removeAll();
 
 
         for (int col = 0; col < width; col++)

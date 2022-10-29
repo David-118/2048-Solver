@@ -14,8 +14,8 @@ public final class GameModel
 {
     private final static float PROB_OF_4 = 0.1f;
     private static final int INITIAL_CELL_COUNT = 2;
-    private final int height;
-    private final int width;
+    private int height;
+    private int width;
     private final Random random;
     private int[][] grid;
     private int score;
@@ -49,6 +49,13 @@ public final class GameModel
      */
     public void init()
     {
+        init(this.height, this.width);
+    }
+
+    public void init(int height, int width)
+    {
+        this.height = height;
+        this.width = width;
         this.score = 0;
         this.grid = new int[this.height][this.width];
         for (int i = 0; i < INITIAL_CELL_COUNT; i++)

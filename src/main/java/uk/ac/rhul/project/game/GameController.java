@@ -14,9 +14,9 @@ public class GameController
         this.view.startNewGame();
     }
 
-    private void handelNewGame()
+    private void handelNewGame(int height, int width)
     {
-        this.model.init();
+        this.model.init(height, width);
         this.view.setValues(this.model.getGrid(), this.model.getScore());
     }
 

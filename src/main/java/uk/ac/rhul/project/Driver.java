@@ -20,5 +20,5 @@ public class Driver
         GameView view = GameView.getInstance();
         GameModel model = new GameModel(4, 4);
         new GameController(model, view);
-    }
+   }
 }
