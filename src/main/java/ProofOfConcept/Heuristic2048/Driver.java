@@ -1,4 +1,4 @@
-package ProofOfConcept.Auto2048;
+package ProofOfConcept.Heuristic2048;
 
 public class Driver
 {
@@ -6,11 +6,11 @@ public class Driver
     {
         Node2048 root = new MoveNode();
         root.init();
-        root.expectimax();
 
         while (root != null)
         {
             System.out.printf("Score : %d\n", root.getScore());
+            root.expectimax(8);
             root.print();
             root = root.nextNode();
         }

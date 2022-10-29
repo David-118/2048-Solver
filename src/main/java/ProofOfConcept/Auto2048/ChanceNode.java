@@ -1,7 +1,5 @@
 package ProofOfConcept.Auto2048;
 
-import ProofOfConcept.Game2048.DirectionVect;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +8,11 @@ public class ChanceNode extends Node2048
 {
 
     @Override
-    public Node2048[] getChildren()
+    public Node2048[] expectimax()
     {
-
         List<Point> cells = this.getFreeCells();
         List<Node2048> children = new ArrayList<>(cells.size() * 2);
-        for (Point cell:  cells)
+        for (Point cell : cells)
         {
             Node2048 child1 = this.cloneAs(new MoveNode());
 
@@ -30,9 +27,9 @@ public class ChanceNode extends Node2048
 
         this.nodeScore = 0;
 
-        for (Node2048 node: nodes)
+        for (Node2048 node : nodes)
         {
-            node.getChildren();
+            node.expectimax();
             this.nodeScore += node.nodeScore;
         }
 
@@ -43,7 +40,6 @@ public class ChanceNode extends Node2048
         {
             this.nodeScore = getScore();
         }
-
 
         return nodes;
     }

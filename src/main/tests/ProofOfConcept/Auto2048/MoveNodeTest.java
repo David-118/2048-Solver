@@ -21,7 +21,7 @@ class MoveNodeTest
     @Test
     void getChildren()
     {
-        Node2048[] children = this.rootNode.getChildren();
+        Node2048[] children = this.rootNode.expectimax();
         assertEquals("[[2, 2], [0, 0]]", Arrays.deepToString(children));
         assertEquals("[[0, 0], [4, 0]]", Arrays.deepToString(children));
     }

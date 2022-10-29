@@ -9,7 +9,7 @@ public class MoveNode extends Node2048
 {
     Node2048 nextNodeI = null;
     @Override
-    public Node2048[] getChildren()
+    public Node2048[] expectimax()
     {
         List<Node2048> moves = new ArrayList<>(4);
         for (DirectionVect dir: DirectionVect.values())
@@ -27,7 +27,7 @@ public class MoveNode extends Node2048
 
         for (Node2048 node: nodes)
         {
-            node.getChildren();
+            node.expectimax();
             if (node.nodeScore > this.nodeScore)
             {
                 this.nextNodeI = node;

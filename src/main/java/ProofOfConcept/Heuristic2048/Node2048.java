@@ -1,4 +1,4 @@
-package ProofOfConcept.Auto2048;
+package ProofOfConcept.Heuristic2048;
 
 import ProofOfConcept.Game2048.DirectionVect;
 
@@ -90,7 +90,7 @@ public abstract class Node2048
         this.grid[freeCells.get(i).x][freeCells.get(i).y] = this.rnd.nextFloat() > 0.9 ? 4 : 2;
     }
 
-    public abstract Node2048[] expectimax();
+    public abstract void expectimax(int maxDepth);
 
     public List<Point> getFreeCells()
     {
@@ -193,20 +193,20 @@ public abstract class Node2048
     {
         this.grid[i][j] = val;
     }
-    public abstract Node2048 nextNode();
 
+    public abstract Node2048 nextNode();
 
     public float heuristic()
     {
-        float sum = 0f;
+        float score = 0;
         for (int i = 0; i < this.getHeight(); i++)
         {
             for (int j = 0; j < this.getWidth(); j++)
             {
-                sum += this.grid[i][j];
+                score += this.grid[i][j];
             }
         }
 
-        return sum;
+        return score;
     }
 }
