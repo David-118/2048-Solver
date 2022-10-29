@@ -11,7 +11,6 @@ public class GameController
         this.view = view;
         this.view.addNewGameObserver(this::handelNewGame);
         this.view.addMoveObserver(this::handelMove);
-        this.view.startNewGame();
     }
 
     private void handelNewGame(int height, int width)

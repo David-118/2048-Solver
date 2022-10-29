@@ -77,7 +77,7 @@ public final class GameModel
         Point cell = cells.get(this.random.nextInt(size));
 
         // Set cell to 4 PROB_OF_4 of the time otherwise set to 2.
-        int value = random.nextFloat() < PROB_OF_4 ? 4: 2;
+        int value = random.nextFloat() < PROB_OF_4 ? 4 : 2;
         this.grid[cell.x][cell.y] = value;
     }
 

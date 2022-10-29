@@ -28,6 +28,10 @@ public class GameView extends Application
     private int width;
     private static volatile GameView instance = null;
 
+    private static final float TITLE_SIZE = 100f;
+
+    public float scale;
+
 
     // Colour comes from [5]. It is the colour of an empty cell.
     private static final HashMap<Integer, String> backColours = new HashMap<Integer, String>() {{
@@ -63,6 +67,9 @@ public class GameView extends Application
 
     @FXML
     private Scene root;
+
+    @FXML
+    private GridPane mainGrid;
     
     private Dialog<int[]> newGameDialog;
 
@@ -71,7 +78,6 @@ public class GameView extends Application
     {
         this.height = 4;
         this.width = 4;
-        this.make2048Grid(height, width);
 
         this.newGameDialog = new Dialog<>();
         this.newGameDialog.setResizable(false);
@@ -98,7 +104,7 @@ public class GameView extends Application
         Label widthLabel = new Label("Width:");
 
         Spinner<Integer> heightIn = new Spinner<Integer>();
-        widthIn.setMaxWidth(Double.MAX_VALUE);
+        heightIn.setMaxWidth(Double.MAX_VALUE);
         heightIn.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 20, 4));
 
         Label heightLabel = new Label("Height:");
@@ -183,9 +189,32 @@ public class GameView extends Application
         this.height = height;
         this.width = width;
 
+        if (height > 16)
+        {
+            this.scale = 0.4f;
+        }
+        else if (width > 16 || height > 8)
+        {
+            this.scale = 0.5f;
+        } else if (width > 8 || height  > 4)
+        {
+            this.scale = 1f;
+        } else
+        {
+            this.scale = 1.5f;
+        }
+
         this.gameView.getChildren().removeAll(this.gameView.getChildren());
         this.gameView.getRowConstraints().removeAll(this.gameView.getRowConstraints());
         this.gameView.getColumnConstraints().removeAll(this.gameView.getColumnConstraints());
+
+        this.mainGrid.getRowConstraints().get(2).setPrefHeight(height * TITLE_SIZE * this.scale + 30f );
+        this.mainGrid.getColumnConstraints().get(0).setPrefWidth(width * TITLE_SIZE * this.scale - 110);
+
+        ((Stage)this.root.getWindow()).setHeight(height * TITLE_SIZE * this.scale+ 170f);
+        ((Stage)this.root.getWindow()).setWidth(width * TITLE_SIZE * this.scale + 40f);
+
+        this.gameView.setPrefSize(width * TITLE_SIZE * this.scale, height * TITLE_SIZE * this.scale);
 
         this.labels = new Label[height][width];
 
@@ -218,7 +247,7 @@ public class GameView extends Application
                 this.setLabel(row, col, 0);
 
                 this.gameView.add(labels[row][col], col, row);
-                GridPane.setMargin(labels[row][col], new Insets(10));
+                GridPane.setMargin(labels[row][col], new Insets(7.5f * scale));
             }
         }
     }
@@ -246,14 +275,14 @@ public class GameView extends Application
             str_value = "";
         }
 
-        double font_size = 48D;
+        double font_size = 32 * this.scale;
         if (str_value.length() >= 5)
         {
-            font_size = 24D;
+            font_size = 16D * this.scale;
         }
         else if (str_value.length() >= 3)
         {
-            font_size = 36D;
+            font_size = 24D * this.scale;
         }
 
 
