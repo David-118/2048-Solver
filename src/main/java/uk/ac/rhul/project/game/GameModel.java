@@ -44,6 +44,11 @@ public final class GameModel
         this(rows, cols, new Random());
     }
 
+    void setGrid(int[][] grid)
+    {
+        this.grid = grid;
+    }
+
     /*
      * Start the game with random grids and score of 0
      */
@@ -140,10 +145,13 @@ public final class GameModel
 
         // Check for possible merge
         if (nextCellInGrid(target_row, target_col, dir) &&
-                this.nextCellValue(target_row, target_col, dir) == this.grid[row][col])
+                this.nextCellValue(target_row, target_col, dir) == this.grid[row][col] &&
+                !merged[target_row][target_col] && !merged[target_row + dir.getRows()][target_col + dir.getCols()])
         {
             target_row += dir.getRows();
             target_col += dir.getCols();
+
+            merged[target_row][target_col] = true;
 
             this.grid[target_row][target_col] <<= 1;
             this.score += this.grid[target_row][target_col];

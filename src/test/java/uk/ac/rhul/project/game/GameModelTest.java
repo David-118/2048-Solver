@@ -148,4 +148,20 @@ class GameModelTest
                         " [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]",
                 Arrays.deepToString(this.model_rect1.getGrid()));
     }
+
+    @Test
+    void test_know_bugs()
+    {
+        this.model_classic.setGrid(new int[][]{{2, 2, 4, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}});
+        this.model_classic.move(Direction.LEFT);
+
+        assertEquals(4, this.model_classic.getGrid()[0][0]);
+        assertEquals(4, this.model_classic.getGrid()[0][1]);
+
+        this.model_classic.setGrid(new int[][]{{4, 2, 2, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}});
+        this.model_classic.move(Direction.LEFT);
+
+        assertEquals(4, this.model_classic.getGrid()[0][0]);
+        assertEquals(4, this.model_classic.getGrid()[0][1]);
+    }
 }
