@@ -1,3 +1,19 @@
+# Week 4
+## Week 4.2
+This week, so far I have created a 2048 game in the main branch of the project.
+This includes a graphical user interface (writen in javaFX) and theoreticaly
+supports resing the interface, however there is not interface and graphics don't
+look particauly good in this situation. This is futher ahead in the plan than
+I was expecting to be by this point.
+
+
+## Week 4.1
+This week, so far I have created a simple 2048 prototype. This is both tested
+with the junit test sweet as well as having a quickly writen command line
+user interface to help test a wider array of situations. This does not include
+dececting the end of a game, as when creating a tree. If I tray to make each move,
+and fail then I now the game has ends. I condierd this function was not relvent.
+
 # Week 3
 
 This week I completed the expectimax early deliverable by adding both chance nodes
