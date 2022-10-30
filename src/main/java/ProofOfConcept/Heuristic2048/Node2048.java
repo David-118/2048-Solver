@@ -36,8 +36,8 @@ public abstract class Node2048
 
     public Node2048(Random rnd)
     {
-        this.width = 2;
-        this.height = 2;
+        this.width = 4;
+        this.height = 4;
         this.rnd = rnd;
     }
 
@@ -203,7 +203,7 @@ public abstract class Node2048
         {
             for (int j = 0; j < this.getWidth(); j++)
             {
-                score += this.grid[i][j];
+                score += grid[i][j] * i;
             }
         }
 

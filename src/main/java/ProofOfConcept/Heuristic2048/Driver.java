@@ -10,7 +10,7 @@ public class Driver
         while (root != null)
         {
             System.out.printf("Score : %d\n", root.getScore());
-            root.expectimax(8);
+            root.expectimax(4);
             root.print();
             root = root.nextNode();
         }
