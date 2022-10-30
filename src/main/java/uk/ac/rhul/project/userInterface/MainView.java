@@ -15,8 +15,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import uk.ac.rhul.project.MoveObserver;
-import uk.ac.rhul.project.NewGameObserver;
 import uk.ac.rhul.project.game.Direction;
 
 import java.util.HashMap;
@@ -71,6 +69,9 @@ public class MainView extends Application
 
     @FXML
     private GridPane mainGrid;
+
+    @FXML
+    private Button solve;
     
     private Dialog<int[]> newGameDialog;
 
@@ -185,6 +186,11 @@ public class MainView extends Application
                 case D -> method.notifyObservers(Direction.RIGHT);
             }
         });
+    }
+
+    public void addSolveObserver(SolveObserver method)
+    {
+        this.solve.setOnAction(actionEvent -> method.notifyObserver());
     }
 
     public void make2048Grid(int height, int width)

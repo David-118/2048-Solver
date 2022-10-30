@@ -65,7 +65,7 @@
             <padding>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding></GridPane>
-         <Button fx:id="newGame1" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #8f7a66; -fx-background-radius: 1;" text="Solve" textFill="#f9f6f2" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <Button fx:id="solve" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #8f7a66; -fx-background-radius: 1;" text="Solve" textFill="#f9f6f2" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
                <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
             </GridPane.margin>

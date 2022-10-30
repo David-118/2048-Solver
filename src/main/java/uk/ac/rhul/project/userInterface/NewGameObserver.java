@@ -1,4 +1,4 @@
-package uk.ac.rhul.project;
+package uk.ac.rhul.project.userInterface;
 
 @FunctionalInterface
 public interface NewGameObserver
