@@ -5,6 +5,7 @@ import uk.ac.rhul.project.game.Direction;
 public interface Model
 {
     void init();
+    void init(int height, int width);
     void move(Direction dir);
     int[][] getGrid();
     int getScore();

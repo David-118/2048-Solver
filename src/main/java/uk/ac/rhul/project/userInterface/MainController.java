@@ -4,7 +4,7 @@ import uk.ac.rhul.project.game.Direction;
 
 public class MainController
 {
-    private final MainModel model;
+    private final Model model;
     private final MainView view;
 
     public MainController(MainModel model, MainView view)

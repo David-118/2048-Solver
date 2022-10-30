@@ -211,11 +211,11 @@ public class MainView extends Application
         this.gameView.getRowConstraints().removeAll(this.gameView.getRowConstraints());
         this.gameView.getColumnConstraints().removeAll(this.gameView.getColumnConstraints());
 
-        this.mainGrid.getRowConstraints().get(2).setPrefHeight(height * TITLE_SIZE * this.scale + 30f );
+        this.mainGrid.getRowConstraints().get(3).setPrefHeight(height * TITLE_SIZE * this.scale + 30f );
         this.mainGrid.getColumnConstraints().get(0).setPrefWidth(width * TITLE_SIZE * this.scale - 110);
 
-        ((Stage)this.root.getWindow()).setHeight(height * TITLE_SIZE * this.scale+ 170f);
-        ((Stage)this.root.getWindow()).setWidth(width * TITLE_SIZE * this.scale + 40f);
+        this.root.getWindow().setHeight(height * TITLE_SIZE * this.scale+ 220f);
+        this.root.getWindow().setWidth(width * TITLE_SIZE * this.scale + 40f);
 
         this.gameView.setPrefSize(width * TITLE_SIZE * this.scale, height * TITLE_SIZE * this.scale);
 
