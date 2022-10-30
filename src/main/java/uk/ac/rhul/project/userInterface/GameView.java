@@ -1,4 +1,4 @@
-package uk.ac.rhul.project.game;
+package uk.ac.rhul.project.userInterface;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -17,6 +17,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import uk.ac.rhul.project.MoveObserver;
 import uk.ac.rhul.project.NewGameObserver;
+import uk.ac.rhul.project.game.Direction;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -79,6 +80,8 @@ public class GameView extends Application
         this.height = 4;
         this.width = 4;
 
+
+        // Based on login dialog [6]
         this.newGameDialog = new Dialog<>();
         this.newGameDialog.setResizable(false);
         this.newGameDialog.setTitle("New Game");

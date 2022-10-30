@@ -1,4 +1,6 @@
-package uk.ac.rhul.project.game;
+package uk.ac.rhul.project.userInterface;
+
+import uk.ac.rhul.project.game.Direction;
 
 import java.awt.*;
 import java.util.List;

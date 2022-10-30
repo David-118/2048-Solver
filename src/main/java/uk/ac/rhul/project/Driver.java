@@ -1,15 +1,9 @@
 
 package uk.ac.rhul.project;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import uk.ac.rhul.project.game.GameController;
-import uk.ac.rhul.project.game.GameModel;
-import uk.ac.rhul.project.game.GameView;
+import uk.ac.rhul.project.userInterface.GameController;
+import uk.ac.rhul.project.userInterface.GameModel;
+import uk.ac.rhul.project.userInterface.GameView;
 
 public class Driver
 {

@@ -14,3 +14,6 @@
 
 5. Cirulli Gabrielle. 2048 Game, 2014 -
 [gabrielecirulli.github.io/2048](https://gabrielecirulli.github.io/2048)
+
+6. Javafx Dialogs 2014 -
+[code.makery.ch/blog/javafx-dialogs-official/#custom-login-dialog](https://code.makery.ch/blog/javafx-dialogs-official/#custom-login-dialog)

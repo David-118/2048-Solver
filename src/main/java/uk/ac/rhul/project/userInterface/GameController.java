@@ -1,4 +1,8 @@
-package uk.ac.rhul.project.game;
+package uk.ac.rhul.project.userInterface;
+
+import uk.ac.rhul.project.game.Direction;
+import uk.ac.rhul.project.userInterface.GameModel;
+import uk.ac.rhul.project.userInterface.GameView;
 
 public class GameController
 {
