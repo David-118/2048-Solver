@@ -9,5 +9,6 @@ public interface Model
     void move(Direction dir);
     int[][] getGrid();
     int getScore();
-
+    void addUpdateObserver(UpdateObserver handelUpdate);
+    public void solve();
 }

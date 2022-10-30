@@ -13,6 +13,7 @@ import java.util.Random;
 public final class MainModel implements Model
 {
     private GameState gameState;
+    Solver solver;
 
     /*
      * Create a model of the game 2048
@@ -23,6 +24,7 @@ public final class MainModel implements Model
     public MainModel(int rows, int cols, Random random)
     {
         this.gameState = new GameState(rows, cols, random);
+        this.solver = new Solver(this.gameState);
     }
 
     /*
@@ -61,5 +63,17 @@ public final class MainModel implements Model
     public int getScore()
     {
         return gameState.getScore();
+    }
+
+    @Override
+    public void addUpdateObserver(UpdateObserver method)
+    {
+        this.solver.addUpdateObserver(method);
+    }
+
+    public void solve()
+    {
+        Thread thread = new Thread(solver);
+        thread.start();
     }
 }

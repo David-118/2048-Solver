@@ -85,7 +85,7 @@ public class GameState
         return freeCells;
     }
 
-    public void move(Direction dir)
+    public boolean move(Direction dir)
     {
         boolean[][] merged = new boolean[this.height][this.width];
         boolean flag = false;
@@ -104,6 +104,7 @@ public class GameState
         {
             this.addRandomCell();
         }
+        return flag;
     }
 
     private boolean slideTile(final int row, final int col, Direction dir, boolean[][] merged)
@@ -139,6 +140,7 @@ public class GameState
             return false;
         }
 
+        // Remove previous cell
         this.grid[row][col] = 0;
 
         return true;

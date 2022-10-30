@@ -14,6 +14,7 @@ public class MainController
         this.view.addNewGameObserver(this::handelNewGame);
         this.view.addMoveObserver(this::handelMove);
         this.view.addSolveObserver(this::handelSolve);
+        this.model.addUpdateObserver(this::handelUpdate);
     }
 
     private void handelNewGame(int height, int width)
@@ -30,6 +31,11 @@ public class MainController
 
     public void handelSolve()
     {
-        System.out.println("Solve");
+        this.model.solve();
+    }
+
+    public void handelUpdate(int[][] grid, int score)
+    {
+        this.view.setValues(grid, score);
     }
 }
