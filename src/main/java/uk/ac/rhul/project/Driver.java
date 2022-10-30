@@ -1,9 +1,9 @@
 
 package uk.ac.rhul.project;
 
-import uk.ac.rhul.project.userInterface.GameController;
-import uk.ac.rhul.project.userInterface.GameModel;
-import uk.ac.rhul.project.userInterface.GameView;
+import uk.ac.rhul.project.userInterface.MainController;
+import uk.ac.rhul.project.userInterface.MainModel;
+import uk.ac.rhul.project.userInterface.MainView;
 
 public class Driver
 {
@@ -11,8 +11,8 @@ public class Driver
 
     public static void main(String[] args)
     {
-        GameView view = GameView.getInstance();
-        GameModel model = new GameModel(4, 4);
-        new GameController(model, view);
+        MainView view = MainView.getInstance();
+        MainModel model = new MainModel(4, 4);
+        new MainController(model, view);
    }
 }

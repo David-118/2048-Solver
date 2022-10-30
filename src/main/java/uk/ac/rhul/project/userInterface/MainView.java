@@ -22,12 +22,12 @@ import uk.ac.rhul.project.game.Direction;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class GameView extends Application
+public class MainView extends Application
 {
     Label[][] labels;
     private int height;
     private int width;
-    private static volatile GameView instance = null;
+    private static volatile MainView instance = null;
 
     private static final float TITLE_SIZE = 100f;
 
@@ -130,11 +130,11 @@ public class GameView extends Application
         instance = this;
     }
 
-    public static synchronized GameView getInstance()
+    public static synchronized MainView getInstance()
     {
        if (instance==null)
        {
-           new Thread(() -> Application.launch(GameView.class)).start();
+           new Thread(() -> Application.launch(MainView.class)).start();
            while (instance == null);
        }
 
@@ -150,7 +150,7 @@ public class GameView extends Application
     public void start(Stage primaryStage) throws Exception
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main.fxml"));
-        GameView controller = new GameView();
+        MainView controller = new MainView();
         fxmlLoader.setController(controller);
 
         Scene root = fxmlLoader.load();

@@ -1,15 +1,13 @@
 package uk.ac.rhul.project.userInterface;
 
 import uk.ac.rhul.project.game.Direction;
-import uk.ac.rhul.project.userInterface.GameModel;
-import uk.ac.rhul.project.userInterface.GameView;
 
-public class GameController
+public class MainController
 {
-    private final GameModel model;
-    private final GameView view;
+    private final MainModel model;
+    private final MainView view;
 
-    public GameController(GameModel model, GameView view)
+    public MainController(MainModel model, MainView view)
     {
         this.model = model;
         this.view = view;
