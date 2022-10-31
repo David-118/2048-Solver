@@ -1,8 +1,10 @@
 package uk.ac.rhul.project.expectimax;
 
-public final class MaxNode implements Node
+import uk.ac.rhul.project.game.GameState;
+
+
+public final class MaxNode extends Node
 {
-    private final float weight;
     private final Node[] children;
 
     @Override
@@ -11,16 +13,16 @@ public final class MaxNode implements Node
         return weight;
     }
 
-    public MaxNode(float weight, Node ... children) throws InvalidTreeException
-    {
-        this.weight = weight;
-        this.children = children;
+   public MaxNode(GameState gameState, float weight, GameState[] moves, int depth)
+   {
+       super(gameState, weight);
 
-        if (!this.validate())
-        {
-            throw new InvalidTreeException("MaxNode requires children, but does not have any");
-        }
-    }
+       children = new Node[moves.length];
+       for (int i = 0; i < moves.length; i++)
+       {
+           children[i] = NodeFactory.createNode(MoveType.GRID_MUTATION, moves[i], 1f, depth - 1);
+       }
+   }
 
     @Override
     public float getScore()
@@ -55,5 +57,11 @@ public final class MaxNode implements Node
     public boolean validate()
     {
         return this.children.length > 0;
+    }
+
+    @Override
+    public Node[] getChildren()
+    {
+        return this.children;
     }
 }

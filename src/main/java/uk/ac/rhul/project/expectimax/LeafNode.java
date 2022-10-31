@@ -1,26 +1,24 @@
 package uk.ac.rhul.project.expectimax;
 
-public class LeafNode implements Node
-{
-    private float weight;
-    private float score;
+import uk.ac.rhul.project.game.GameState;
 
+public class LeafNode extends Node
+{
     @Override
     public float getWeight()
     {
         return weight;
     }
 
-    public LeafNode(float weight, float score)
+    public LeafNode(GameState gameState, float weight)
     {
-        this.weight = weight;
-        this.score = score;
+        super(gameState, weight);
     }
 
     @Override
     public float getScore()
     {
-        return this.score * this.weight;
+        return this.getGameState().getScore() * this.getWeight();
     }
 
     public Node nextNode()
@@ -32,5 +30,11 @@ public class LeafNode implements Node
     public boolean validate()
     {
         return true;
+    }
+
+    @Override
+    public Node[] getChildren()
+    {
+        return new Node[0];
     }
 }

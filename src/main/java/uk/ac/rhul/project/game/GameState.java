@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GameState
+public class GameState implements Cloneable
 {
     private final static float PROB_OF_4 = 0.1f;
     private static final int INITIAL_CELL_COUNT = 2;
@@ -15,12 +15,18 @@ public class GameState
     private int[][] grid;
     private int score;
 
+
     public GameState(int rows, int cols, Random random)
     {
         this.height = rows;
         this.width = cols;
         this.grid = new int[rows][cols];
         this.random = random;
+    }
+
+    public GameState(int row, int cols)
+    {
+        this(row, cols, new Random());
     }
 
     public void init()
@@ -61,6 +67,7 @@ public class GameState
         this.grid[cell.x][cell.y] = value;
     }
 
+
     /*
      * Get a list of all the cells that have free cells.
      * Stored as a Point where:
@@ -100,11 +107,43 @@ public class GameState
                 }
             }
         }
-        if (flag)
-        {
-            this.addRandomCell();
-        }
         return flag;
+    }
+
+    public GameState[] getPossibleMoves()
+    {
+        List<GameState> gameStates = new ArrayList<>(4);
+
+        for(Direction dir: Direction.values())
+        {
+            GameState gameState = this.clone();
+            if (gameState.move(dir))
+            {
+                gameStates.add(gameState);
+            }
+        }
+
+        return gameStates.toArray(new GameState[0]);
+    }
+
+    public GameState[] getPossibleMutations()
+    {
+        List<Point> freeCells = this.getFreeCells();
+        List<GameState> gameStates = new ArrayList<>(freeCells.size() * 2);
+
+        for (Point freeCell: freeCells)
+        {
+            GameState gameState1 = this.clone();
+            GameState gameState2 = this.clone();
+
+            gameState1.grid[freeCell.x][freeCell.y] = 2;
+            gameState2.grid[freeCell.x][freeCell.y] = 4;
+
+            gameStates.add(gameState1);
+            gameStates.add(gameState2);
+        }
+
+        return gameStates.toArray(new GameState[0]);
     }
 
     private boolean slideTile(final int row, final int col, Direction dir, boolean[][] merged)
@@ -166,5 +205,25 @@ public class GameState
     public int getScore()
     {
         return this.score;
+    }
+
+    @Override
+    public GameState clone()
+    {
+        try
+        {
+            GameState clone = (GameState) super.clone();
+            clone.grid = new int[this.height][this.width];
+
+            for (int i = 0; i < this.height; i++)
+            {
+                clone.grid[i] = this.grid[i].clone();
+            }
+
+            return clone;
+        } catch (CloneNotSupportedException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }
