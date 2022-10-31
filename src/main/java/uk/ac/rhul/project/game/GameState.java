@@ -1,5 +1,8 @@
 package uk.ac.rhul.project.game;
 
+import uk.ac.rhul.project.userInterface.Heuristic;
+import uk.ac.rhul.project.userInterface.Heuristics;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +18,24 @@ public class GameState implements Cloneable
     private int[][] grid;
     private int score;
 
+    private Heuristic heuristic;
 
-    public GameState(int rows, int cols, Random random)
+
+    public GameState(int rows, int cols, Random random, Heuristic heuristic)
     {
         this.height = rows;
         this.width = cols;
         this.grid = new int[rows][cols];
         this.random = random;
+        this.heuristic = heuristic;
     }
+
+    public GameState(int rows, int cols, Random random)
+    {
+        this(rows, cols, random, Heuristics::sumCells);
+    }
+
+
 
     public GameState(int row, int cols)
     {
@@ -225,5 +238,10 @@ public class GameState implements Cloneable
         {
             throw new RuntimeException(e);
         }
+    }
+
+    public float getHeuristic()
+    {
+        return this.heuristic.heuristic(this);
     }
 }

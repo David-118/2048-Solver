@@ -11,14 +11,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NodeFactoryTest
 {
+    private GameState startState;
+    private Node node;
+    private Node node2;
+
+    @BeforeEach
+    void setup()
+    {
+        this.startState = new GameState(2, 2, new Random(0));
+        this.startState.init();
+
+        this.node = NodeFactory.generateTree(startState, 4);
+        this.node2 = NodeFactory.generateTree(startState, 2);
+    }
+
+
     @Test
     void test_generateTree()
     {
-        GameState startState = new GameState(2, 2, new Random(0));
-        startState.init();
-
-        Node node = NodeFactory.generateTree(startState, 4);
-
         assertEquals("[[0, 2], [2, 0]]", Arrays.deepToString(node.getGameState().getGrid()));
 
         assertEquals("[[2, 2], [0, 0]]", Arrays.deepToString(node.getChildren()[0].getGameState().getGrid()));
@@ -61,11 +71,6 @@ class NodeFactoryTest
     @Test
     void test_weights()
     {
-        GameState startState = new GameState(2, 2, new Random(0));
-        startState.init();
-
-        Node node = NodeFactory.generateTree(startState, 4);
-
         for (int i = 0; i < 4; i++)
         {
             assertEquals(1f, node.getChildren()[i].getWeight());
@@ -78,8 +83,18 @@ class NodeFactoryTest
                 assertEquals(0.05f, node.getChildren()[0].getChildren()[i].getWeight());
             }
         }
+    }
 
-
-
+    @Test
+    void test_heuristic()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j+=2)
+            {
+                assertEquals(6f, node2.getChildren()[i].getChildren()[j].getGameState().getHeuristic());
+                assertEquals(8f, node2.getChildren()[i].getChildren()[j + 1].getGameState().getHeuristic());
+            }
+        }
     }
 }

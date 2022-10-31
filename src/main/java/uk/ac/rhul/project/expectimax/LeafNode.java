@@ -18,7 +18,7 @@ public class LeafNode extends Node
     @Override
     public float getScore()
     {
-        return this.getGameState().getScore() * this.getWeight();
+        return this.getScore() * this.getWeight();
     }
 
     public Node nextNode()
