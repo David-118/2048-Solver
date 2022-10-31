@@ -61,6 +61,25 @@ class NodeFactoryTest
     @Test
     void test_weights()
     {
+        GameState startState = new GameState(2, 2, new Random(0));
+        startState.init();
+
+        Node node = NodeFactory.generateTree(startState, 4);
+
+        for (int i = 0; i < 4; i++)
+        {
+            assertEquals(1f, node.getChildren()[i].getWeight());
+
+            if (i % 2 == 0)
+            {
+                assertEquals(0.45f, node.getChildren()[0].getChildren()[i].getWeight());
+            } else
+            {
+                assertEquals(0.05f, node.getChildren()[0].getChildren()[i].getWeight());
+            }
+        }
+
+
 
     }
 }
