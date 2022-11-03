@@ -13,7 +13,8 @@ public abstract class Node
         this.weight = weight;
     }
 
-    public abstract float getScore();
+    public abstract float expectimax();
+    public abstract void expectimax(int depth);
     public abstract Node nextNode();
     public abstract float getWeight();
     public abstract boolean validate();
@@ -22,4 +23,19 @@ public abstract class Node
         return this.gameState;
     }
     public abstract Node[] getChildren();
+
+    protected void expectimax(int depth, MoveType type)
+    {
+        for (int i = 0; i < this.getChildren().length; i++)
+        {
+            if (this.getChildren()[i] instanceof LeafNode)
+            {
+                this.getChildren()[i] = NodeFactory.createNode(MoveType.GRID_MUTATION, this.getChildren()[i].getGameState(),
+                        this.getChildren()[i].getWeight(), depth - 1);
+            } else
+            {
+                this.getChildren()[i].expectimax(depth - 1);
+            }
+        }
+    }
 }

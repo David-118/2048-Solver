@@ -2,7 +2,6 @@ package uk.ac.rhul.project.expectimax;
 
 import uk.ac.rhul.project.game.GameState;
 
-import java.util.Collection;
 import java.util.Random;
 
 public class ChanceNode extends Node
@@ -15,9 +14,10 @@ public class ChanceNode extends Node
     private final static float PROB_OF_4 = 0.1f;
 
 
-    public ChanceNode(GameState gameState, float weight, GameState[] mutations, int depth)
+    public ChanceNode(GameState gameState, float weight, GameState[] mutations, int depth, Random random)
     {
         super(gameState, weight);
+        this.random = random;
 
         this.children = new Node[mutations.length];
 
@@ -31,18 +31,18 @@ public class ChanceNode extends Node
         }
     }
 
-    public void setRandom(Random random)
+    public void expectimax(int depth)
     {
-        this.random = random;
+        super.expectimax(depth - 1, MoveType.PLAYER_MOVE);
     }
 
     @Override
-    public float getScore()
+    public float expectimax()
     {
         float sum = 0;
         for (int i = 0; i < children.length; i++)
         {
-            sum += children[i].getScore();
+            sum += children[i].expectimax();
         }
         return sum / children.length;
     }

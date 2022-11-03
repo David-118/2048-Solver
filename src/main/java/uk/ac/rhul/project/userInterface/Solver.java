@@ -1,17 +1,26 @@
 package uk.ac.rhul.project.userInterface;
 
 import javafx.application.Platform;
-import uk.ac.rhul.project.game.Direction;
+import uk.ac.rhul.project.expectimax.Node;
 import uk.ac.rhul.project.game.GameState;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 public class Solver implements Runnable
 {
-    private GameState gameState;
+    private Node root;
     private UpdateObserver updateValues;
 
-    public Solver(GameState gameState)
+    private List<GameState> displayQueue;
+
+    public Solver()
     {
-        this.gameState = gameState;
+        displayQueue = new LinkedList<>();
     }
 
     public void addUpdateObserver(UpdateObserver method)
@@ -19,32 +28,28 @@ public class Solver implements Runnable
         this.updateValues = method;
     }
 
+    public void setRoot(Node node)
+    {
+        this.root = node;
+    }
+
     public void run()
     {
-        boolean running = true;
-
-        while (running)
+        while (root != null)
         {
-            try
-            {
-                Thread.sleep(100);
-            } catch (InterruptedException e)
-            {
-                throw new RuntimeException(e);
-            }
-            for (Direction dir: Direction.values())
-            {
-                if (this.gameState.move(dir))
-                {
-                    Platform.runLater(() -> {
-                        this.updateValues.notifyObservers(gameState.getGrid(), gameState.getScore());
-                    });
-                    break;
-                } else if (dir == Direction.RIGHT)
-                {
-                    running = false;
-                }
-            }
+            root = root.nextNode();
+
+            if (root == null) break;
+
+            root.expectimax(4);
+            displayQueue.add(root.getGameState());
+
+            System.out.println("Processed" + Arrays.deepToString(root.getGameState().getGrid()));
+
+            Platform.runLater(() -> {
+                GameState gameState = displayQueue.remove(0);
+                this.updateValues.notifyObservers(gameState.getGrid(), gameState.getScore());
+            });
         }
     }
 }

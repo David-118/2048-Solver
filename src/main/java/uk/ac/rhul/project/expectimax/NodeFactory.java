@@ -2,8 +2,12 @@ package uk.ac.rhul.project.expectimax;
 
 import uk.ac.rhul.project.game.GameState;
 
+import java.util.Random;
+
 public class NodeFactory
 {
+    public static Random random;
+
     public static Node generateTree(GameState state, int depth)
     {
         return createNode(MoveType.PLAYER_MOVE, state, 1f, depth);
@@ -24,7 +28,7 @@ public class NodeFactory
             GameState[] childStates = state.getPossibleMutations();
             if (childStates.length != 0 && depth > 0)
             {
-                node = new ChanceNode(state, weight, childStates, depth);
+                node = new ChanceNode(state, weight, childStates, depth, random);
             }
         }
         if (node == null)
@@ -32,5 +36,10 @@ public class NodeFactory
             node = new LeafNode(state, weight);
         }
         return node;
+    }
+
+    public static void setRandom(Random rnd)
+    {
+        random = rnd;
     }
 }

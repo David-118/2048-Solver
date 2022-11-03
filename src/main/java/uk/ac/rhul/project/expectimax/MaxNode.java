@@ -25,12 +25,18 @@ public final class MaxNode extends Node
    }
 
     @Override
-    public float getScore()
+    public void expectimax(int depth)
     {
-        float max = children[0].getScore();
+        super.expectimax(depth - 1, MoveType.GRID_MUTATION);
+    }
+
+    @Override
+    public float expectimax()
+    {
+        float max = children[0].expectimax();
         for (int i = 1; i < children.length; i++)
         {
-            float score = children[i].getScore();
+            float score = children[i].expectimax();
             if (score > max)
             {
                 max = score;
@@ -45,7 +51,7 @@ public final class MaxNode extends Node
         for (int i = 1; i < children.length; i++)
         {
             Node current = children[i];
-            if (current.getScore() > max.getScore())
+            if (current.expectimax() > max.expectimax())
             {
                 max = current;
             }

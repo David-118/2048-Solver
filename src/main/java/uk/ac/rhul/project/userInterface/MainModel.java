@@ -1,5 +1,7 @@
 package uk.ac.rhul.project.userInterface;
 
+import uk.ac.rhul.project.expectimax.Node;
+import uk.ac.rhul.project.expectimax.NodeFactory;
 import uk.ac.rhul.project.game.Direction;
 import uk.ac.rhul.project.game.GameState;
 
@@ -13,7 +15,8 @@ import java.util.Random;
 public final class MainModel implements Model
 {
     private GameState gameState;
-    Solver solver;
+    private Solver solver;
+    private Random rnd;
 
     /*
      * Create a model of the game 2048
@@ -23,8 +26,10 @@ public final class MainModel implements Model
      */
     public MainModel(int rows, int cols, Random random)
     {
-        this.gameState = new GameState(rows, cols, random);
-        this.solver = new Solver(this.gameState);
+        NodeFactory.setRandom(random);
+        this.gameState = new GameState(rows, cols, random, Heuristics::getRandom);
+        this.solver = new Solver();
+        this.rnd = random;
     }
 
     /*
@@ -43,11 +48,20 @@ public final class MainModel implements Model
     public void init()
     {
         this.gameState.init();
+        this.initSolver();
     }
 
     public void init(int height, int width)
     {
+        this.gameState = new GameState(height, width, this.rnd);
         this.gameState.init(height, width);
+        this.initSolver();
+    }
+
+    private void initSolver()
+    {
+        Node node = NodeFactory.generateTree(gameState, 4);
+        this.solver.setRoot(node);
     }
 
     public void move(Direction dir)

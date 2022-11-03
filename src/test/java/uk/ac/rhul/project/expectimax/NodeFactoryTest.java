@@ -103,10 +103,10 @@ class NodeFactoryTest
     {
         for (int i = 0; i < 4; i++)
         {
-            assertEquals(1.55f, this.node2.getChildren()[i].getScore());
+            assertEquals(1.55f, this.node2.getChildren()[i].expectimax());
         }
 
-        assertEquals(1.55f, this.node2.getScore());
+        assertEquals(1.55f, this.node2.expectimax());
 
     }
 }
