@@ -194,7 +194,7 @@ public class GameState implements Cloneable
         return this.grid[row + dir.getRows()][col + dir.getCols()];
     }
 
-    private boolean nextCellInGrid(int row, int col, Direction dir)
+    public boolean nextCellInGrid(int row, int col, Direction dir)
     {
         row += dir.getRows();
         col += dir.getCols();

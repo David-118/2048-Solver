@@ -2,6 +2,7 @@ package uk.ac.rhul.project.userInterface;
 
 import javafx.application.Platform;
 import uk.ac.rhul.project.expectimax.Node;
+import uk.ac.rhul.project.expectimax.NodeFactory;
 import uk.ac.rhul.project.game.GameState;
 
 import java.util.ArrayList;
@@ -37,14 +38,17 @@ public class Solver implements Runnable
     {
         while (root != null)
         {
-            root = root.nextNode();
+            // Make Move and place tile.
+            GameState nextState = root.nextNode().nextNode().getGameState();
+
+            root = NodeFactory.generateTree(nextState, 2);
+
 
             if (root == null) break;
 
-            root.expectimax(4);
+            root.expectimax(6);
             displayQueue.add(root.getGameState());
 
-            System.out.println("Processed" + Arrays.deepToString(root.getGameState().getGrid()));
 
             Platform.runLater(() -> {
                 GameState gameState = displayQueue.remove(0);

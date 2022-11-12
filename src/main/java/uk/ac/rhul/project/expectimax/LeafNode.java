@@ -19,7 +19,7 @@ public class LeafNode extends Node
     @Override
     public float expectimax()
     {
-        return this.getGameState().applyHeuristic(Heuristics::largestLower) * this.getWeight();
+        return this.getGameState().applyHeuristic(Heuristics::topLeftCornerProximity_4_by_4) * this.getWeight();
     }
 
     public void expectimax(int depth)

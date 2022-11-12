@@ -1,5 +1,6 @@
 package uk.ac.rhul.project.userInterface;
 
+import uk.ac.rhul.project.game.Direction;
 import uk.ac.rhul.project.game.GameState;
 
 import java.util.Random;
@@ -35,13 +36,75 @@ public abstract class Heuristics
         return sum;
     }
 
-    public static float getScore(GameState state)
+    /*
+     * Based on heuristic used by [7]
+     */
+    public static float snake_4_by_4(GameState state)
     {
-        return state.getScore();
+        double[] powers = new double[7];
+
+        for (int i = 0; i < 7; i++)
+        {
+            powers[i] = Math.pow(4, i);
+        }
+
+        int[][] weights = new int[][] {
+                {15, 14, 13, 12},
+                { 8,  9, 10, 11},
+                { 7,  6,  5,  4},
+                { 0,  1,  2,  3},
+        };
+
+        float sum = 0;
+        int[][] grid = state.getGrid();
+
+        for (int i = 0; i < grid.length; i++)
+        {
+            for (int j = 0; j < grid[0].length; j++)
+            {
+                sum += grid[i][j] * Math.pow(4, weights[i][j]);
+            }
+        }
+
+        return sum;
     }
 
-    public static float getRandom(GameState state)
+
+    /*
+     * Based on heuristic from [8, grid.js:108]
+     */
+    public static float topLeftCornerProximity_4_by_4(GameState state)
     {
-        return rnd.nextFloat(1000);
+        int[][] weights = new int[][]{
+                {6, 5, 4, 1},
+                {5, 4, 1, 0},
+                {4, 1, 0, -1},
+                {1, 0, -1, -2},
+        };
+
+        float score = 0;
+        float penalty = 0;
+
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                score += weights[i][j] * state.getGrid()[i][j] * state.getGrid()[i][j];
+
+                for (Direction dir: Direction.values())
+                {
+                    if (state.nextCellInGrid(i, j, dir))
+                    {
+                        float neighbour = state.getGrid()[i + dir.getRows()][j + dir.getCols()];
+                        if (neighbour != 0)
+                        {
+                            float cell = state.getGrid()[i][j];
+                            penalty += (Math.abs(neighbour - cell));
+                        }
+                    }
+                }
+            }
+        }
+        return score - penalty;
     }
 }

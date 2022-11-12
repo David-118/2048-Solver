@@ -60,7 +60,7 @@ public final class MainModel implements Model
 
     private void initSolver()
     {
-        Node node = NodeFactory.generateTree(gameState, 4);
+        Node node = NodeFactory.generateTree(gameState, 2);
         this.solver.setRoot(node);
     }
 
