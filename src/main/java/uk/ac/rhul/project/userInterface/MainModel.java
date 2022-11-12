@@ -27,7 +27,7 @@ public final class MainModel implements Model
     public MainModel(int rows, int cols, Random random)
     {
         NodeFactory.setRandom(random);
-        this.gameState = new GameState(rows, cols, random, Heuristics::getRandom);
+        this.gameState = new GameState(rows, cols, random);
         this.solver = new Solver();
         this.rnd = random;
     }

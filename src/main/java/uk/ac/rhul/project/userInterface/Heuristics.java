@@ -29,7 +29,7 @@ public abstract class Heuristics
         {
             for (int j = 0; j < grid.length; j++)
             {
-                sum += grid[i][j] ^ i;
+                sum += grid[i][j] * (i+1);
             }
         }
         return sum;

@@ -1,6 +1,7 @@
 package uk.ac.rhul.project.expectimax;
 
 import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.userInterface.Heuristics;
 
 public class LeafNode extends Node
 {
@@ -18,7 +19,7 @@ public class LeafNode extends Node
     @Override
     public float expectimax()
     {
-        return this.getGameState().getHeuristic() * this.getWeight();
+        return this.getGameState().applyHeuristic(Heuristics::largestLower) * this.getWeight();
     }
 
     public void expectimax(int depth)
