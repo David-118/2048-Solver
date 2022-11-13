@@ -7,6 +7,7 @@ module PROJECT {
     requires java.desktop;
     requires javafx.controls;
     requires javafx.fxml;
+    requires com.opencsv;
 
     opens uk.ac.rhul.project to javafx.fxml;
     exports uk.ac.rhul.project;

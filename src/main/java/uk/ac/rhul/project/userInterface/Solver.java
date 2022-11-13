@@ -63,4 +63,9 @@ public class Solver implements Runnable
             });
         }
     }
+
+    public GameState getCurrentState()
+    {
+        return this.root.getGameState();
+    }
 }
