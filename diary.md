@@ -1,3 +1,24 @@
+# Week 7
+Attempted to create more advanced heuristics from previous projects.
+Currently unable to get the same results as the original projects.
+First heuristic is a 'snake' [7] shape and the top left corner,
+that also checks neighbors from [8].
+
+# Week 6
+Added sections on proof of concept expectimax with and without a heuristic
+Counted working on the introduction to the report as well.
+
+# Week 5
+## Week 5.1
+Worked significantly on the introduction to the report, as I was a head of
+schedule on the programing. I decided being up-to-date on the report was more
+important.
+
+## Week 5.2
+Developed expectimax algorithm a simple heuristic function applied to the
+main project. The heusrstic can be passed into the constructor as a functional
+interface.
+
 # Week 4
 ## Week 4.2
 This week, so far I have created a 2048 game in the main branch of the project.
