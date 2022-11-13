@@ -30,8 +30,10 @@ public abstract class Node
         {
             if (this.getChildren()[i] instanceof LeafNode)
             {
-                this.getChildren()[i] = NodeFactory.createNode(MoveType.GRID_MUTATION, this.getChildren()[i].getGameState(),
-                        this.getChildren()[i].getWeight(), depth - 1);
+                MoveType other = type == MoveType.GRID_MUTATION ? MoveType.PLAYER_MOVE: MoveType.GRID_MUTATION;
+
+                this.getChildren()[i] = NodeFactory.createNode(type, this.getChildren()[i].getGameState(),
+                        this.getChildren()[i].getWeight(), depth);
             } else
             {
                 this.getChildren()[i].expectimax(depth - 1);

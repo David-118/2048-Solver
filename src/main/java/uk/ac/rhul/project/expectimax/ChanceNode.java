@@ -9,8 +9,6 @@ public class ChanceNode extends Node
     private Node[] children;
     private Random random;
 
-    private GameState state;
-
     private final static float PROB_OF_4 = 0.1f;
 
 
@@ -40,9 +38,9 @@ public class ChanceNode extends Node
     public float expectimax()
     {
         float sum = 0;
-        for (int i = 0; i < children.length; i++)
+        for (Node child : children)
         {
-            sum += children[i].expectimax();
+            sum += child.expectimax();
         }
         return sum / children.length;
     }
@@ -55,11 +53,12 @@ public class ChanceNode extends Node
         for (int i = 0; i < this.children.length; i++)
         {
             cweight += this.children[i].getWeight();
-            if (rnd < cweight)
+            if (rnd <= cweight)
             {
                 return this.children[i];
             }
         }
+        System.out.println("Fail");
         return this.children[0]; // This should never happen if the weights are valid and add upto 1
     }
 

@@ -89,17 +89,21 @@ public abstract class Heuristics
         {
             for (int j = 0; j < 4; j++)
             {
-                score += weights[i][j] * state.getGrid()[i][j] * state.getGrid()[i][j];
+                float cell = state.getGrid()[i][j];
 
-                for (Direction dir: Direction.values())
+                score += weights[i][j] * cell * cell;
+
+                if (cell != 0)
                 {
-                    if (state.nextCellInGrid(i, j, dir))
+                    for (Direction dir : Direction.values())
                     {
-                        float neighbour = state.getGrid()[i + dir.getRows()][j + dir.getCols()];
-                        if (neighbour != 0)
+                        if (state.nextCellInGrid(i, j, dir))
                         {
-                            float cell = state.getGrid()[i][j];
-                            penalty += (Math.abs(neighbour - cell));
+                            float neighbour = state.getGrid()[i + dir.getRows()][j + dir.getCols()];
+                            if (neighbour != 0)
+                            {
+                                penalty += (Math.abs(neighbour - cell));
+                            }
                         }
                     }
                 }

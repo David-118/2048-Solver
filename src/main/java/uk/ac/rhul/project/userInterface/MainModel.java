@@ -7,7 +7,7 @@ import uk.ac.rhul.project.game.GameState;
 
 import java.util.Random;
 /*
- * Based on the origonal source [2]
+ * Based on the original source [2]
  *  Files:
  *    /js/game_manager.js
  *    /js/grid.js
@@ -60,7 +60,7 @@ public final class MainModel implements Model
 
     private void initSolver()
     {
-        Node node = NodeFactory.generateTree(gameState, 2);
+        Node node = NodeFactory.generateTree(gameState, 6);
         this.solver.setRoot(node);
     }
 

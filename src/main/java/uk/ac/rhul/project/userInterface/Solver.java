@@ -38,15 +38,15 @@ public class Solver implements Runnable
     {
         while (root != null)
         {
-            // Make Move and place tile.
-            GameState nextState = root.nextNode().nextNode().getGameState();
+            root = root.nextNode();
 
-            root = NodeFactory.generateTree(nextState, 2);
 
 
             if (root == null) break;
 
+
             root.expectimax(6);
+
             displayQueue.add(root.getGameState());
 
 
