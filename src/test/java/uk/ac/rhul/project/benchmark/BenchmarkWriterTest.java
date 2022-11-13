@@ -1,5 +1,6 @@
 package uk.ac.rhul.project.benchmark;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.junit.jupiter.api.Test;
@@ -35,13 +36,13 @@ class BenchmarkWriterTest
         try
         {
             benchmarkWriter.write(byteArrayOutputStream);
-        } catch (CsvRequiredFieldEmptyException | CsvDataTypeMismatchException | IOException e)
+        } catch (IOException e)
         {
             throw new RuntimeException(e);
         }
 
-        assertEquals("\"HEURISTIC\",\"MAX TILE\",\"SCORE\"\n" +
-                "\"Heuristic 1\",\"16\",\"0\"\n" +
-                "\"Heuristic 2\",\"4\",\"4\"\n", byteArrayOutputStream.toString(StandardCharsets.UTF_8));
+        assertEquals("heuristicName,maxTile,score\n" +
+                "\"Heuristic 1\",16,0\n" +
+                "\"Heuristic 2\",4,4\n", byteArrayOutputStream.toString(StandardCharsets.UTF_8));
     }
 }

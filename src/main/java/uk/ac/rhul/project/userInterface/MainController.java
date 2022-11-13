@@ -1,5 +1,6 @@
 package uk.ac.rhul.project.userInterface;
 
+import javafx.application.Platform;
 import uk.ac.rhul.project.game.Direction;
 
 public class MainController
@@ -36,6 +37,13 @@ public class MainController
 
     public void handelUpdate(int[][] grid, int score)
     {
-        this.view.setValues(grid, score);
+        Platform.runLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                view.setValues(grid, score);
+            }
+        });
     }
 }

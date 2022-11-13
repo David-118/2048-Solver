@@ -7,7 +7,9 @@ module PROJECT {
     requires java.desktop;
     requires javafx.controls;
     requires javafx.fxml;
-    requires com.opencsv;
+    requires com.fasterxml.jackson.dataformat.csv;
+    requires com.fasterxml.jackson.core;
+    requires com.fasterxml.jackson.databind;
 
     opens uk.ac.rhul.project to javafx.fxml;
     exports uk.ac.rhul.project;
@@ -15,4 +17,6 @@ module PROJECT {
     opens uk.ac.rhul.project.game to javafx.fxml;
     exports uk.ac.rhul.project.userInterface;
     opens uk.ac.rhul.project.userInterface to javafx.fxml;
+    exports uk.ac.rhul.project.benchmark;
+    opens uk.ac.rhul.project.benchmark to com.fasterxml.jackson.databind;
 }

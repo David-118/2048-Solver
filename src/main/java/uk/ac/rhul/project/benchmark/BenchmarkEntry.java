@@ -1,8 +1,9 @@
 package uk.ac.rhul.project.benchmark;
 
-import com.opencsv.bean.CsvBindByName;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import uk.ac.rhul.project.game.GameState;
 
+@JsonPropertyOrder({"heuristicName", "maxTile", "score"})
 public class BenchmarkEntry
 {
     public BenchmarkEntry(String heuristicName, GameState state)
@@ -19,19 +20,16 @@ public class BenchmarkEntry
             }
         }
 
-        this.maxTitle = max;
+        this.maxTile = max;
         this.score = state.getScore();
 
         this.heuristicName = heuristicName;
     }
 
-    @CsvBindByName(column = "Heuristic", required = true)
-    private String heuristicName;
+    public String heuristicName;
 
-    @CsvBindByName(column = "Max Tile", required = true)
-    private int maxTitle;
+    public int maxTile;
 
-    @CsvBindByName(column = "Score", required = true)
-    private int score;
+    public int score;
 
 }

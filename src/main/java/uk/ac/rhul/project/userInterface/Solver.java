@@ -18,14 +18,8 @@ public class Solver implements Runnable
     private Node root;
     private UpdateObserver updateValues;
 
-    private List<GameState> displayQueue;
-
     private Heuristic heuristic;
 
-    public Solver()
-    {
-        displayQueue = new LinkedList<>();
-    }
 
     public void addUpdateObserver(UpdateObserver method)
     {
@@ -45,26 +39,19 @@ public class Solver implements Runnable
     {
         while (root != null)
         {
-            root = root.nextNode(this.heuristic);
+            Node nextRoot = root.nextNode(this.heuristic);
 
 
-
-            if (root == null) break;
-
+            if (nextRoot == null) break;
+            root = nextRoot;
 
             root.expectimax(8, heuristic);
 
-            displayQueue.add(root.getGameState());
-
-
-            Platform.runLater(() -> {
-                GameState gameState = displayQueue.remove(0);
-                this.updateValues.notifyObservers(gameState.getGrid(), gameState.getScore());
-            });
+            this.updateValues.notifyObservers(root.getGameState().getGrid(), root.getGameState().getScore());
         }
     }
 
-    public GameState getCurrentState()
+    public GameState getState()
     {
         return this.root.getGameState();
     }
