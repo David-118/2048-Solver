@@ -1,6 +1,8 @@
 package uk.ac.rhul.project.expectimax;
 
 import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.userInterface.Heuristic;
+import uk.ac.rhul.project.userInterface.Heuristics;
 
 
 public final class MaxNode extends Node
@@ -25,18 +27,18 @@ public final class MaxNode extends Node
    }
 
     @Override
-    public void expectimax(int depth)
+    public void expectimax(int depth, Heuristic heuristic)
     {
-        super.expectimax(depth - 1, MoveType.GRID_MUTATION);
+        super.expectimax(depth - 1, heuristic, MoveType.GRID_MUTATION);
     }
 
     @Override
-    public float expectimax()
+    public float expectimax(Heuristic heuristic)
     {
-        float max = children[0].expectimax();
+        float max = children[0].expectimax(heuristic);
         for (int i = 1; i < children.length; i++)
         {
-            float score = children[i].expectimax();
+            float score = children[i].expectimax(heuristic);
             if (score > max)
             {
                 max = score;
@@ -45,13 +47,13 @@ public final class MaxNode extends Node
         return max * weight;
     }
 
-    public Node nextNode()
+    public Node nextNode(Heuristic heuristic)
     {
         Node max = children[0];
         for (int i = 1; i < children.length; i++)
         {
             Node current = children[i];
-            if (current.expectimax() > max.expectimax())
+            if (current.expectimax(heuristic) > max.expectimax(heuristic))
             {
                 max = current;
             }

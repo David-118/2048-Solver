@@ -61,7 +61,9 @@ public final class MainModel implements Model
     private void initSolver()
     {
         Node node = NodeFactory.generateTree(gameState, 6);
+        solver.setHeurstic(Heuristics::snake_4_by_4);
         this.solver.setRoot(node);
+
     }
 
     public void move(Direction dir)

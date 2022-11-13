@@ -2,7 +2,7 @@
 Attempted to create more advanced heuristics from previous projects.
 Currently unable to get the same results as the original projects.
 First heuristic is a 'snake' [7] shape and the top left corner,
-that also checks neighbors from [8].
+that also checks neighbors from [8].g
 
 # Week 6
 Added sections on proof of concept expectimax with and without a heuristic

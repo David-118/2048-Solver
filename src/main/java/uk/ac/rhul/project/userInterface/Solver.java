@@ -1,6 +1,7 @@
 package uk.ac.rhul.project.userInterface;
 
 import javafx.application.Platform;
+import javafx.beans.Observable;
 import uk.ac.rhul.project.expectimax.Node;
 import uk.ac.rhul.project.expectimax.NodeFactory;
 import uk.ac.rhul.project.game.GameState;
@@ -19,6 +20,8 @@ public class Solver implements Runnable
 
     private List<GameState> displayQueue;
 
+    private Heuristic heuristic;
+
     public Solver()
     {
         displayQueue = new LinkedList<>();
@@ -27,6 +30,10 @@ public class Solver implements Runnable
     public void addUpdateObserver(UpdateObserver method)
     {
         this.updateValues = method;
+    }
+    public void setHeurstic(Heuristic heuristic)
+    {
+        this.heuristic = heuristic;
     }
 
     public void setRoot(Node node)
@@ -38,14 +45,14 @@ public class Solver implements Runnable
     {
         while (root != null)
         {
-            root = root.nextNode();
+            root = root.nextNode(this.heuristic);
 
 
 
             if (root == null) break;
 
 
-            root.expectimax(6);
+            root.expectimax(8, heuristic);
 
             displayQueue.add(root.getGameState());
 

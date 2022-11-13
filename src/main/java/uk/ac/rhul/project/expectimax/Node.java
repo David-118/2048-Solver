@@ -1,6 +1,7 @@
 package uk.ac.rhul.project.expectimax;
 
 import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.userInterface.Heuristic;
 
 public abstract class Node
 {
@@ -13,9 +14,9 @@ public abstract class Node
         this.weight = weight;
     }
 
-    public abstract float expectimax();
-    public abstract void expectimax(int depth);
-    public abstract Node nextNode();
+    public abstract float expectimax(Heuristic heuristic);
+    public abstract void expectimax(int depth, Heuristic heuristic);
+    public abstract Node nextNode(Heuristic heuristic);
     public abstract float getWeight();
     public abstract boolean validate();
     public GameState getGameState()
@@ -24,7 +25,7 @@ public abstract class Node
     }
     public abstract Node[] getChildren();
 
-    protected void expectimax(int depth, MoveType type)
+    protected void expectimax(int depth, Heuristic heuristic, MoveType type)
     {
         for (int i = 0; i < this.getChildren().length; i++)
         {
@@ -36,7 +37,7 @@ public abstract class Node
                         this.getChildren()[i].getWeight(), depth);
             } else
             {
-                this.getChildren()[i].expectimax(depth - 1);
+                this.getChildren()[i].expectimax(depth - 1, heuristic);
             }
         }
     }

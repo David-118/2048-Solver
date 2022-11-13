@@ -1,6 +1,7 @@
 package uk.ac.rhul.project.expectimax;
 
 import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.userInterface.Heuristic;
 
 import java.util.Random;
 
@@ -29,23 +30,23 @@ public class ChanceNode extends Node
         }
     }
 
-    public void expectimax(int depth)
+    public void expectimax(int depth, Heuristic heuristic)
     {
-        super.expectimax(depth - 1, MoveType.PLAYER_MOVE);
+        super.expectimax(depth - 1, heuristic, MoveType.PLAYER_MOVE);
     }
 
     @Override
-    public float expectimax()
+    public float expectimax(Heuristic heuristic)
     {
         float sum = 0;
         for (Node child : children)
         {
-            sum += child.expectimax();
+            sum += child.expectimax(heuristic);
         }
-        return sum / children.length;
+        return sum;
     }
 
-    public Node nextNode()
+    public Node nextNode(Heuristic heuristic)
     {
         float rnd = random.nextFloat();
         float cweight = 0;

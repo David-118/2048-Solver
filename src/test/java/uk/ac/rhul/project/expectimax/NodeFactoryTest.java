@@ -107,10 +107,24 @@ class NodeFactoryTest
     {
         for (int i = 0; i < 4; i++)
         {
-            assertEquals(1.55f, this.node2.getChildren()[i].expectimax());
+            assertEquals(1.55f, this.node2.getChildren()[i].expectimax(Heuristics::sumCells));
         }
 
-        assertEquals(1.55f, this.node2.expectimax());
+        assertEquals(1.55f, this.node2.expectimax(Heuristics::sumCells));
 
+    }
+
+    @Test
+    void test_expectimaxFrom2048()
+    {
+        GameState state = new GameState(4, 4);
+        state.setGrid(new int[][]{
+                {2, 2, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+        });
+        Node node = NodeFactory.generateTree(state, 6);
+        assertEquals(176.539, node.expectimax(Heuristics::topLeftCornerProximity_4_by_4), 0.001);
     }
 }
