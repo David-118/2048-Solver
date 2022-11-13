@@ -1,16 +1,13 @@
 package uk.ac.rhul.project.game;
 
+import uk.ac.rhul.project.userInterface.Heuristic;
+
 import java.awt.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-/*
- * Based on the origonal source [2]
- *  Files:
- *    /js/game_manager.js
- *    /js/grid.js
- */
-public final class GameModel
+
+public class GameState implements Cloneable
 {
     private final static float PROB_OF_4 = 0.1f;
     private static final int INITIAL_CELL_COUNT = 2;
@@ -20,13 +17,9 @@ public final class GameModel
     private int[][] grid;
     private int score;
 
-    /*
-     * Create a model of the game 2048
-     * @parm rows: The height of the games grid
-     * @parm cols: The width the games grid
-     * @parm random: the random number generator used to test the project. Allows for testing with a known seed.
-     */
-    public GameModel(int rows, int cols, Random random)
+
+
+    public GameState(int rows, int cols, Random random)
     {
         this.height = rows;
         this.width = cols;
@@ -34,24 +27,12 @@ public final class GameModel
         this.random = random;
     }
 
-    /*
-     * Create a model of the game 2048
-     * @parm rows: The height of the games grid
-     * @parm cols: The width the games grid
-     */
-    public GameModel(int rows, int cols)
+
+    public GameState(int row, int cols)
     {
-        this(rows, cols, new Random());
+        this(row, cols, new Random());
     }
 
-    void setGrid(int[][] grid)
-    {
-        this.grid = grid;
-    }
-
-    /*
-     * Start the game with random grids and score of 0
-     */
     public void init()
     {
         init(this.height, this.width);
@@ -67,6 +48,10 @@ public final class GameModel
         {
             this.addRandomCell();
         }
+    }
+    public void setGrid(int[][] grid)
+    {
+        this.grid = grid;
     }
 
     /*
@@ -86,6 +71,7 @@ public final class GameModel
         this.grid[cell.x][cell.y] = value;
     }
 
+
     /*
      * Get a list of all the cells that have free cells.
      * Stored as a Point where:
@@ -94,23 +80,23 @@ public final class GameModel
      */
     private List<Point> getFreeCells()
     {
-       List<Point> freeCells = new ArrayList<>(width * height);
-       for (int i = 0; i < this.height; i++)
-       {
-           for (int j = 0; j < this.width; j++)
-           {
-               if (this.grid[i][j] == 0)
-               {
-                   Point cell = new Point(i, j);
-                   freeCells.add(cell);
-               }
-           }
-       }
+        List<Point> freeCells = new ArrayList<>(width * height);
+        for (int i = 0; i < this.height; i++)
+        {
+            for (int j = 0; j < this.width; j++)
+            {
+                if (this.grid[i][j] == 0)
+                {
+                    Point cell = new Point(i, j);
+                    freeCells.add(cell);
+                }
+            }
+        }
 
-       return freeCells;
+        return freeCells;
     }
 
-    public void move(Direction dir)
+    public boolean move(Direction dir)
     {
         boolean[][] merged = new boolean[this.height][this.width];
         boolean flag = false;
@@ -125,10 +111,43 @@ public final class GameModel
                 }
             }
         }
-        if (flag)
+        return flag;
+    }
+
+    public GameState[] getPossibleMoves()
+    {
+        List<GameState> gameStates = new ArrayList<>(4);
+
+        for(Direction dir: Direction.values())
         {
-            this.addRandomCell();
+            GameState gameState = this.clone();
+            if (gameState.move(dir))
+            {
+                gameStates.add(gameState);
+            }
         }
+
+        return gameStates.toArray(new GameState[0]);
+    }
+
+    public GameState[] getPossibleMutations()
+    {
+        List<Point> freeCells = this.getFreeCells();
+        List<GameState> gameStates = new ArrayList<>(freeCells.size() * 2);
+
+        for (Point freeCell: freeCells)
+        {
+            GameState gameState1 = this.clone();
+            GameState gameState2 = this.clone();
+
+            gameState1.grid[freeCell.x][freeCell.y] = 2;
+            gameState2.grid[freeCell.x][freeCell.y] = 4;
+
+            gameStates.add(gameState1);
+            gameStates.add(gameState2);
+        }
+
+        return gameStates.toArray(new GameState[0]);
     }
 
     private boolean slideTile(final int row, final int col, Direction dir, boolean[][] merged)
@@ -164,17 +183,18 @@ public final class GameModel
             return false;
         }
 
+        // Remove previous cell
         this.grid[row][col] = 0;
 
         return true;
-
     }
 
     private int nextCellValue(int row, int col, Direction dir)
     {
         return this.grid[row + dir.getRows()][col + dir.getCols()];
     }
-    private boolean nextCellInGrid(int row, int col, Direction dir)
+
+    public boolean nextCellInGrid(int row, int col, Direction dir)
     {
         row += dir.getRows();
         col += dir.getCols();
@@ -189,5 +209,30 @@ public final class GameModel
     public int getScore()
     {
         return this.score;
+    }
+
+    @Override
+    public GameState clone()
+    {
+        try
+        {
+            GameState clone = (GameState) super.clone();
+            clone.grid = new int[this.height][this.width];
+
+            for (int i = 0; i < this.height; i++)
+            {
+                clone.grid[i] = this.grid[i].clone();
+            }
+
+            return clone;
+        } catch (CloneNotSupportedException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public float applyHeuristic(Heuristic heuristic)
+    {
+        return heuristic.heuristic(this);
     }
 }

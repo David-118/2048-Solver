@@ -1,8 +1,12 @@
 package uk.ac.rhul.project.expectimax;
 
-public final class MaxNode implements Node
+import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.userInterface.Heuristic;
+import uk.ac.rhul.project.userInterface.Heuristics;
+
+
+public final class MaxNode extends Node
 {
-    private final float weight;
     private final Node[] children;
 
     @Override
@@ -11,24 +15,30 @@ public final class MaxNode implements Node
         return weight;
     }
 
-    public MaxNode(float weight, Node ... children) throws InvalidTreeException
-    {
-        this.weight = weight;
-        this.children = children;
+   public MaxNode(GameState gameState, float weight, GameState[] moves, int depth)
+   {
+       super(gameState, weight);
 
-        if (!this.validate())
-        {
-            throw new InvalidTreeException("MaxNode requires children, but does not have any");
-        }
+       children = new Node[moves.length];
+       for (int i = 0; i < moves.length; i++)
+       {
+           children[i] = NodeFactory.createNode(MoveType.GRID_MUTATION, moves[i], 1f, depth - 1);
+       }
+   }
+
+    @Override
+    public void expectimax(int depth, Heuristic heuristic)
+    {
+        super.expectimax(depth - 1, heuristic, MoveType.GRID_MUTATION);
     }
 
     @Override
-    public float getScore()
+    public float expectimax(Heuristic heuristic)
     {
-        float max = children[0].getScore();
+        float max = children[0].expectimax(heuristic);
         for (int i = 1; i < children.length; i++)
         {
-            float score = children[i].getScore();
+            float score = children[i].expectimax(heuristic);
             if (score > max)
             {
                 max = score;
@@ -37,13 +47,13 @@ public final class MaxNode implements Node
         return max * weight;
     }
 
-    public Node nextNode()
+    public Node nextNode(Heuristic heuristic)
     {
         Node max = children[0];
         for (int i = 1; i < children.length; i++)
         {
             Node current = children[i];
-            if (current.getScore() > max.getScore())
+            if (current.expectimax(heuristic) > max.expectimax(heuristic))
             {
                 max = current;
             }
@@ -55,5 +65,11 @@ public final class MaxNode implements Node
     public boolean validate()
     {
         return this.children.length > 0;
+    }
+
+    @Override
+    public Node[] getChildren()
+    {
+        return this.children;
     }
 }

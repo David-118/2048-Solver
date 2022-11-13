@@ -1,4 +1,4 @@
-package uk.ac.rhul.project.game;
+package uk.ac.rhul.project.userInterface;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -15,18 +15,17 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import uk.ac.rhul.project.MoveObserver;
-import uk.ac.rhul.project.NewGameObserver;
+import uk.ac.rhul.project.game.Direction;
 
 import java.util.HashMap;
 import java.util.Optional;
 
-public class GameView extends Application
+public class MainView extends Application
 {
     Label[][] labels;
     private int height;
     private int width;
-    private static volatile GameView instance = null;
+    private static volatile MainView instance = null;
 
     private static final float TITLE_SIZE = 100f;
 
@@ -70,6 +69,9 @@ public class GameView extends Application
 
     @FXML
     private GridPane mainGrid;
+
+    @FXML
+    private Button solve;
     
     private Dialog<int[]> newGameDialog;
 
@@ -79,6 +81,8 @@ public class GameView extends Application
         this.height = 4;
         this.width = 4;
 
+
+        // Based on login dialog [6]
         this.newGameDialog = new Dialog<>();
         this.newGameDialog.setResizable(false);
         this.newGameDialog.setTitle("New Game");
@@ -127,11 +131,11 @@ public class GameView extends Application
         instance = this;
     }
 
-    public static synchronized GameView getInstance()
+    public static synchronized MainView getInstance()
     {
        if (instance==null)
        {
-           new Thread(() -> Application.launch(GameView.class)).start();
+           new Thread(() -> Application.launch(MainView.class)).start();
            while (instance == null);
        }
 
@@ -147,7 +151,7 @@ public class GameView extends Application
     public void start(Stage primaryStage) throws Exception
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main.fxml"));
-        GameView controller = new GameView();
+        MainView controller = new MainView();
         fxmlLoader.setController(controller);
 
         Scene root = fxmlLoader.load();
@@ -184,6 +188,11 @@ public class GameView extends Application
         });
     }
 
+    public void addSolveObserver(SolveObserver method)
+    {
+        this.solve.setOnAction(actionEvent -> method.notifyObserver());
+    }
+
     public void make2048Grid(int height, int width)
     {
         this.height = height;
@@ -208,11 +217,11 @@ public class GameView extends Application
         this.gameView.getRowConstraints().removeAll(this.gameView.getRowConstraints());
         this.gameView.getColumnConstraints().removeAll(this.gameView.getColumnConstraints());
 
-        this.mainGrid.getRowConstraints().get(2).setPrefHeight(height * TITLE_SIZE * this.scale + 30f );
+        this.mainGrid.getRowConstraints().get(3).setPrefHeight(height * TITLE_SIZE * this.scale + 30f );
         this.mainGrid.getColumnConstraints().get(0).setPrefWidth(width * TITLE_SIZE * this.scale - 110);
 
-        ((Stage)this.root.getWindow()).setHeight(height * TITLE_SIZE * this.scale+ 170f);
-        ((Stage)this.root.getWindow()).setWidth(width * TITLE_SIZE * this.scale + 40f);
+        this.root.getWindow().setHeight(height * TITLE_SIZE * this.scale+ 220f);
+        this.root.getWindow().setWidth(width * TITLE_SIZE * this.scale + 40f);
 
         this.gameView.setPrefSize(width * TITLE_SIZE * this.scale, height * TITLE_SIZE * this.scale);
 

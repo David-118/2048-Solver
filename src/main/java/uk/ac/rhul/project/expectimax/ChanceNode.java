@@ -1,42 +1,52 @@
 package uk.ac.rhul.project.expectimax;
 
-import java.util.Collection;
+import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.userInterface.Heuristic;
+
 import java.util.Random;
 
-public class ChanceNode implements Node
+public class ChanceNode extends Node
 {
-    private float weight;
     private Node[] children;
     private Random random;
 
-    public ChanceNode(float weight, Node ... children) throws InvalidTreeException
-    {
-        this.weight = weight;
-        this.children = children;
+    private final static float PROB_OF_4 = 0.1f;
 
-        if (!this.validate())
+
+    public ChanceNode(GameState gameState, float weight, GameState[] mutations, int depth, Random random)
+    {
+        super(gameState, weight);
+        this.random = random;
+
+        this.children = new Node[mutations.length];
+
+        final float CHANCE_OF_2 = (1f / (mutations.length / 2f)) * (1 - PROB_OF_4);
+        final float CHANCE_OF_4 = (1f / (mutations.length / 2f)) * PROB_OF_4;
+
+        for (int i = 0; i < mutations.length; i+=2)
         {
-            throw new InvalidTreeException("Weights of chance node should add up to 1f.");
+            this.children[i] = NodeFactory.createNode(MoveType.PLAYER_MOVE, mutations[i], CHANCE_OF_2, depth - 1);
+            this.children[i + 1] = NodeFactory.createNode(MoveType.PLAYER_MOVE, mutations[i + 1], CHANCE_OF_4, depth - 1);
         }
     }
 
-    public void setRandom(Random random)
+    public void expectimax(int depth, Heuristic heuristic)
     {
-        this.random = random;
+        super.expectimax(depth - 1, heuristic, MoveType.PLAYER_MOVE);
     }
 
     @Override
-    public float getScore()
+    public float expectimax(Heuristic heuristic)
     {
         float sum = 0;
-        for (int i = 0; i < children.length; i++)
+        for (Node child : children)
         {
-            sum += children[i].getScore();
+            sum += child.expectimax(heuristic);
         }
-        return sum / children.length;
+        return sum;
     }
 
-    public Node nextNode()
+    public Node nextNode(Heuristic heuristic)
     {
         float rnd = random.nextFloat();
         float cweight = 0;
@@ -44,11 +54,12 @@ public class ChanceNode implements Node
         for (int i = 0; i < this.children.length; i++)
         {
             cweight += this.children[i].getWeight();
-            if (rnd < cweight)
+            if (rnd <= cweight)
             {
                 return this.children[i];
             }
         }
+        System.out.println("Fail");
         return this.children[0]; // This should never happen if the weights are valid and add upto 1
     }
 
@@ -68,5 +79,11 @@ public class ChanceNode implements Node
         }
 
         return sum == 1f;
+    }
+
+    @Override
+    public Node[] getChildren()
+    {
+        return this.children;
     }
 }
