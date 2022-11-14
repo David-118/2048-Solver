@@ -1,23 +1,39 @@
 # Week 7
+## Week 7.2
+I've created a benchmarking Command Line Interface. When the package
+in run with command line parameters -b \[number of time to run each heuristic\]
+and -o \[location of output file\]. This dumps the results out to a csv file.
+I had problems caused when I initially tried to use opencsv, as I was unable
+to create the package with JLink, and was unable to find q quick solution.
+I eventually switched to jackson csv. I left the process running with 100
+heuristics running Sunday night, but do not expect the result to monday 
+afternoon.
+
+
+## Week 7.1
 Attempted to create more advanced heuristics from previous projects.
 Currently unable to get the same results as the original projects.
 First heuristic is a 'snake' [7] shape and the top left corner,
-that also checks neighbors from [8].g
+that also checks neighbors from [8]. I eventually found a bug in chance node.
+This node was taking an average of the weighted values. As the weights of
+the chance node add up to 1, it should have just been the sum.
+
 
 # Week 6
 Added sections on proof of concept expectimax with and without a heuristic
 Counted working on the introduction to the report as well.
 
 # Week 5
+## Week 5.2
+Developed expectimax algorithm a simple heuristic function applied to the
+main project. The heusrstic can be passed into the constructor as a functional
+interface.
+
 ## Week 5.1
 Worked significantly on the introduction to the report, as I was a head of
 schedule on the programing. I decided being up-to-date on the report was more
 important.
 
-## Week 5.2
-Developed expectimax algorithm a simple heuristic function applied to the
-main project. The heusrstic can be passed into the constructor as a functional
-interface.
 
 # Week 4
 ## Week 4.2
