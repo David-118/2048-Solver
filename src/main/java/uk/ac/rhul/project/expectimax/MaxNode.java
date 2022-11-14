@@ -2,20 +2,25 @@ package uk.ac.rhul.project.expectimax;
 
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.userInterface.Heuristic;
-import uk.ac.rhul.project.userInterface.Heuristics;
 
-
+/**
+ * This node represents a 2048 node the next move is made by the player.
+ */
 public final class MaxNode extends Node
 {
+    /**
+     * Array containing the nodes children.
+     */
     private final Node[] children;
 
-    @Override
-    public float getWeight()
-    {
-        return weight;
-    }
-
-   public MaxNode(GameState gameState, float weight, GameState[] moves, int depth)
+    /**
+     * Create a MaxNode
+     * @param gameState Current state of the game.
+     * @param weight Weight of this node, normally the probability for the chance node.
+     * @param moves Possible moves from the gameState.
+     * @param depth Depth of the tree.
+     */
+   protected MaxNode(GameState gameState, float weight, GameState[] moves, int depth)
    {
        super(gameState, weight);
 
@@ -26,34 +31,49 @@ public final class MaxNode extends Node
        }
    }
 
+    /**
+     * Increase the depth of the expectimax tree from this node.
+     * @param depth The new max depth of the tree from this node
+     * @param heuristic The heuristic function used to calculate the score of the leaf nodes.
+     */
     @Override
     public void expectimax(int depth, Heuristic heuristic)
     {
         super.expectimax(depth - 1, heuristic, MoveType.GRID_MUTATION);
     }
 
+    /**
+     * Calculate the score for this node
+     * @param heuristic heuristic function used on any leaf nodes
+     * @return the score of the child with the largest score.
+     */
     @Override
-    public float expectimax(Heuristic heuristic)
+    public float scoreNode(Heuristic heuristic)
     {
-        float max = children[0].expectimax(heuristic);
+        float max = children[0].scoreNode(heuristic);
         for (int i = 1; i < children.length; i++)
         {
-            float score = children[i].expectimax(heuristic);
+            float score = children[i].scoreNode(heuristic);
             if (score > max)
             {
                 max = score;
             }
         }
-        return max * weight;
+        return max * this.getWeight();
     }
 
+    /**
+     * Gates the node representing the game after the player makes the optimal move
+     * @param heuristic Heuristic used on leaf nodes in the tree
+     * @return the direct child node with the largest child
+     */
     public Node nextNode(Heuristic heuristic)
     {
         Node max = children[0];
         for (int i = 1; i < children.length; i++)
         {
             Node current = children[i];
-            if (current.expectimax(heuristic) > max.expectimax(heuristic))
+            if (current.scoreNode(heuristic) > max.scoreNode(heuristic))
             {
                 max = current;
             }
@@ -61,12 +81,21 @@ public final class MaxNode extends Node
         return max;
     }
 
+    /**
+     * The checks the node has children.
+     * @return True if there are child nodes.
+     */
     @Override
     public boolean validate()
     {
         return this.children.length > 0;
     }
 
+
+    /**
+     * Returns the children of this node.
+     * @return Array of all direct children to this node.
+     */
     @Override
     public Node[] getChildren()
     {

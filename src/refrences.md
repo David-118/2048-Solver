@@ -12,7 +12,10 @@
    [gabrielecirulli.github.io/2048](https://gabrielecirulli.github.io/2048)
 6. Javafx Dialogs 2014 -
    [code.makery.ch/blog/javafx-dialogs-official/#custom-login-dialog](https://code.makery.ch/blog/javafx-dialogs-official/#custom-login-dialog)
-7. N. Yun, H. Wenqi, and A. Yicheng. Ai plays 2048. Available:
+7. N. Yun, H. Wenqi, and A. Yicheng. Ai plays 2048.
    [cs229.stanford.edu/proj2016/report/NieHouAn-AIPlays2048-report.pdf](http://cs229.stanford.edu/proj2016/report/NieHouAn-AIPlays2048-report.pdf)
 8. W. Syed Abdul, B. Muhammad, and D. Hamza Javed, 2048 game using expectimax, 2018.
    [github.com/Wahab16/2048-Game-Using-Expectimax](https://github.com/Wahab16/2048-Game-Using-Expectimax)
+
+9. @cowtowncorder 2021, Writing CSV with Jackson:
+   [cowtowncoder.medium.com/writing-csv-with-jackson-204fdb3c9dac](https://cowtowncoder.medium.com/writing-csv-with-jackson-204fdb3c9dac)

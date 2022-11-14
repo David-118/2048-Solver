@@ -1,15 +1,7 @@
 package uk.ac.rhul.project.userInterface;
 
-import javafx.application.Platform;
-import javafx.beans.Observable;
 import uk.ac.rhul.project.expectimax.Node;
-import uk.ac.rhul.project.expectimax.NodeFactory;
 import uk.ac.rhul.project.game.GameState;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 import static java.lang.Thread.sleep;
 

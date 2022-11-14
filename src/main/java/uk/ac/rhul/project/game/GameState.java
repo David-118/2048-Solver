@@ -7,18 +7,53 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Represents the state of the game.
+ */
 public class GameState implements Cloneable
 {
+    /**
+     * Probability of a 4 appearing in the gird.
+     */
     private final static float PROB_OF_4 = 0.1f;
+
+    /**
+     * The numbers tiles created when a game is created.
+     */
     private static final int INITIAL_CELL_COUNT = 2;
+
+    /**
+     * Height of the game's grid.
+     */
     private int height;
+
+    /**
+     * Width of the game's grid.
+     */
     private int width;
+
+    /**
+     * Random number generator used to add random cells.
+     */
     private final Random random;
+
+    /**
+     * Represents the grid in 2048, stored as grid[rows][columns].
+     */
     private int[][] grid;
+
+    /**
+     * Stores the current score of the game.
+     */
     private int score;
 
 
-
+    /**
+     * Create a game state.
+     * @param rows The number of rows in the games grid.
+     * @param cols The number of cols in the games grid.
+     * @param random The random number generator used to place new tiles.
+     */
     public GameState(int rows, int cols, Random random)
     {
         this.height = rows;
@@ -27,17 +62,29 @@ public class GameState implements Cloneable
         this.random = random;
     }
 
-
-    public GameState(int row, int cols)
+    /**
+     * Create a game state.
+     * @param rows The number of rows in the games grid.
+     * @param cols The number of cols in the games grid.
+     */
+    public GameState(int rows, int cols)
     {
-        this(row, cols, new Random());
+        this(rows, cols, new Random());
     }
 
+    /**
+     * Initialise new game of the same size as the previous, adds two random start tiles to the game.
+     */
     public void init()
     {
         init(this.height, this.width);
     }
 
+    /**
+     * Initialise a new game with the specified size, adds two random start tiles to the game.
+     * @param height New height of the game.
+     * @param width New width of the game.
+     */
     public void init(int height, int width)
     {
         this.height = height;
@@ -49,12 +96,17 @@ public class GameState implements Cloneable
             this.addRandomCell();
         }
     }
+
+    /**
+     * Load a custom array into the 2048 game. This is partially useful in the testsuite.
+     * @param grid The gird for the game
+     */
     public void setGrid(int[][] grid)
     {
         this.grid = grid;
     }
 
-    /*
+    /**
      * Adds a random cell to the grid, used both when initialising
      * a new game, and after a move has been made successfully.
      */
@@ -72,11 +124,17 @@ public class GameState implements Cloneable
     }
 
 
-    /*
+    /**
      * Get a list of all the cells that have free cells.
+     * <p>
      * Stored as a Point where:
-     *    x refers to the row
-     *    y refers to the column
+     * </p>
+     * <ul>
+     *    <li>x refers to the row</li>
+     *    <li>y refers to the column</li>
+     * </ul>
+     *
+     * @return List of the positions were there is a free space.
      */
     private List<Point> getFreeCells()
     {
@@ -96,6 +154,12 @@ public class GameState implements Cloneable
         return freeCells;
     }
 
+
+    /**
+     * Move tiles in a given direction,
+     * @param dir The direction for the tiles to move.
+     * @return True if any changes are made to the grid.
+     */
     public boolean move(Direction dir)
     {
         boolean[][] merged = new boolean[this.height][this.width];
@@ -114,6 +178,10 @@ public class GameState implements Cloneable
         return flag;
     }
 
+    /**
+     * Generates all the possible moves.
+     * @return An array of the possible moves.
+     */
     public GameState[] getPossibleMoves()
     {
         List<GameState> gameStates = new ArrayList<>(4);
@@ -130,6 +198,10 @@ public class GameState implements Cloneable
         return gameStates.toArray(new GameState[0]);
     }
 
+    /**
+     * Generates all the possible states that can be generated from adding a random tile.
+     * @return Array with the possible mutations.
+     */
     public GameState[] getPossibleMutations()
     {
         List<Point> freeCells = this.getFreeCells();
@@ -150,6 +222,14 @@ public class GameState implements Cloneable
         return gameStates.toArray(new GameState[0]);
     }
 
+    /**
+     * Slide a specific tile in a specific direction and merge is possible.
+     * @param row The row the tile is on.
+     * @param col The column the tile is on.
+     * @param dir The direction to move the tile in.
+     * @param merged Array that keeps track of which tiles hae been merged .
+     * @return Returns true if the tile is moved or merged.
+     */
     private boolean slideTile(final int row, final int col, Direction dir, boolean[][] merged)
     {
         int target_row = row;
@@ -189,11 +269,25 @@ public class GameState implements Cloneable
         return true;
     }
 
+    /**
+     * Get the value of the  cell next to the position entered the specified direction.
+     * @param row Row of the original cell.
+     * @param col Column of the original cell.
+     * @param dir Direction to look in
+     * @return value of the cells neighbour.
+     */
     private int nextCellValue(int row, int col, Direction dir)
     {
         return this.grid[row + dir.getRows()][col + dir.getCols()];
     }
 
+    /**
+     * Test if a cells neighbour is in the game's grid.
+     * @param row The row of the cell.
+     * @param col The column of the cell.
+     * @param dir The direction of the cells neighbour.
+     * @return True if the neighbour is in the gird.
+     */
     public boolean nextCellInGrid(int row, int col, Direction dir)
     {
         row += dir.getRows();
@@ -201,16 +295,29 @@ public class GameState implements Cloneable
         return 0 <= row && row < this.height && 0 <= col && col < this.width;
     }
 
+    /**
+     * Gets the games grid.
+     * @return returns the array representing the grid.
+     */
     public int[][] getGrid()
     {
         return this.grid;
     }
 
+
+    /**
+     * Gets the score of game.
+     * @return The score of the game.
+     */
     public int getScore()
     {
         return this.score;
     }
 
+    /**
+     * Creates a clone of the game.
+     * @return clone of the game state.
+     */
     @Override
     public GameState clone()
     {
@@ -231,6 +338,12 @@ public class GameState implements Cloneable
         }
     }
 
+
+    /**
+     * Uses a heuristic function to score the game state.
+     * @param heuristic The heuristic function.
+     * @return heuristic(this)
+     */
     public float applyHeuristic(Heuristic heuristic)
     {
         return heuristic.heuristic(this);

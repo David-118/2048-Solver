@@ -5,9 +5,16 @@ import uk.ac.rhul.project.game.GameState;
 
 import java.util.Random;
 
+/**
+ * A class containing all the heuristic functions.
+ */
 public abstract class Heuristics
 {
-    private static Random rnd = new Random();
+    /**
+     * Sums up the value of all the cells in the state.
+     * @param state The game state to be evaluated.
+     * @return The sum of all the cells.
+     */
     public static float sumCells(GameState state)
     {
         float sum = 0f;
@@ -22,6 +29,11 @@ public abstract class Heuristics
         return sum;
     }
 
+    /**
+     * Rewards game states that have larger values towards the bottom.
+     * @param state The game state to be evaluated.
+     * @return The sum of all the cells multiplied by the (index + 1) of the row they are in..
+     */
     public static float largestLower(GameState state)
     {
         float sum = 0f;
@@ -36,8 +48,11 @@ public abstract class Heuristics
         return sum;
     }
 
-    /*
-     * Based on heuristic used by [7]
+    /**
+     * Rewards game states where the values are in zigzag pattern from the top left corner.
+     * <p>Based on heuristic from [7]</p>
+     * @param state The game state to be evaluated.
+     * @return sum of each value in the gird multiplied by a weight matrix.
      */
     public static float snake_4_by_4(GameState state)
     {
@@ -70,8 +85,12 @@ public abstract class Heuristics
     }
 
 
-    /*
-     * Based on heuristic from [8, grid.js:108]
+    /**
+     * Rewards games where the largest cells are diagonal from the top left. Penalises when large number are next to
+     * small neighbors.
+     * <p>Based on heuristic from [8, grid.js:108]</p>
+     * @param state The game state to be evaluated.
+     * @return sum of  each cell multiplied by an internal weight.
      */
     public static float topLeftCornerProximity_4_by_4(GameState state)
     {
