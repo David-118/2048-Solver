@@ -11,6 +11,7 @@ module PROJECT {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
 
+
     opens uk.ac.rhul.project to javafx.fxml;
     exports uk.ac.rhul.project;
     exports uk.ac.rhul.project.game;
