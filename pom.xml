@@ -68,10 +68,9 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <jlinkImageName>Solve2048</jlinkImageName>
-                    <launcher>Solve2048</launcher>
+                    <jlinkImageName>solve2048</jlinkImageName>
+                    <launcher>solve2048</launcher>
                     <mainClass>PROJECT/uk.ac.rhul.project.Driver</mainClass>
-
                 </configuration>
             </plugin>
         </plugins>
