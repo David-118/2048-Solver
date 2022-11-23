@@ -16,17 +16,15 @@ import java.util.Random;
 public class Benchmarker
 {
     private static final String[] heuristic_names = new String[]{
-            "sumCells",
-            "largestLower",
-            "snake_4_by_4",
-            "topLeftCornerProximity_4_by_4"
+            "snake_4_by_4_proximity10",
+            "snake_4_by_4_proximity100",
+            "snake_4_by_4_proximity1000",
     };
 
     private static final Heuristic[] heuristics = new Heuristic[]{
-            Heuristics::sumCells,
-            Heuristics::largestLower,
-            Heuristics::snake_4_by_4,
-            Heuristics::topLeftCornerProximity_4_by_4
+            (GameState state) -> Heuristics.snake_4_by_4_withProximity(state, 10),
+            (GameState state) -> Heuristics.snake_4_by_4_withProximity(state, 100),
+            (GameState state) -> Heuristics.snake_4_by_4_withProximity(state, 1000),
     };
     private final int count;
     private final BenchmarkWriter csvWriter;

@@ -44,10 +44,14 @@ public class GameState implements Cloneable
         this.width = width;
         this.score = 0;
         this.grid = new int[this.height][this.width];
-        for (int i = 0; i < INITIAL_CELL_COUNT; i++)
+        /*
+	for (int i = 0; i < INITIAL_CELL_COUNT; i++)
         {
             this.addRandomCell();
         }
+	*/
+	this.grid[0][0] = 4;
+	this.grid[1][1] = 2;
     }
     public void setGrid(int[][] grid)
     {

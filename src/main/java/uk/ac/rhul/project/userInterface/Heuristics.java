@@ -69,6 +69,14 @@ public abstract class Heuristics
         return sum;
     }
 
+    public static float snake_4_by_4_withProximity(GameState state, float penaltyWeight)
+    {
+        float score = snake_4_by_4(state);
+        float penalty = proximityPenalty(state);
+
+        return score - penaltyWeight * penalty;
+    }
+
 
     /*
      * Based on heuristic from [8, grid.js:108]
@@ -92,6 +100,20 @@ public abstract class Heuristics
                 float cell = state.getGrid()[i][j];
 
                 score += weights[i][j] * cell * cell;
+            }
+        }
+        return score - proximityPenalty(state);
+    }
+
+    public static float proximityPenalty(GameState state)
+    {
+        float penalty = 0;
+
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                float cell = state.getGrid()[i][j];
 
                 if (cell != 0)
                 {
@@ -109,6 +131,7 @@ public abstract class Heuristics
                 }
             }
         }
-        return score - penalty;
+
+        return penalty;
     }
 }
