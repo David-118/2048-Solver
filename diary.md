@@ -1,10 +1,21 @@
+# Week 8
+## Week 8.2
+Worked on the report and presentation.
+As I have complete more than I intened to this for the programing.
+I mostly desighed to work on the report and presentation this week.
+Were 
+
+## Week 8.1
+Got the results from the benchmark on four orignaol benchmarks and
+a snake herutstic with the same penlty as the diagonal heurstic.
+The penatly is mutipled by a heurtsic.
 # Week 7
 ## Week 7.2
 I've created a benchmarking Command Line Interface. When the package
 in run with command line parameters -b \[number of time to run each heuristic\]
 and -o \[location of output file\]. This dumps the results out to a csv file.
 I had problems caused when I initially tried to use opencsv, as I was unable
-to create the package with JLink, and was unable to find q quick solution.
+to create the package with JLink, and was unable to find a quick solution.
 I eventually switched to jackson csv. I left the process running with 100
 heuristics running Sunday night, but do not expect the result to monday 
 afternoon.
