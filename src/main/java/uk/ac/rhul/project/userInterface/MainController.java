@@ -1,6 +1,8 @@
 package uk.ac.rhul.project.userInterface;
 
 import javafx.application.Platform;
+import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.heursitics.Heuristic;
 
 /**
  * Controller links view to model
@@ -39,24 +41,23 @@ public class MainController
     private void handelNewGame(int height, int width)
     {
         this.model.init(height, width);
-        this.view.setValues(this.model.getGrid(), this.model.getScore());
+        this.view.setValues(this.model.getGrid());
     }
 
     /**
      * Handel for solving a 2048 game.
      */
-    public void handelSolve()
+    public void handelSolve(boolean blocking, Heuristic heuristic)
     {
-        this.model.solve();
+        this.model.solve(blocking, heuristic);
     }
 
     /**
      * Handel for updating 2048 game while solver is running.
-     * @param grid 2D array representing the current state of the 2048 game.
-     * @param score The score of the next 2048 game.
+     * @param state The current state of the game
      */
-    public void handelUpdate(int[][] grid, int score)
+    public void handelUpdate(GameState state)
     {
-        this.view.updateGrid(grid, score);
+        this.view.updateGrid(state);
     }
 }

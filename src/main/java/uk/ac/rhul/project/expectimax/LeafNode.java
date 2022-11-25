@@ -1,7 +1,7 @@
 package uk.ac.rhul.project.expectimax;
 
 import uk.ac.rhul.project.game.GameState;
-import uk.ac.rhul.project.userInterface.Heuristic;
+import uk.ac.rhul.project.heursitics.Heuristic;
 
 /**
  * A node that has no children.

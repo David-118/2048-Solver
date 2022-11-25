@@ -2,7 +2,6 @@ package uk.ac.rhul.project.game;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uk.ac.rhul.project.userInterface.Heuristics;
 
 import java.util.Arrays;
 import java.util.Random;

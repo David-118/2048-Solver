@@ -3,6 +3,8 @@ package uk.ac.rhul.project.userInterface;
 import uk.ac.rhul.project.expectimax.Node;
 import uk.ac.rhul.project.expectimax.NodeFactory;
 import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.heursitics.Heuristic;
+import uk.ac.rhul.project.heursitics.Snake;
 
 import java.util.Random;
 /**
@@ -66,7 +68,8 @@ public final class MainModel implements Model
     private void initSolver()
     {
         Node node = NodeFactory.generateTree(gameState, 6);
-        solver.setHeuristic(Heuristics::snake_4_by_4);
+
+        solver.setHeuristic(new Snake());
         this.solver.setRoot(node);
 
     }
@@ -75,9 +78,9 @@ public final class MainModel implements Model
      * Get the grid from the 2048 game.
      * @return a 2D array stored [rows, cols] representing the 2048 games.
      */
-    public int[][] getGrid()
+    public GameState getGrid()
     {
-        return gameState.getGrid();
+        return gameState;
     }
 
     /**
@@ -100,12 +103,19 @@ public final class MainModel implements Model
         this.solver.addUpdateObserver(method);
     }
 
+
     /**
      * Start solving the 2048 game.
      */
-    public void solve()
+    public void solve(boolean blocking, Heuristic heuristic)
     {
-        Thread thread = new Thread(solver);
-        thread.start();
+        solver.setHeuristic(heuristic);
+        if (blocking) {
+            solver.run();
+        } else
+        {
+            Thread thread = new Thread(solver);
+            thread.start();
+        }
     }
 }

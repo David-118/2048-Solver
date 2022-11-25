@@ -1,6 +1,6 @@
 package uk.ac.rhul.project.game;
 
-import uk.ac.rhul.project.userInterface.Heuristic;
+import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.awt.*;
 import java.util.ArrayList;

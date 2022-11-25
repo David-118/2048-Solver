@@ -2,6 +2,7 @@ package uk.ac.rhul.project.userInterface;
 
 import uk.ac.rhul.project.expectimax.Node;
 import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.heursitics.Heuristic;
 
 import static java.lang.Thread.sleep;
 
@@ -68,7 +69,7 @@ public class Solver implements Runnable
 
             root.expectimax(8, heuristic);
 
-            this.updateValues.notifyObservers(root.getGameState().getGrid(), root.getGameState().getScore());
+            this.updateValues.notifyObservers(root.getGameState());
         }
     }
 

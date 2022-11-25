@@ -1,7 +1,7 @@
 package uk.ac.rhul.project.expectimax;
 
 import uk.ac.rhul.project.game.GameState;
-import uk.ac.rhul.project.userInterface.Heuristic;
+import uk.ac.rhul.project.heursitics.Heuristic;
 
 /**
  * This node represents a 2048 node the next move is made by the player.

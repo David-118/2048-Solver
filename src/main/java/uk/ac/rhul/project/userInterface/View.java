@@ -1,12 +1,14 @@
 package uk.ac.rhul.project.userInterface;
 
+import uk.ac.rhul.project.game.GameState;
+
 public interface View
 {
     void addNewGameObserver(NewGameObserver handelNewGame);
 
     void addSolveObserver(SolveObserver handelSolve);
 
-    void setValues(int[][] grid, int score);
+    void setValues(GameState state);
 
-    void updateGrid(int[][] grid, int score);
+    void updateGrid(GameState state);
 }

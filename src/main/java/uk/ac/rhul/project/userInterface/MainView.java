@@ -16,6 +16,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.heursitics.Snake;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -248,7 +250,7 @@ public class MainView extends Application implements View
      */
     public void addSolveObserver(SolveObserver method)
     {
-        this.solve.setOnAction(actionEvent -> method.notifyObserver());
+        this.solve.setOnAction(actionEvent -> method.notifyObserver(false, new Snake()));
     }
 
     /**
@@ -345,28 +347,27 @@ public class MainView extends Application implements View
 
     /**
      * Set the value in each label in the grid view.
-     * @param arr values in the grid view.
-     * @param score current game score.
+     * @param state The current state of the game.
      */
-    public void setValues(int[][] arr, int score)
+    public void setValues(GameState state)
     {
-        if (arr.length == height && arr[0].length == width)
+        if (state.getGrid().length == height && state.getGrid()[0].length == width)
         {
             for (int row = 0; row < height; row++)
             {
                 for (int col = 0; col < width; col++)
                 {
-                    setLabel(row, col, arr[row][col]);
+                    setLabel(row, col, state.getGrid()[row][col]);
                 }
             }
         }
-        this.score.setText(Integer.toString(score));
+        this.score.setText(Integer.toString(state.getScore()));
     }
 
     @Override
-    public void updateGrid(int[][] grid, int score)
+    public void updateGrid(GameState state)
     {
-        Platform.runLater(() -> this.setValues(grid, score));
+        Platform.runLater(() -> this.setValues(state));
     }
 
     /**
