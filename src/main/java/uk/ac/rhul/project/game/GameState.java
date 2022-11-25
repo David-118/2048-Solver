@@ -9,6 +9,13 @@ import java.util.Random;
 
 /**
  * Represents the state of the game.
+ *
+ * <p><br>Based on the original source [2]
+ * Files:</p>
+ * <ul>
+ * <li>/js/game_manager.js</li>
+ * <li>/js/grid.js</li>
+ * </ul>
  */
 public class GameState implements Cloneable
 {

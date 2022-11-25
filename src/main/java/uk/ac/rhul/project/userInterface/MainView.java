@@ -15,24 +15,49 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import uk.ac.rhul.project.game.Direction;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Optional;
 
 public class MainView extends Application
 {
-    Label[][] labels;
+    /**
+     * Labesl representing each tile in a 2048 game.
+     */
+    private Label[][] labels;
+
+    /**
+     * Height of the current game.
+     */
     private int height;
+
+    /**
+     * Width of the current game.
+     */
     private int width;
+
+    /**
+     * Current instance of the 2048 game.
+     */
     private static volatile MainView instance = null;
 
+    /**
+     * The base tile size for a 2048 game.
+     */
     private static final float TITLE_SIZE = 100f;
 
+    /**
+     * Multiplier to enlarge / shrink tile size.
+     */
     public float scale;
 
 
-    // Colour comes from [5]. It is the colour of an empty cell.
+    /**
+     *  The background colour associated with each tile <= 2048
+     *
+     *  Colour comes from [5]
+     */
     private static final HashMap<Integer, String> backColours = new HashMap<Integer, String>() {{
         put(0, "rgba(238, 228, 218, 0.35)");
         put(2, "#eee4da");
@@ -48,33 +73,64 @@ public class MainView extends Application
         put(2048, "#edc22e");
     }};
 
-    private static final HashMap<Integer, String> foreColours = new HashMap<Integer, String>() {{
+    /**
+     * The text colour for the two tiles that are a different colour.
+     */
+    private static final HashMap<Integer, String> foreColours = new HashMap<>()
+    {{
         put(2, "#776e65");
         put(4, "#776e65");
     }};
 
+    /**
+     * An observer that gets trigger when a new game is created.
+     */
     private NewGameObserver newGameObserver;
 
+    /**
+     * The grid pane used to display 2048 games.
+     */
     @FXML
     private GridPane gameView;
 
+    /**
+     * Button used to create a new game.
+     */
     @FXML
     private Button newGame;
 
+    /**
+     * Label used to display score of the current game.
+     */
     @FXML
     private Label score;
 
+    /**
+     * The root element of the ui.
+     */
     @FXML
     private Scene root;
 
+    /**
+     * Grid used to display entire user interface.
+     */
     @FXML
     private GridPane mainGrid;
 
+    /**
+     * Button to start solver 2048 game.
+     */
     @FXML
     private Button solve;
-    
+
+    /**
+     * Dialog for user to create new game.
+     */
     private Dialog<int[]> newGameDialog;
 
+    /**
+     * Initialise the user interface when the JavaFX window loads.
+     */
     @FXML
     void initialize()
     {
@@ -131,6 +187,11 @@ public class MainView extends Application
         instance = this;
     }
 
+
+    /**
+     * Get an instance of the singleton MainView.
+     * @return Either a new instance or the one existing instance of MainView.
+     */
     public static synchronized MainView getInstance()
     {
        if (instance==null)
@@ -142,13 +203,15 @@ public class MainView extends Application
        return instance;
     }
 
-    public void startNewGame()
-    {
-        this.newGameObserver.notifyObservers(4, 4);
-    }
 
+    /**
+     * Open the main javaFX Window.
+     * @param primaryStage The main stage for the entire UI.
+     *
+     * @throws IOException thrown if an error occurs when reading and interpreting the fxml file.
+     */
     @Override
-    public void start(Stage primaryStage) throws Exception
+    public void start(Stage primaryStage) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main.fxml"));
         MainView controller = new MainView();
@@ -160,6 +223,10 @@ public class MainView extends Application
         primaryStage.show();
     }
 
+    /**
+     * Set up an observer for to be activated when a user creates a new game.
+     * @param method Method to be triggered when a new game is created.
+     */
     public void addNewGameObserver(NewGameObserver method)
     {
         this.newGameObserver = method;
@@ -168,66 +235,79 @@ public class MainView extends Application
             Optional<int[]> result = this.newGameDialog.showAndWait();
             result.ifPresent(size -> {
                 this.make2048Grid(size[0], size[1]);
-                method.notifyObservers(size[0], size[1]);
+                this.newGameObserver.notifyObservers(size[0], size[1]);
             });
 
         });
     }
 
-    public void addMoveObserver(MoveObserver method)
-    {
-
-        this.root.setOnKeyPressed(keyEvent -> {
-            switch (keyEvent.getCode())
-            {
-                case W -> method.notifyObservers(Direction.UP);
-                case A -> method.notifyObservers(Direction.LEFT);
-                case S -> method.notifyObservers(Direction.DOWN);
-                case D -> method.notifyObservers(Direction.RIGHT);
-            }
-        });
-    }
-
+    /**
+     * Add an observer to be triggered when the solve button is clicked.
+     * @param method The method triggered when the solve button is clicked.
+     */
     public void addSolveObserver(SolveObserver method)
     {
         this.solve.setOnAction(actionEvent -> method.notifyObserver());
     }
 
+    /**
+     * Initialise a 2048 grid.
+     * @param height Height (in cells) of the grid
+     * @param width Width (in cells) of the grid.
+     */
     public void make2048Grid(int height, int width)
     {
         this.height = height;
         this.width = width;
 
-        if (height > 16)
-        {
-            this.scale = 0.4f;
-        }
-        else if (width > 16 || height > 8)
-        {
-            this.scale = 0.5f;
-        } else if (width > 8 || height  > 4)
-        {
-            this.scale = 1f;
-        } else
-        {
-            this.scale = 1.5f;
-        }
+        this.setScale(height, width);
+        this.prepareGameView(height, width);
+        this.buildNewGameGrid(height, width);
+    }
 
+    /**
+     * Set the scale of the game to ensure the game fits in the window.
+     * @param height The height of the 2048 game.
+     * @param width The width of the 2048 game.
+     */
+    private void setScale(int height, int width)
+    {
+        if (height > 16) { this.scale = 0.4f;}
+        else if (width > 16 || height > 8) {this.scale = 0.5f;}
+        else if (width > 8 || height  > 4) { this.scale = 1f;}
+        else {this.scale = 1.5f;}
+    }
+
+    /**
+     * Prepare the game view and window for a game of a given size.
+     */
+    private void prepareGameView(int width, int height)
+    {
+        //Remove any existing 2048 grid.
         this.gameView.getChildren().removeAll(this.gameView.getChildren());
         this.gameView.getRowConstraints().removeAll(this.gameView.getRowConstraints());
         this.gameView.getColumnConstraints().removeAll(this.gameView.getColumnConstraints());
 
+        // Create enough space for a new 2048 game in the grid.
         this.mainGrid.getRowConstraints().get(3).setPrefHeight(height * TITLE_SIZE * this.scale + 30f );
         this.mainGrid.getColumnConstraints().get(0).setPrefWidth(width * TITLE_SIZE * this.scale - 110);
 
+        // Make the window big enough for a 2048 game.
         this.root.getWindow().setHeight(height * TITLE_SIZE * this.scale+ 220f);
         this.root.getWindow().setWidth(width * TITLE_SIZE * this.scale + 40f);
 
         this.gameView.setPrefSize(width * TITLE_SIZE * this.scale, height * TITLE_SIZE * this.scale);
-
         this.labels = new Label[height][width];
+    }
 
-
+    /**
+     * Builds the new grid for a game of giiden size.
+     * @param height Height of the game.
+     * @param width Width of the game.
+     */
+    private void buildNewGameGrid(int height, int width)
+    {
+        // Set up columns in game's grid view.
         for (int col = 0; col < width; col++)
         {
             ColumnConstraints columnConstraint = new ColumnConstraints();
@@ -236,6 +316,7 @@ public class MainView extends Application
             this.gameView.getColumnConstraints().add(columnConstraint);
         }
 
+        // Set up each row and its labels in the game's grid view.
         for (int row = 0; row < height; row++)
         {
             RowConstraints rowConstraint = new RowConstraints();
@@ -261,6 +342,11 @@ public class MainView extends Application
         }
     }
 
+    /**
+     * Set the value in each label in the grid view.
+     * @param arr values in the grid view.
+     * @param score current game score.
+     */
     public void setValues(int[][] arr, int score)
     {
         if (arr.length == height && arr[0].length == width)
@@ -276,7 +362,13 @@ public class MainView extends Application
         this.score.setText(Integer.toString(score));
     }
 
-    public void setLabel(int row, int col, int value)
+    /**
+     * Set the value of a specific label in the grid.
+     * @param row Row of the label to set.
+     * @param col Column of the label to set.
+     * @param value Value to display in the cell.
+     */
+    private void setLabel(int row, int col, int value)
     {
         String str_value = Integer.toString(value);
         if (value == 0)

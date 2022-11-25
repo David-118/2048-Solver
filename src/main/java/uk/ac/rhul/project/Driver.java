@@ -11,10 +11,22 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/**
+ * Class that starts the whole program.
+ */
 public class Driver
 {
 
 
+    /**
+     * Main function
+     * @param args <p>The arguments supported are<ul>
+     *             <li>-b [count]: Benchmark each known heuristic function with count number of games.</li>
+     *             <li>--benchmark [count]: same as -b.</li>
+     *             <li>-o [output]: output performance data to the csv file output</li>
+     *             <li>--output [output]: same as -o</li>
+     * </ul></p>
+     */
     public static void main(String[] args)
     {
         String output = "";

@@ -75,7 +75,7 @@ public class Benchmarker
 
         for(int i = 0; i < HEURISTICS.length; i++)
         {
-            solver.setHeurstic(HEURISTICS[i]);
+            solver.setHeuristic(HEURISTICS[i]);
             for (int j = 0; j < count; j++)
             {
                 System.out.printf("%s (%d)\n", HEURISTIC_NAMES[i], j);

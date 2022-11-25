@@ -28,7 +28,6 @@ public class MainController
         this.model = model;
         this.view = view;
         this.view.addNewGameObserver(this::handelNewGame);
-        this.view.addMoveObserver(this::handelMove);
         this.view.addSolveObserver(this::handelSolve);
         this.model.addUpdateObserver(this::handelUpdate);
     }
@@ -41,16 +40,6 @@ public class MainController
     private void handelNewGame(int height, int width)
     {
         this.model.init(height, width);
-        this.view.setValues(this.model.getGrid(), this.model.getScore());
-    }
-
-    /**
-     * Makes a move in the 2048 model , and updates view.
-     * @param dir
-     */
-    public void handelMove(Direction dir)
-    {
-        this.model.move(dir);
         this.view.setValues(this.model.getGrid(), this.model.getScore());
     }
 
