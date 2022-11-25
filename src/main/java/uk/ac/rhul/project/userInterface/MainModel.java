@@ -65,8 +65,8 @@ public final class MainModel implements Model
      */
     private void initSolver()
     {
-        Node node = NodeFactory.generateTree(gameState, 8);
-        solver.setHeuristic(Heuristics::topLeftCornerProximity_4_by_4);
+        Node node = NodeFactory.generateTree(gameState, 6);
+        solver.setHeuristic(Heuristics::snake_4_by_4);
         this.solver.setRoot(node);
 
     }

@@ -1,6 +1,7 @@
 package uk.ac.rhul.project.userInterface;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -20,7 +21,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class MainView extends Application
+public class MainView extends Application implements View
 {
     /**
      * Labesl representing each tile in a 2048 game.
@@ -360,6 +361,12 @@ public class MainView extends Application
             }
         }
         this.score.setText(Integer.toString(score));
+    }
+
+    @Override
+    public void updateGrid(int[][] grid, int score)
+    {
+        Platform.runLater(() -> this.setValues(grid, score));
     }
 
     /**

@@ -1,7 +1,6 @@
 package uk.ac.rhul.project.userInterface;
 
 import javafx.application.Platform;
-import uk.ac.rhul.project.game.Direction;
 
 /**
  * Controller links view to model
@@ -16,14 +15,14 @@ public class MainController
     /**
      * View for the user to interface.
      */
-    private final MainView view;
+    private final View view;
 
     /**
      * Create a controller with a given model and view.
      * @param model The model.
      * @param view The view.
      */
-    public MainController(MainModel model, MainView view)
+    public MainController(MainModel model, View view)
     {
         this.model = model;
         this.view = view;
@@ -43,20 +42,21 @@ public class MainController
         this.view.setValues(this.model.getGrid(), this.model.getScore());
     }
 
+    /**
+     * Handel for solving a 2048 game.
+     */
     public void handelSolve()
     {
         this.model.solve();
     }
 
+    /**
+     * Handel for updating 2048 game while solver is running.
+     * @param grid 2D array representing the current state of the 2048 game.
+     * @param score The score of the next 2048 game.
+     */
     public void handelUpdate(int[][] grid, int score)
     {
-        Platform.runLater(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                view.setValues(grid, score);
-            }
-        });
+        this.view.updateGrid(grid, score);
     }
 }
