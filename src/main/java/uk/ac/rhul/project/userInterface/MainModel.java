@@ -2,15 +2,13 @@ package uk.ac.rhul.project.userInterface;
 
 import uk.ac.rhul.project.expectimax.Node;
 import uk.ac.rhul.project.expectimax.NodeFactory;
-import uk.ac.rhul.project.game.Direction;
 import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.heursitics.Heuristic;
+import uk.ac.rhul.project.heursitics.Snake;
 
 import java.util.Random;
-/*
- * Based on the original source [2]
- *  Files:
- *    /js/game_manager.js
- *    /js/grid.js
+/**
+ * Creates a model for the user interface. Allows the user to solve a 2048 game.
  */
 public final class MainModel implements Model
 {
@@ -18,11 +16,11 @@ public final class MainModel implements Model
     private Solver solver;
     private Random rnd;
 
-    /*
+    /**
      * Create a model of the game 2048
-     * @parm rows: The height of the games grid
-     * @parm cols: The width the games grid
-     * @parm random: the random number generator used to test the project. Allows for testing with a known seed.
+     * @param  rows The height of the games grid
+     * @param cols The width the games grid
+     * @param random the random number generator used to test the project. Allows for testing with a known seed.
      */
     public MainModel(int rows, int cols, Random random)
     {
@@ -32,17 +30,17 @@ public final class MainModel implements Model
         this.rnd = random;
     }
 
-    /*
+    /**
      * Create a model of the game 2048
-     * @parm rows: The height of the games grid
-     * @parm cols: The width the games grid
+     * @param rows The height of the games grid
+     * @param cols The width the games grid
      */
     public MainModel(int rows, int cols)
     {
         this(rows, cols, new Random());
     }
 
-    /*
+    /**
      * Start the game with random grids and score of 0
      */
     public void init()
@@ -51,6 +49,11 @@ public final class MainModel implements Model
         this.initSolver();
     }
 
+    /**
+     * Start a game with a new size.
+     * @param height The height of the new game.
+     * @param width The width of the new game.
+     */
     public void init(int height, int width)
     {
         this.gameState = new GameState(height, width, this.rnd);
@@ -58,38 +61,61 @@ public final class MainModel implements Model
         this.initSolver();
     }
 
+    /**
+     * Set the heuristic the solver is using and generate a tree, provide the root of the tree to the
+     * solver.
+     */
     private void initSolver()
     {
         Node node = NodeFactory.generateTree(gameState, 6);
-        solver.setHeurstic(Heuristics::snake_4_by_4);
+
+        solver.setHeuristic(new Snake());
         this.solver.setRoot(node);
 
     }
 
-    public void move(Direction dir)
+    /**
+     * Get the grid from the 2048 game.
+     * @return a 2D array stored [rows, cols] representing the 2048 games.
+     */
+    public GameState getGrid()
     {
-        this.gameState.move(dir);
+        return gameState;
     }
 
-    public int[][] getGrid()
-    {
-        return gameState.getGrid();
-    }
-
+    /**
+     * Get the current score of the 2048 game.
+     * @return The score of the current game.
+     */
     public int getScore()
     {
         return gameState.getScore();
     }
 
+
+    /**
+     * Add an observer to update the user interface while the solver plays the game.
+     * @param method Method to call each time the game needs to update.
+     */
     @Override
     public void addUpdateObserver(UpdateObserver method)
     {
         this.solver.addUpdateObserver(method);
     }
 
-    public void solve()
+
+    /**
+     * Start solving the 2048 game.
+     */
+    public void solve(boolean blocking, Heuristic heuristic)
     {
-        Thread thread = new Thread(solver);
-        thread.start();
+        solver.setHeuristic(heuristic);
+        if (blocking) {
+            solver.run();
+        } else
+        {
+            Thread thread = new Thread(solver);
+            thread.start();
+        }
     }
 }

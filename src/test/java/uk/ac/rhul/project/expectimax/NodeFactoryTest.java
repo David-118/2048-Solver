@@ -3,7 +3,6 @@ package uk.ac.rhul.project.expectimax;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.ac.rhul.project.game.GameState;
-import uk.ac.rhul.project.userInterface.Heuristics;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -107,10 +106,10 @@ class NodeFactoryTest
     {
         for (int i = 0; i < 4; i++)
         {
-            assertEquals(1.55f, this.node2.getChildren()[i].expectimax(Heuristics::sumCells));
+            assertEquals(1.55f, this.node2.getChildren()[i].scoreNode(Heuristics::sumCells));
         }
 
-        assertEquals(1.55f, this.node2.expectimax(Heuristics::sumCells));
+        assertEquals(1.55f, this.node2.scoreNode(Heuristics::sumCells));
 
     }
 
@@ -125,6 +124,6 @@ class NodeFactoryTest
                 {0, 0, 0, 0},
         });
         Node node = NodeFactory.generateTree(state, 6);
-        assertEquals(176.539, node.expectimax(Heuristics::topLeftCornerProximity_4_by_4), 0.001);
+        assertEquals(176.539, node.scoreNode(Heuristics::topLeftCornerProximity_4_by_4), 0.001);
     }
 }
