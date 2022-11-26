@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>730</x>
+      <y>530</y>
+      <w>245</w>
+      <h>125</h>
+    </coordinates>
+    <panel_attributes>_project.benchmark::BenchmarkView_
+Benchmarks each heurstic in the program n times.
+bg=cyan
+--
+*Attributes*
+_-HEURISTICS:  Heurstic[]_
+- newGameObserver: newGameObserver
+- solveObserver: solveObserver
+- count:int
+- csvWriter: BenchmarkWriter
+- heursticIndex: int
+- gameIndex: int
+- currentState: GameState
+--
+*Responsibilities*
++&lt;&lt;constructor&gt;&gt; BenchmarkVeiw(count: int)
++benchmark(log: OutputStream)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>730</x>
+      <y>680</y>
+      <w>245</w>
+      <h>125</h>
+    </coordinates>
+    <panel_attributes>_project.benchmark::BenchmarkWriter_
+Data about preformance of a 2048
+game to be writen to a csv file
+
+Has public attributes for compatablity
+with csv libary.
+bg=cyan
+--
+*Attributes*
+- entries: List&lt;BenchmarkEntry&gt; entries
+- schema: CsvSchema
+- mapper: CsvMapper
+--
+*Responsibilities*
++&lt;&lt;constructor&gt;&gt; BenchmarkWriter()
++add(entry: BenchmarkEntry)
++write(output: OutputStream) throw IOExeception
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>725</x>
+      <y>825</y>
+      <w>245</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>_project.benchmark::BenchmarkEntry_
+Stores the data to be logged about 1 game.
+bg=cyan
+--
+*Attributes*
+- heuristicName: string
+- maxTile: int
+- score: int
+--
+*Responsibilities*
++&lt;&lt;constructor&gt;&gt; BenchmarkVeiw(heursticName: string, state: GameState)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>420</y>
+      <w>250</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>_project.expectimax::ChanceNode_
+Reprersents a point in the game were the next state is dertimined by
+random chance..
+bg=blue
+--
+*Attributes*
+- children: Node[]
+- random: Random
+-
+--
+*Responsibilities*
++&lt;&lt;constructor&gt;&gt; chanceNode(state: GameState, weight:float, 
+                                mutations: GameState, depth:int, random: Random)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>265</x>
+      <y>420</y>
+      <w>250</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>_project.expectimax::LeafNode_
+Represents a state in the game were no futher moves are possible
+or a state were the maxium depth of the tree has been reached.
+bg=blue
+--
+*Attributes*
+--
+*Responsibilities*
++&lt;&lt;constructor&gt;&gt; LeafNode(state: GameState, weight: float)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>445</x>
+      <y>810</y>
+      <w>250</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+_project.expectimax::MoveType_
+
+bg=blue
+--
+_PLAYER_MOVE_
+_GRID_MUTATION_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>525</x>
+      <y>420</y>
+      <w>250</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>_project.expectimax::MaxNode_
+Represents a state in a game where the next moves
+are made a player.
+bg=blue
+--
+*Attributes*
+- children: Node[]
+--
+*Responsibilities*
++&lt;&lt;constructor&gt;&gt; MaxNode(state: GameState, weight: float,
+                                moves: GameState[], int depth)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>265</x>
+      <y>230</y>
+      <w>250</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;abstract&gt;&gt;
+_project.expectimax::Node_
+Reprasents a generic node in an expectimax tree.
+bg=blue
+--
+*Attributes*
+- weight: float
+- state: GameState
+--
+*Responsibilities*
++&lt;&lt;constructor&gt;&gt; Node(state: GameState, weight: float)
++ scoreNode(heurstic: Heurstic): float
++ extendTree(depth: int, heursitic: Heursitic)
++ extendTree(depth: int, heuristic: Heursitic, type: MoveType)
++ nextNode(Heuristic heuristic): Node
++ getWeight(): float
++ validate(): boolean
++ getGameState(): GameState
++ getChildren(): Node[]
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>245</x>
+      <y>575</y>
+      <w>250</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;factory&gt;&gt;
+_project.expectimax::NodeFactory_
+Reprersents a point in the game were the next state is dertimined by
+random chance..
+bg=blue
+--
+*Attributes*
+_- random: Random_
+--
+*Responsibilities*
+_+ generateTree(state: GameState, depth: int)_
+_+ generateTree(type: MoveType, state: GameState, weight: float, depth:int)_
+_+ setRandom(random: Random)_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>425</x>
+      <y>0</y>
+      <w>250</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+_project.game::Direction_
+Representss all the directions a player can move in a 2048 game.
+bg=green
+--
+_UP(-1, 0, true)_
+_DOWN(1, 0, true)_
+_LEFT(0, -1, false)_
+_RIGHT(0, 1, false)_
+--
+*Attributes*
+- row: int
+- col: int
+- vAxis: bool
+--
+*Responsibilities*
++&lt;&lt;constructor&gt;&gt; Direction(row: int, col: int, vAxis: bool)
++ getRows(): int
++ getCols(): int
++ getVerticalStream(int height): int[]
++ getHorizontalStream(int width): int[]
++ getStream(vAxis: bool, int max): int[]
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>445</x>
+      <y>965</y>
+      <w>250</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>_project.expectimax::Solver_
+implements Runnable
+bg=blue
+--
+*Attributes*
+- root: Node
+- updateValues: UpdateObserver
+- heuristic: Heuristic
+--
+*Responsibilities*
++ addUpdateObserver(method: UpdateObserver)
++ setHeuristic(heurisitc: Heurisitc)
++ setRoot(root: Node)
++ run()
++ getGameState(): GameState</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>690</x>
+      <y>0</y>
+      <w>250</w>
+      <h>235</h>
+    </coordinates>
+    <panel_attributes>_project.game::GameState_
+Represents the current state of a 2048 game, able to caculate possible
+changes to the state.
+bg=green
+--
+*Attributes*
+- height: int
+- width: int
+- random: Random
+- grid: int[][]
+- score: int
+--
+*Responsibilities*
++&lt;&lt;constructor&gt;&gt; GameState(row: int, col:int random:Random)
++&lt;&lt;constructor&gt;&gt; GameState(row: int, col:int)
++ init()
++ init(height: int, width: int)
++ setGrid(int[][] grid)
++ addRandomCell()
++ getFreeCells(): List&lt;Point&gt;
++ move(): bool
++ getPossibleMove(): GameState[]
++ getPossibleMutations(): GameState[]
++ slideTile(row: int, col: int, dir: Direction, merged: boolean[][])
++ nextCellValue(row: int, col: int, dir: Direction)
++ nextCellInGrid(row: int, col: int, dir: Direction)
++ getGrid(): int[][]
++ getScore(): int
++ clone(): GameState
++ applyHeuristic(Heuristic heuristic): float
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>585</x>
+      <y>335</y>
+      <w>250</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_project.heurstics::Diagonal_
+Rewards games the match a diagonal patten from the top left corner.
+Peanlises patterns were large values are not clumped together.
+bg=yellow
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>840</x>
+      <y>335</y>
+      <w>250</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>_project.heurstics::LargestLower_
+Rewards games were the largest values are at the bottom of the board.
+bg=yellow
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1350</x>
+      <y>335</y>
+      <w>250</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_project.heurstics::Snake_
+Rewards games were a snake pattern is created with the lragest value at
+the the top left corner.
+bg=yellow
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1095</x>
+      <y>335</y>
+      <w>250</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>_project.heurstics::SumCells_
+Adds up the values of all cells in a game state.
+bg=yellow
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>965</x>
+      <y>250</y>
+      <w>250</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+_project.heurstics::Heuristic_
+bg=yellow
+--
+*Responsibilities*
+- heuristic(state: GameState): float
+- getName(): string
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1215</x>
+      <y>390</y>
+      <w>250</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>_project.userInterface::MainController_
+bg=red
+--
+*Attributes*
+- model: Model
+- view: View
+--
+*Responsibilities*
++&lt;&lt;constructor&gt;&gt; MainController(model: Model, view: View)
++ handelNewGame(height: int, width: int)
++ handelSolve(blocking: bool, heuristic: Heuristic)
++ handelUpdaate(state: GameState)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1550</x>
+      <y>400</y>
+      <w>250</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+_project.userInterface::Model_
+bg=red
+--
+*Responsibilities*
++ init()
++ init(height: int, width: int)
++ addUpdateObserver(handelUpdate: UpdateObserver)
++ getGrid(): GameState
++ getScore(): int
++ solve(blocking: bool, heuristic: Heuristic)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>855</x>
+      <y>425</y>
+      <w>250</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+_project.userInterface::View_
+bg=red
+--
+*Responsibilities*
++ addNewGameObserver(handelNewGame: NewGameObserver)
++ addSolveObserver(handelSolve: SolveObserver)
++ setValues(state: GameState)
++ updateGrid(state: GameState)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1560</x>
+      <y>505</y>
+      <w>250</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>_project.userInterface::MainModel_
+bg=red
+--
+*Attributes*
+- gameState: GameState
+- solver: Solver
+- rnd: Random
+--
+*Responsibilities*
++ &lt;&lt;constructor&gt;&gt; MainModel(rows: int, cols: int, random: Random)
++ &lt;&lt;constructor&gt;&gt; MainModel(rows: int, cols: int)
++ initSolver()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>985</x>
+      <y>585</y>
+      <w>250</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+_project.userInterface::MainView_
+Extends JavaFX Application
+bg=red
+--
+*Attributes*
+_- BACK_COLOURS: HashMap&lt;Integer, String&gt;_
+_- TEXT_COLOURS: HashMap&lt;Integer, String&gt;_
+_-TILE_SIZE: float_
+_-instance: MainView_
+- labels: Label[][]
+- height: int
+- width: int
+- scale: float
+- newGameObserver: NewGameObserver
+- gridView: GridPane
+- newGame: Button
+- score: Label
+- root: Scene
+- mainGrid: GridPane
+- solve: Button
+- newGameDialog&lt;int[]&gt;
+--
+*Responsibilities*
+_- getInstance()_
++ initialize()
++ start(primaryStage: Stage) throws IOException
++ make2048Grid(height: int, width: int)
++ setScale(height: int, width: int)
++ prepareGameView(height: int, width: int)
++ buildNewGameGrid(height: int, width: int)
++ setValues(state: GameState)
++ updateGrid(state: GameState)
++ setLabel(row: int, col: int, value: int)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1250</x>
+      <y>550</y>
+      <w>250</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;observer&gt;&gt;
+_project.userInterface::NewGameObserver_
+bg=red
+--
+*Responsibilities*
++ notifyObservers(height: int, width: int)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1295</x>
+      <y>500</y>
+      <w>250</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;observer&gt;&gt;
+_project.userInterface::SolveObserver_
+bg=red
+--
+*Responsibilities*
++ notifyObservers(blocking: bool, heuristic: Heuristic)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1610</x>
+      <y>330</y>
+      <w>250</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;observer&gt;&gt;
+_project.userInterface::UpdateObserver_
+bg=red
+--
+*Responsibilities*
++ notifyObservers(game: GameState)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>695</x>
+      <y>285</y>
+      <w>280</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>540.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>955</x>
+      <y>295</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>40.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1200</x>
+      <y>295</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1210</x>
+      <y>285</y>
+      <w>275</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;530.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>485</y>
+      <w>65</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1025</x>
+      <y>485</y>
+      <w>90</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1670</x>
+      <y>475</y>
+      <w>15</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>115</x>
+      <y>375</y>
+      <w>160</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>300.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>385</x>
+      <y>375</y>
+      <w>15</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>375</y>
+      <w>155</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;290.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>800</y>
+      <w>15</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>845</x>
+      <y>650</y>
+      <w>15</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>90</x>
+      <y>505</y>
+      <w>295</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;instantiate&gt;&gt;</panel_attributes>
+    <additional_attributes>570.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>370</x>
+      <y>475</y>
+      <w>55</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;instantiate&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>370</x>
+      <y>505</y>
+      <w>275</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;instantiate&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;140.0;530.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1100</x>
+      <y>445</y>
+      <w>125</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>&lt; uses</panel_attributes>
+    <additional_attributes>10.0;20.0;230.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1460</x>
+      <y>430</y>
+      <w>100</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>uses &gt;</panel_attributes>
+    <additional_attributes>180.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1100</x>
+      <y>465</y>
+      <w>205</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>uses &gt;</panel_attributes>
+    <additional_attributes>390.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1095</x>
+      <y>475</y>
+      <w>165</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>uses &gt;</panel_attributes>
+    <additional_attributes>310.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1275</x>
+      <y>480</y>
+      <w>115</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>uses &gt;</panel_attributes>
+    <additional_attributes>210.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1220</x>
+      <y>480</y>
+      <w>75</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>uses &gt;</panel_attributes>
+    <additional_attributes>130.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1460</x>
+      <y>365</y>
+      <w>160</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>uses &gt;</panel_attributes>
+    <additional_attributes>300.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1590</x>
+      <y>365</y>
+      <w>160</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>uses &gt;</panel_attributes>
+    <additional_attributes>300.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+</diagram>
