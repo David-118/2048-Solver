@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * NodeFactory is used to generate a tree of nodes from a GameState and depth.
  */
-public class NodeFactory
+public abstract class NodeFactory
 {
     /**
      * Random number generator used by all chance nodes created by this factory.
@@ -22,7 +22,7 @@ public class NodeFactory
      */
     public static Node generateTree(GameState state, int depth)
     {
-        return createNode(MoveType.PLAYER_MOVE, state, 1f, depth);
+        return generateTree(MoveType.PLAYER_MOVE, state, 1f, depth);
     }
 
     /**
@@ -33,7 +33,7 @@ public class NodeFactory
      * @param depth Maximum depth of the tree.
      * @return Returns a Node representing the expectimax tree starting at state.
      */
-    protected static Node createNode(MoveType type, GameState state, float weight, int depth)
+    protected static Node generateTree(MoveType type, GameState state, float weight, int depth)
     {
         Node node = null;
         if (type == MoveType.PLAYER_MOVE)

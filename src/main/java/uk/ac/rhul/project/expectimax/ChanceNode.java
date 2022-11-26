@@ -47,8 +47,8 @@ public class ChanceNode extends Node
 
         for (int i = 0; i < mutations.length; i+=2)
         {
-            this.children[i] = NodeFactory.createNode(MoveType.PLAYER_MOVE, mutations[i], CHANCE_OF_2, depth - 1);
-            this.children[i + 1] = NodeFactory.createNode(MoveType.PLAYER_MOVE, mutations[i + 1], CHANCE_OF_4, depth - 1);
+            this.children[i] = NodeFactory.generateTree(MoveType.PLAYER_MOVE, mutations[i], CHANCE_OF_2, depth - 1);
+            this.children[i + 1] = NodeFactory.generateTree(MoveType.PLAYER_MOVE, mutations[i + 1], CHANCE_OF_4, depth - 1);
         }
     }
 
@@ -57,9 +57,10 @@ public class ChanceNode extends Node
      * @param depth The depth to extend the tree to.
      * @param heuristic The heuristic function used to compute score for hte leaf nodes.
      */
-    public void expectimax(int depth, Heuristic heuristic)
+    @Override
+    public void extendTree(int depth, Heuristic heuristic)
     {
-        super.expectimax(depth - 1, heuristic, MoveType.PLAYER_MOVE);
+        super.extendTree(depth - 1, heuristic, MoveType.PLAYER_MOVE);
     }
 
     /**
@@ -83,6 +84,7 @@ public class ChanceNode extends Node
      * @param heuristic The heuristic is not used in the chance node implementation of nextNode
      * @return a random direct child of this node. A child nodes weight is the probability of it being selected.
      */
+    @Override
     public Node nextNode(Heuristic heuristic)
     {
         float rnd = random.nextFloat();

@@ -2,6 +2,7 @@ package uk.ac.rhul.project.userInterface;
 
 import uk.ac.rhul.project.expectimax.Node;
 import uk.ac.rhul.project.expectimax.NodeFactory;
+import uk.ac.rhul.project.expectimax.Solver;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 import uk.ac.rhul.project.heursitics.Snake;

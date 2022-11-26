@@ -20,10 +20,10 @@ public class BenchmarkWriter
     /**
      * A list containing all the entries to write to the csv file.
      */
-   private List<BenchmarkEntry> entries;
+   private final List<BenchmarkEntry> entries;
 
-    private CsvSchema schema;
-    private CsvMapper mapper;
+    private final CsvSchema schema;
+    private final CsvMapper mapper;
 
     /**
      * Define an instance of benchmark writer.
