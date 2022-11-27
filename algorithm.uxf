@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>3</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>234</y>
+      <w>81</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+uk.ac.rhul.project.heursitics::Heuristic
+bg=orange
+--
+
+--
++heuristic(GameState state): float
++getName(): String
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>639</x>
+      <y>303</y>
+      <w>81</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Visitor&gt;&gt;
+&lt;&lt;Singleton&gt;&gt;
+uk.ac.rhul.project.heursitics::Diagonal
+bg=orange
+--
+- instance: Diagonal
+--
++heuristic(GameState state): float
++getName(): String
++getInstance(): Diagonal
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>546</x>
+      <y>303</y>
+      <w>90</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Visitor&gt;&gt;
+&lt;&lt;Singleton&gt;&gt;
+uk.ac.rhul.project.heursitics::LargestLower
+bg=orange
+--
+- instance: LargetLower
+--
++heuristic(GameState state): float
++getName(): String
++getInstance(): LargestLower
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>723</x>
+      <y>303</y>
+      <w>75</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Visitor&gt;&gt;
+&lt;&lt;Singleton&gt;&gt;
+uk.ac.rhul.project.heursitics::Snake
+bg=orange
+--
+- instance: Snake
+--
++heuristic(GameState state): float
++getName(): String
++getInstance(): Snake
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>462</x>
+      <y>303</y>
+      <w>81</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Visitor&gt;&gt;
+&lt;&lt;Singleton&gt;&gt;
+uk.ac.rhul.project.heursitics::SumCells
+bg=orange
+--
+- instance: SumCells
+--
++heuristic(GameState state): float
++getName(): String
++getInstance(): SumCells
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>630</x>
+      <y>264</y>
+      <w>135</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;430.0;70.0;430.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>495</x>
+      <y>282</y>
+      <w>144</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>460.0;10.0;10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>588</x>
+      <y>282</y>
+      <w>9</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>282</y>
+      <w>9</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>828</x>
+      <y>234</y>
+      <w>159</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>uk.ac.rhul.project.game::GameState
+bg=red
+--
+-PROB_OF_4 = 0.1f: float
+-INITIAL_CELL_COUNT = 2: int
+-height: int
+-width: int
+-random: Random
+-grid: int[][]
+-score: int
+--
++GameState(int rows, int cols, Random random): ctor
++GameState(int rows, int cols): ctor
++init(): void
++init(int height, int width): void
++setGrid(int[][] grid): void
+-addRandomCell(): void
+-getFreeCells(): List&lt;Point&gt;
++move(Direction dir): boolean
++getPossibleMoves(): GameState[]
++getPossibleMutations(): GameState[]
+-slideTile(final int row, final int col, Direction dir, boolean[][] merged): boolean
+-nextCellValue(int row, int col, Direction dir): int
++nextCellInGrid(int row, int col, Direction dir): boolean
++getGrid(): int[][]
++getScore(): int
++clone(): GameState
++applyHeuristic(Heuristic heuristic): float
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>687</x>
+      <y>249</y>
+      <w>66</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Currently none of the 
+heurstiics are singletons,
+however for these heurstics
+there is no reason to declare
+mutiple copies.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>759</x>
+      <y>249</y>
+      <w>66</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>It is possible that future
+heurstics may have values
+passed into the constructor
+such as weights.
+
+These will not be singletons.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>495</x>
+      <y>342</y>
+      <w>339</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>1110.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>585</x>
+      <y>342</y>
+      <w>9</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>342</y>
+      <w>9</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>342</y>
+      <w>9</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>678</x>
+      <y>240</y>
+      <w>150</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;480.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>834</x>
+      <y>390</y>
+      <w>132</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>/uk.ac.rhul.project.expectimax::Node/
+bg=magenta
+--
+-weight: float
+-gameState: GameState
+--
+#Node(GameState gameState, float weight): ctor
++scoreNode(Heuristic heuristic): float
++extendTree(int depth, Heuristic heuristic): void
++nextNode(Heuristic heuristic): Node
++getWeight(): float
++validate(): boolean
++getGameState(): GameState
++getChildren(): Node[]
+#extendTree(int depth, Heuristic heuristic, MoveType type): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>456</x>
+      <y>486</y>
+      <w>219</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>uk.ac.rhul.project.expectimax::ChanceNode
+bg=magenta
+--
+-children: Node[]
+-random: Random
+-PROB_OF_4 = 0.1f: float
+--
+~ChanceNode(GameState gameState, float weight, GameState[] mutations, int depth, Random random): ctor
++extendTree(int depth, Heuristic heuristic): void
++scoreNode(Heuristic heuristic): float
++nextNode(Heuristic heuristic): Node
++validate(): boolean
++getChildren(): Node[]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>798</x>
+      <y>489</y>
+      <w>171</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>uk.ac.rhul.project.expectimax::MaxNode
+bg=magenta
+--
+-children: Node[]
+--
+~MaxNode(GameState gameState, float weight, GameState[] moves, int depth): ctor
++extendTree(int depth, Heuristic heuristic): void
++scoreNode(Heuristic heuristic): float
++nextNode(Heuristic heuristic): Node
++validate(): boolean
++getChildren(): Node[]
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>681</x>
+      <y>486</y>
+      <w>111</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>uk.ac.rhul.project.expectimax::LeafNode
+bg=magenta
+--
+
+--
+~LeafNode(GameState gameState, float weight): ctor
++scoreNode(Heuristic heuristic): float
++extendTree(int depth, Heuristic heuristic): void
++nextNode(Heuristic heuristic): Node
++validate(): boolean
++getChildren(): Node[]
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>900</x>
+      <y>369</y>
+      <w>9</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>453</x>
+      <y>246</y>
+      <w>387</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>490.0;10.0;10.0;10.0;10.0;490.0;1270.0;490.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>906</x>
+      <y>456</y>
+      <w>9</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>564</x>
+      <y>465</y>
+      <w>342</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>1120.0;10.0;10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>897</x>
+      <y>456</y>
+      <w>9</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>471</y>
+      <w>345</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>1130.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>735</x>
+      <y>471</y>
+      <w>9</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>471</y>
+      <w>336</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>1100.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>642</x>
+      <y>414</y>
+      <w>84</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>Each tree node extends the abstract
+class Node. Hower the max and chance
+nodes also contain there children as 
+a key part of them selves.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>657</x>
+      <y>579</y>
+      <w>165</w>
+      <h>51</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Singleton&gt;&gt;
+&lt;&lt;Factory&gt;&gt;
+uk.ac.rhul.project.expectimax::NodeFactory
+bg=magenta
+--
+-random: Random
+-instance: NodeFactory
+--
++getInstance()
++generateTree(GameState state, int depth): Node
+~generateTree(MoveType type, GameState state, float weight, int depth): Node
++setRandom(Random rnd): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>732</x>
+      <y>540</y>
+      <w>9</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>732</x>
+      <y>540</y>
+      <w>171</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>550.0;10.0;550.0;80.0;10.0;80.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>561</x>
+      <y>540</y>
+      <w>180</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;580.0;80.0;580.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1002</x>
+      <y>597</y>
+      <w>81</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>uk.ac.rhul.project.userInterface::Model
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>819</x>
+      <y>594</y>
+      <w>189</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Asks for inital object for root node</panel_attributes>
+    <additional_attributes>10.0;20.0;610.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>990</x>
+      <y>390</y>
+      <w>114</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>uk.ac.rhul.project.expectimax::Solver
+bg=magenta
+--
+-root: Node
+-updateValues: UpdateObserver
+-heuristic: Heuristic
+--
++addUpdateObserver(UpdateObserver method): void
++setHeuristic(Heuristic heuristic): void
++setRoot(Node node): void
++run(): void
++getState(): GameState
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>963</x>
+      <y>411</y>
+      <w>33</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Uses</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>990</x>
+      <y>471</y>
+      <w>114</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;observer&gt;&gt;
+uk.ac.rhul.project.userInterface::UpdateObserver
+bg=green
+--
+
+--
++notifyObservers(GameState gameState): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1038</x>
+      <y>447</y>
+      <w>18</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Uses</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1038</x>
+      <y>495</y>
+      <w>18</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Uses</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;340.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>963</x>
+      <y>549</y>
+      <w>63</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>The classess for the user
+interface have been overly
+simplified.
+
+Futher interactions between
+the model, controller and
+view have been left out.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
