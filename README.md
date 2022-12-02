@@ -1,4 +1,4 @@
-# Final Year Project
+# Final Year Project: 2048 Solver
 
 This repository has been created to store your final year project.
 
