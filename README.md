@@ -1,5 +1,23 @@
 # Final Year Project: 2048 Solver
 
-This repository has been created to store your final year project.
+## Requirements to run (from source)
+- Java 17 +
+- Maven
 
-You may edit it as you like, but please do not remove the default topics or the project members list. These need to stay as currently defined in order for your supervisor to be able to find your project.
+
+## Packaging
+There is currently no way to build a jar file, bundled with all the dependecies, due to difficulties with javaFX.
+It can be packed with jlink using the command
+`mvn javafx:jlink` from the program folder.
+
+The project can then be run from `program/target/solve2048/bin/solve2048`
+
+## Running Graphical Mode
+`mvn javafx:run`
+
+You can also run the exetable produced in the previous section.
+
+## Running Benchark Mode
+After packaging the program with jlink move to the folder `program/target/solve2048/bin/solve2048`, and run the command:
+
+`./solve2048 -b [number of time to benchamk each heurstic] - o [output file]`
