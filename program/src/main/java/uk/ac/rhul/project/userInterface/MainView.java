@@ -17,7 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import uk.ac.rhul.project.game.GameState;
-import uk.ac.rhul.project.heursitics.LargestLower;
+import uk.ac.rhul.project.heursitics.Snake;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -250,7 +250,7 @@ public class MainView extends Application implements View
      */
     public void addSolveObserver(SolveObserver method)
     {
-        this.solve.setOnAction(actionEvent -> method.notifyObserver(false, new LargestLower()));
+        this.solve.setOnAction(actionEvent -> method.notifyObserver(false, new Snake()));
     }
 
     /**

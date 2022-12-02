@@ -1,3 +1,22 @@
+# Week 10
+# Week 10.2
+Finished off report, ensuring professial issues, and comlexity sections were complete.
+The section on the np hardness of 2048 has been moved to next term,
+as I needed more time to understand the proof, I was planning on citing.
+
+# Week 10.1
+Created and edited demo video of the alorithm running.
+
+# Week 9
+# Week 9.2
+Stared work on sections of report such as big-O complexity for the 4x4
+game. Also refactered the code to take advantage of software enginering
+princabes such as design patterns. Almost method now has javadoc.
+
+# Week 9.1
+Countied work on presentation, ensuring that there is footagte of the game
+2048 being played, and example of expectimax applied to a simple 2048 game.
+
 # Week 8
 ## Week 8.2
 Worked on the report and presentation.
