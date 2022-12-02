@@ -42,7 +42,7 @@ public abstract class Node
      * @param depth New depth for the tree.
      * @param heuristic Heuristic used when evaluating leaf nodes.
      */
-    public abstract void expectimax(int depth, Heuristic heuristic);
+    public abstract void extendTree(int depth, Heuristic heuristic);
 
     /**
      * Returns the next root node for the tree.
@@ -82,17 +82,17 @@ public abstract class Node
      * @param heuristic Heuristic function used evaluate leaf nodes.
      * @param type The type of move that the node represents.
      */
-    protected void expectimax(int depth, Heuristic heuristic, MoveType type)
+    protected void extendTree(int depth, Heuristic heuristic, MoveType type)
     {
         for (int i = 0; i < this.getChildren().length; i++)
         {
             if (this.getChildren()[i] instanceof LeafNode)
             {
-                this.getChildren()[i] = NodeFactory.createNode(type, this.getChildren()[i].getGameState(),
+                this.getChildren()[i] = NodeFactory.generateTree(type, this.getChildren()[i].getGameState(),
                         this.getChildren()[i].getWeight(), depth);
             } else
             {
-                this.getChildren()[i].expectimax(depth - 1, heuristic);
+                this.getChildren()[i].extendTree(depth - 1, heuristic);
             }
         }
     }

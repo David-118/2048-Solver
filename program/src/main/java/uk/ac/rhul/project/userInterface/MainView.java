@@ -17,7 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import uk.ac.rhul.project.game.GameState;
-import uk.ac.rhul.project.heursitics.Snake;
+import uk.ac.rhul.project.heursitics.LargestLower;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -53,15 +53,15 @@ public class MainView extends Application implements View
     /**
      * Multiplier to enlarge / shrink tile size.
      */
-    public float scale;
+    private float scale;
 
 
     /**
      *  The background colour associated with each tile <= 2048
-     *
+     *  <br><br>
      *  Colour comes from [5]
      */
-    private static final HashMap<Integer, String> backColours = new HashMap<Integer, String>() {{
+    private static final HashMap<Integer, String> BACK_COLOURS = new HashMap<Integer, String>() {{
         put(0, "rgba(238, 228, 218, 0.35)");
         put(2, "#eee4da");
         put(4, "#eee1c9");
@@ -79,7 +79,7 @@ public class MainView extends Application implements View
     /**
      * The text colour for the two tiles that are a different colour.
      */
-    private static final HashMap<Integer, String> foreColours = new HashMap<>()
+    private static final HashMap<Integer, String> TEXT_COLOURS = new HashMap<>()
     {{
         put(2, "#776e65");
         put(4, "#776e65");
@@ -250,7 +250,7 @@ public class MainView extends Application implements View
      */
     public void addSolveObserver(SolveObserver method)
     {
-        this.solve.setOnAction(actionEvent -> method.notifyObserver(false, new Snake()));
+        this.solve.setOnAction(actionEvent -> method.notifyObserver(false, new LargestLower()));
     }
 
     /**
@@ -284,7 +284,7 @@ public class MainView extends Application implements View
     /**
      * Prepare the game view and window for a game of a given size.
      */
-    private void prepareGameView(int width, int height)
+    private void prepareGameView(int height, int width)
     {
         //Remove any existing 2048 grid.
         this.gameView.getChildren().removeAll(this.gameView.getChildren());
@@ -399,9 +399,9 @@ public class MainView extends Application implements View
 
         this.labels[row][col].setText(str_value);
         this.labels[row][col].setBackground(
-                Background.fill(Paint.valueOf(backColours.getOrDefault(value, "#3c3a33"))));
+                Background.fill(Paint.valueOf(BACK_COLOURS.getOrDefault(value, "#3c3a33"))));
 
         this.labels[row][col].setTextFill(
-                 Paint.valueOf(foreColours.getOrDefault(value, "#f9f6f2")));
+                 Paint.valueOf(TEXT_COLOURS.getOrDefault(value, "#f9f6f2")));
     }
 }

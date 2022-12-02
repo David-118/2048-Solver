@@ -22,4 +22,7 @@ module PROJECT {
     opens uk.ac.rhul.project.benchmark to com.fasterxml.jackson.databind;
     exports uk.ac.rhul.project.heursitics;
     opens uk.ac.rhul.project.heursitics to javafx.fxml;
+    exports uk.ac.rhul.project.expectimax;
+    opens uk.ac.rhul.project.expectimax to javafx.fxml;
+
 }

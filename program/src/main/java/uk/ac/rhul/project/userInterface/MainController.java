@@ -1,6 +1,5 @@
 package uk.ac.rhul.project.userInterface;
 
-import javafx.application.Platform;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
@@ -24,7 +23,7 @@ public class MainController
      * @param model The model.
      * @param view The view.
      */
-    public MainController(MainModel model, View view)
+    public MainController(Model model, View view)
     {
         this.model = model;
         this.view = view;

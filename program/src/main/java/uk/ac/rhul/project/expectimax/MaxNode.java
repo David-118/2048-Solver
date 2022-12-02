@@ -20,14 +20,14 @@ public final class MaxNode extends Node
      * @param moves Possible moves from the gameState.
      * @param depth Depth of the tree.
      */
-   protected MaxNode(GameState gameState, float weight, GameState[] moves, int depth)
+    MaxNode(GameState gameState, float weight, GameState[] moves, int depth)
    {
        super(gameState, weight);
 
        children = new Node[moves.length];
        for (int i = 0; i < moves.length; i++)
        {
-           children[i] = NodeFactory.createNode(MoveType.GRID_MUTATION, moves[i], 1f, depth - 1);
+           children[i] = NodeFactory.generateTree(MoveType.GRID_MUTATION, moves[i], 1f, depth - 1);
        }
    }
 
@@ -37,9 +37,9 @@ public final class MaxNode extends Node
      * @param heuristic The heuristic function used to calculate the score of the leaf nodes.
      */
     @Override
-    public void expectimax(int depth, Heuristic heuristic)
+    public void extendTree(int depth, Heuristic heuristic)
     {
-        super.expectimax(depth - 1, heuristic, MoveType.GRID_MUTATION);
+        super.extendTree(depth - 1, heuristic, MoveType.GRID_MUTATION);
     }
 
     /**

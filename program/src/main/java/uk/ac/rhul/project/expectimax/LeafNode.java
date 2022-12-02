@@ -34,7 +34,7 @@ public class LeafNode extends Node
      * @param depth Not Used
      * @param heuristic Not Used
      */
-    public void expectimax(int depth, Heuristic heuristic)
+    public void extendTree(int depth, Heuristic heuristic)
     {
 
     }

@@ -23,7 +23,7 @@ public class BenchmarkerView implements View
     private final int count;
     private final BenchmarkWriter csvWriter;
 
-    private int heursticIndex = 0;
+    private int heuristicIndex = 0;
     private int gameIndex = 0;
 
     private GameState currentState;
@@ -40,18 +40,18 @@ public class BenchmarkerView implements View
     {
         for (int i  = 0; i < HEURISTICS.length;  i++)
         {
-            this.heursticIndex = i;
+            this.heuristicIndex = i;
             System.out.print("Starting with heuristic: ");
-            System.out.println(HEURISTICS[heursticIndex].getName());
+            System.out.println(HEURISTICS[heuristicIndex].getName());
 
             for (int j  = 0; j < this.count; j++)
             {
                 this.gameIndex = j;
-                System.out.printf("Starting game %d\n", heursticIndex +1);
+                System.out.printf("Starting game %d\n", heuristicIndex +1);
                 this.newGameObserver.notifyObservers(4, 4);
-                this.solveObserver.notifyObserver(true, HEURISTICS[this.heursticIndex]);
+                this.solveObserver.notifyObserver(true, HEURISTICS[this.heuristicIndex]);
             }
-            this.csvWriter.add(new BenchmarkEntry(HEURISTICS[heursticIndex].getName(), currentState));
+            this.csvWriter.add(new BenchmarkEntry(HEURISTICS[heuristicIndex].getName(), currentState));
         }
         this.csvWriter.write(log);
     }
@@ -72,7 +72,7 @@ public class BenchmarkerView implements View
     public void setValues(GameState state)
     {
         System.out.printf("%s Game %d/%d: Score: %d \n %s\n",
-                HEURISTICS[this.heursticIndex].getName(), gameIndex + 1, count, state.getScore(),
+                HEURISTICS[this.heuristicIndex].getName(), gameIndex + 1, count, state.getScore(),
                 Arrays.deepToString(state.getGrid()));
     }
 

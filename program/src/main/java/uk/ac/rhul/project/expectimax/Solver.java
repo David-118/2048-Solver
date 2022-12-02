@@ -1,8 +1,9 @@
-package uk.ac.rhul.project.userInterface;
+package uk.ac.rhul.project.expectimax;
 
 import uk.ac.rhul.project.expectimax.Node;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
+import uk.ac.rhul.project.userInterface.UpdateObserver;
 
 import static java.lang.Thread.sleep;
 
@@ -67,7 +68,7 @@ public class Solver implements Runnable
             if (nextRoot == null) break;
             root = nextRoot;
 
-            root.expectimax(8, heuristic);
+            root.extendTree(8, heuristic);
 
             this.updateValues.notifyObservers(root.getGameState());
         }
