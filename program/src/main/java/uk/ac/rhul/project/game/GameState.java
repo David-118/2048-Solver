@@ -4,8 +4,10 @@ import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
 
 /**
  * Represents the state of the game.
@@ -153,11 +155,11 @@ public class GameState implements Cloneable
      *    <li>y refers to the column</li>
      * </ul>
      *
-     * @return List of the positions were there is a free space.
+     * @return List of the positions were there is a free space.e
      */
     private List<Point> getFreeCells()
     {
-        List<Point> freeCells = new ArrayList<>(width * height);
+        List<Point> freeCells = new ArrayList(height * width);
         for (int i = 0; i < this.height; i++)
         {
             for (int j = 0; j < this.width; j++)
@@ -201,30 +203,30 @@ public class GameState implements Cloneable
      * Generates all the possible moves.
      * @return An array of the possible moves.
      */
-    public GameState[] getPossibleMoves()
+    public Stream<GameState> getPossibleMoves()
     {
-        List<GameState> gameStates = new ArrayList<>(4);
+        Stream.Builder<GameState> possibleMoves = Stream.builder();
 
         for(Direction dir: Direction.values())
         {
             GameState gameState = this.clone();
             if (gameState.move(dir))
             {
-                gameStates.add(gameState);
+                possibleMoves.accept(gameState);
             }
         }
 
-        return gameStates.toArray(new GameState[0]);
+        return possibleMoves.build();
     }
 
     /**
      * Generates all the possible states that can be generated from adding a random tile.
      * @return Array with the possible mutations.
      */
-    public GameState[] getPossibleMutations()
+    public Stream<GameState> getPossibleMutations()
     {
         List<Point> freeCells = this.getFreeCells();
-        List<GameState> gameStates = new ArrayList<>(freeCells.size() * 2);
+        Stream.Builder<GameState> gameStates = Stream.builder();
 
         final float CHANCE_OF_2 = (1f / freeCells.size()) * (1 - PROB_OF_4);
         final float CHANCE_OF_4 = (1f / freeCells.size()) * PROB_OF_4;
@@ -240,11 +242,11 @@ public class GameState implements Cloneable
             gameState1.setProbability(CHANCE_OF_2);
             gameState2.setProbability(CHANCE_OF_4);
 
-            gameStates.add(gameState1);
-            gameStates.add(gameState2);
+            gameStates.accept(gameState1);
+            gameStates.accept(gameState2);
         }
 
-        return gameStates.toArray(new GameState[0]);
+        return gameStates.build();
     }
 
     /**

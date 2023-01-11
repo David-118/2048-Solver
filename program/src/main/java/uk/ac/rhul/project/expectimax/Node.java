@@ -6,11 +6,13 @@ import uk.ac.rhul.project.heursitics.Heuristic;
 
 class Node
 {
+    private NodeBehaviour behaviour;
     private final GameState gameState;
 
     protected Node(GameState gameState)
     {
         this.gameState = gameState;
+        this.behaviour = new LeafNodeBehaviour(gameState);
     }
 
     public GameState getGameState()
@@ -18,13 +20,18 @@ class Node
         return this.gameState;
     }
 
-    public Node nextNode() throws EndOfGameException
+    public Node nextNode(Heuristic heuristic) throws EndOfGameException
     {
-        throw new EndOfGameException();
+        return this.behaviour.nextNode(heuristic);
     }
 
     public float applyHeuristic(Heuristic heuristic)
     {
-        return heuristic.heuristic(this.gameState);
+        return this.behaviour.applyHeuristic(heuristic);
+    }
+
+    public void generateChildren()
+    {
+        this.behaviour = NodeBehaviourMaximize.generate(this.gameState);
     }
 }
