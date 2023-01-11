@@ -3,6 +3,8 @@ package uk.ac.rhul.project.expectimax;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
+import java.util.stream.Stream;
+
 /**
  * A node that has no children.
  */
@@ -67,5 +69,11 @@ public class LeafNode extends Node
     public Node[] getChildren()
     {
         return new Node[0];
+    }
+
+    @Override
+    protected void setChildrenFromStream(Stream<Node> children)
+    {
+        // Leaf node has no children
     }
 }

@@ -3,6 +3,8 @@ package uk.ac.rhul.project.expectimax;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
+import java.util.stream.Stream;
+
 /**
  * This node represents a 2048 node the next move is made by the player.
  */
@@ -11,7 +13,7 @@ public final class MaxNode extends Node
     /**
      * Array containing the nodes children.
      */
-    private final Node[] children;
+    private Node[] children;
 
     /**
      * Create a MaxNode
@@ -100,5 +102,11 @@ public final class MaxNode extends Node
     public Node[] getChildren()
     {
         return this.children;
+    }
+
+    @Override
+    protected void setChildrenFromStream(Stream<Node> children)
+    {
+        this.children = children.toArray(Node[]::new);
     }
 }

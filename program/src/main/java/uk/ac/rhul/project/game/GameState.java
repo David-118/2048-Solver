@@ -54,6 +54,18 @@ public class GameState implements Cloneable
      */
     private int score;
 
+    public float getProbability()
+    {
+        return probability;
+    }
+
+    public void setProbability(float probability)
+    {
+        this.probability = probability;
+    }
+
+    private float probability;
+
 
     /**
      * Create a game state.
@@ -214,6 +226,9 @@ public class GameState implements Cloneable
         List<Point> freeCells = this.getFreeCells();
         List<GameState> gameStates = new ArrayList<>(freeCells.size() * 2);
 
+        final float CHANCE_OF_2 = (1f / freeCells.size()) * (1 - PROB_OF_4);
+        final float CHANCE_OF_4 = (1f / freeCells.size()) * PROB_OF_4;
+
         for (Point freeCell: freeCells)
         {
             GameState gameState1 = this.clone();
@@ -221,6 +236,9 @@ public class GameState implements Cloneable
 
             gameState1.grid[freeCell.x][freeCell.y] = 2;
             gameState2.grid[freeCell.x][freeCell.y] = 4;
+
+            gameState1.setProbability(CHANCE_OF_2);
+            gameState2.setProbability(CHANCE_OF_4);
 
             gameStates.add(gameState1);
             gameStates.add(gameState2);

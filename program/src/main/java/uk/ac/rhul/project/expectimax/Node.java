@@ -3,6 +3,9 @@ package uk.ac.rhul.project.expectimax;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 /**
  * Represents a node in an expectimax tree
  */
@@ -84,16 +87,21 @@ public abstract class Node
      */
     protected void extendTree(int depth, Heuristic heuristic, MoveType type)
     {
-        for (int i = 0; i < this.getChildren().length; i++)
-        {
-            if (this.getChildren()[i] instanceof LeafNode)
+        Stream<Node> children = Arrays.stream(this.getChildren()).parallel();
+        children = children.map((Node child) ->
             {
-                this.getChildren()[i] = NodeFactory.generateTree(type, this.getChildren()[i].getGameState(),
-                        this.getChildren()[i].getWeight(), depth);
-            } else
-            {
-                this.getChildren()[i].extendTree(depth - 1, heuristic);
-            }
-        }
+                if (child instanceof LeafNode)
+                {
+                    return NodeFactory.generateTree(type, child.getGameState(),
+                            child.getWeight(), depth);
+                } else
+                {
+                    child.extendTree(depth - 1, heuristic);
+                    return child;
+                }
+            });
+        this.setChildrenFromStream(children);
     }
+
+    protected abstract void setChildrenFromStream(Stream<Node> children);
 }

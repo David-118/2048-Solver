@@ -3,7 +3,9 @@ package uk.ac.rhul.project.expectimax;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
+import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.Stream;
 
 /**
  * Chance node represents a state in 2048, were the next thing to happen will be a random tile being added to the grid.
@@ -42,14 +44,9 @@ public class ChanceNode extends Node
 
         this.children = new Node[mutations.length];
 
-        final float CHANCE_OF_2 = (1f / (mutations.length / 2f)) * (1 - PROB_OF_4);
-        final float CHANCE_OF_4 = (1f / (mutations.length / 2f)) * PROB_OF_4;
-
-        for (int i = 0; i < mutations.length; i+=2)
-        {
-            this.children[i] = NodeFactory.generateTree(MoveType.PLAYER_MOVE, mutations[i], CHANCE_OF_2, depth - 1);
-            this.children[i + 1] = NodeFactory.generateTree(MoveType.PLAYER_MOVE, mutations[i + 1], CHANCE_OF_4, depth - 1);
-        }
+        Stream<GameState> mutationsStream = Arrays.stream(mutations).parallel();
+        Stream<Node> childStream = mutationsStream.map((mutation) -> NodeFactory.generateTree(MoveType.PLAYER_MOVE, mutation, mutation.getProbability(),  depth - 1));
+        this.children = childStream.toArray(Node[]::new);
     }
 
     /**
@@ -126,5 +123,11 @@ public class ChanceNode extends Node
     public Node[] getChildren()
     {
         return this.children;
+    }
+
+    @Override
+    protected void setChildrenFromStream(Stream<Node> children)
+    {
+        this.children = children.toArray(Node[]::new);
     }
 }
