@@ -179,7 +179,7 @@ public class GameState implements Cloneable
      * @param dir The direction for the tiles to move.
      * @return True if any changes are made to the grid.
      */
-    public boolean move(Direction dir)
+    private boolean move(Direction dir)
     {
         boolean[][] merged = new boolean[this.height][this.width];
         boolean flag = false;

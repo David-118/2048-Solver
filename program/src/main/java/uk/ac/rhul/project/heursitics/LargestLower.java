@@ -16,7 +16,7 @@ public class LargestLower implements Heuristic
         int[][] grid = state.getGrid();
         for (int i = 0; i < grid.length; i++)
         {
-            for (int j = 0; j < grid.length; j++)
+            for (int j = 0; j < grid[0].length; j++)
             {
                 sum += grid[i][j] * (i+1);
             }

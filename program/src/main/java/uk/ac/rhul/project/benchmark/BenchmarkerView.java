@@ -1,6 +1,5 @@
 package uk.ac.rhul.project.benchmark;
 
-import uk.ac.rhul.project.expectimax.NodeFactory;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.*;
 import uk.ac.rhul.project.userInterface.NewGameObserver;
@@ -33,7 +32,6 @@ public class BenchmarkerView implements View
     {
         this.count = count;
         this.csvWriter = new BenchmarkWriter();
-        NodeFactory.setRandom(new Random());
     }
 
     public void benchmark(OutputStream log) throws IOException

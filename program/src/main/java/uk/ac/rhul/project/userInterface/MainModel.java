@@ -1,7 +1,5 @@
 package uk.ac.rhul.project.userInterface;
 
-import uk.ac.rhul.project.expectimax.Node;
-import uk.ac.rhul.project.expectimax.NodeFactory;
 import uk.ac.rhul.project.expectimax.Solver;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
@@ -25,7 +23,6 @@ public final class MainModel implements Model
      */
     public MainModel(int rows, int cols, Random random)
     {
-        NodeFactory.setRandom(random);
         this.gameState = new GameState(rows, cols, random);
         this.solver = new Solver();
         this.rnd = random;
@@ -68,10 +65,6 @@ public final class MainModel implements Model
      */
     private void initSolver()
     {
-        Node node = NodeFactory.generateTree(gameState, 6);
-
-        solver.setHeuristic(new Snake());
-        this.solver.setRoot(node);
 
     }
 
@@ -93,30 +86,26 @@ public final class MainModel implements Model
         return gameState.getScore();
     }
 
+    @Override
+    public void addUpdateObserver(UpdateObserver handelUpdate)
+    {
+
+    }
+
+    @Override
+    public void solve(boolean blocking, Heuristic heuristic)
+    {
+
+    }
+
 
     /**
      * Add an observer to update the user interface while the solver plays the game.
      * @param method Method to call each time the game needs to update.
      */
-    @Override
-    public void addUpdateObserver(UpdateObserver method)
-    {
-        this.solver.addUpdateObserver(method);
-    }
 
 
     /**
      * Start solving the 2048 game.
      */
-    public void solve(boolean blocking, Heuristic heuristic)
-    {
-        solver.setHeuristic(heuristic);
-        if (blocking) {
-            solver.run();
-        } else
-        {
-            Thread thread = new Thread(solver);
-            thread.start();
-        }
-    }
 }
