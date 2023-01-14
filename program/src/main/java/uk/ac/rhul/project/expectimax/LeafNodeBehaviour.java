@@ -14,7 +14,7 @@ public class LeafNodeBehaviour implements NodeBehaviour
     @Override
     public Node nextNode(Heuristic heuristic) throws EndOfGameException
     {
-        throw new EndOfGameException();
+        throw new EndOfGameException(this.state);
     }
 
     @Override

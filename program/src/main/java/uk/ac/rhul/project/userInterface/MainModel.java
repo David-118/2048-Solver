@@ -3,6 +3,7 @@ package uk.ac.rhul.project.userInterface;
 import uk.ac.rhul.project.expectimax.Solver;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
+import uk.ac.rhul.project.heursitics.LargestLower;
 import uk.ac.rhul.project.heursitics.Snake;
 
 import java.util.Random;
@@ -24,7 +25,7 @@ public final class MainModel implements Model
     public MainModel(int rows, int cols, Random random)
     {
         this.gameState = new GameState(rows, cols, random);
-        this.solver = new Solver();
+        this.solver = new Solver(random);
         this.rnd = random;
     }
 
@@ -65,7 +66,8 @@ public final class MainModel implements Model
      */
     private void initSolver()
     {
-
+        this.solver.configureSolver(7, new Snake());
+        this.solver.setGame(this.gameState);
     }
 
     /**
@@ -89,13 +91,14 @@ public final class MainModel implements Model
     @Override
     public void addUpdateObserver(UpdateObserver handelUpdate)
     {
-
+        this.solver.addUpdateObserver(handelUpdate);
     }
 
     @Override
     public void solve(boolean blocking, Heuristic heuristic)
     {
-
+        if (blocking) this.solver.run();
+        else new Thread(this.solver).start();
     }
 
 
