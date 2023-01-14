@@ -9,17 +9,19 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Stream;
 
-public class NodeBehaviourMaximize implements NodeBehaviour
+class NodeBehaviourMaximize implements NodeBehaviour
 {
     private final Node[] children;
 
-    public static NodeBehaviour generate(GameState state, Random random)
+    public static NodeBehaviour generate(GameState state, Random random, int depth)
     {
         NodeBehaviour generated;
         Stream<GameState> childStates = state.getPossibleMoves();
 
         Node[] childNodes = childStates.map((GameState childState) ->
                 new Node(childState, NodeBehaviourChance::generate, random)).toArray(Node[]::new);
+
+        Arrays.stream(childNodes).forEach((Node child) -> child.generateChildren(depth));
 
         if (childNodes.length > 0)
         {

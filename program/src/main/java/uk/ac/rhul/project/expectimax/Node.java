@@ -36,8 +36,8 @@ class Node
         return this.behaviour.applyHeuristic(heuristic);
     }
 
-    public void generateChildren()
+    public void generateChildren(int depth)
     {
-        this.behaviour = this.behaviourGenerator.generate(this.gameState, random);
+        if (depth > 0) this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1);
     }
 }

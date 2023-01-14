@@ -9,17 +9,19 @@ import java.util.Random;
 import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
-public class NodeBehaviourChance implements NodeBehaviour
+class NodeBehaviourChance implements NodeBehaviour
 {
     private final Node[] children;
     private final Random random;
-    public static NodeBehaviour generate(GameState state, Random random)
+    public static NodeBehaviour generate(GameState state, Random random, int depth)
     {
         NodeBehaviour generated;
         Stream<GameState> childStates = state.getPossibleMutations();
 
         Node[] childNodes = childStates.map((GameState childState) ->
                 new Node(childState, NodeBehaviourMaximize::generate, random)).toArray(Node[]::new);
+
+        Arrays.stream(childNodes).forEach((Node child) -> child.generateChildren(depth));
 
         if (childNodes.length > 0)
         {

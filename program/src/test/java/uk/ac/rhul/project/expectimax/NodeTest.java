@@ -79,7 +79,7 @@ class NodeTest
     {
         try
         {
-            this.root4x4.generateChildren();
+            this.root4x4.generateChildren(1);
             assertEquals("[[0, 0, 0, 16], [0, 0, 32, 8], [0, 64, 4, 4], [128, 2, 2, 2]]",
                     Arrays.deepToString(root4x4.nextNode(new LargestLower()).getGameState().getGrid()));
         } catch (EndOfGameException e)
@@ -91,18 +91,18 @@ class NodeTest
     @Test
     void applyHeuristicMaxNode()
     {
-        this.root2x2.generateChildren();
+        this.root2x2.generateChildren(1);
         assertEquals(8f, this.root2x2.applyHeuristic(new LargestLower()));
     }
 
     @Test
     void depth1tree()
     {
-        this.root4x4.generateChildren();
+        this.root4x4.generateChildren(1);
         try
         {
             Node node = this.root4x4.nextNode(new LargestLower());
-            node.generateChildren();
+            node.generateChildren(1);
             node.applyHeuristic(new LargestLower());
             assertEquals(853, node.applyHeuristic(new LargestLower()));
             assertEquals("[[0, 0, 0, 16], [0, 0, 32, 8], [2, 64, 4, 4], [128, 2, 2, 2]]",
@@ -124,9 +124,25 @@ class NodeTest
     @Test
     public void endState()
     {
-        leafNodeMax.generateChildren();
-        leafNodeChance.generateChildren();
+        leafNodeMax.generateChildren(1);
+        leafNodeChance.generateChildren(1);
         assertThrows(EndOfGameException.class, () -> leafNodeMax.nextNode(new LargestLower()));
         assertThrows(EndOfGameException.class, () -> leafNodeChance.nextNode(new LargestLower()));
+    }
+
+    @Test
+    void depth4tree()
+    {
+        this.root2x2.generateChildren(4);
+        try
+        {
+            Node node =  this.root2x2.nextNode(new LargestLower()).nextNode(new LargestLower())
+                    .nextNode(new LargestLower()).nextNode(new LargestLower());
+            assertInstanceOf(Node.class, node);
+            assertThrows(EndOfGameException.class, () -> node.nextNode(new LargestLower()));
+        } catch (EndOfGameException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }
