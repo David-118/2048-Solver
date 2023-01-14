@@ -6,18 +6,20 @@ import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Stream;
 
 public class NodeBehaviourMaximize implements NodeBehaviour
 {
     private final Node[] children;
 
-    public static NodeBehaviour generate(GameState state)
+    public static NodeBehaviour generate(GameState state, Random random)
     {
         NodeBehaviour generated;
         Stream<GameState> childStates = state.getPossibleMoves();
 
-        Node[] childNodes = childStates.map(Node::new).toArray(Node[]::new);
+        Node[] childNodes = childStates.map((GameState childState) ->
+                new Node(childState, NodeBehaviourChance::generate, random)).toArray(Node[]::new);
 
         if (childNodes.length > 0)
         {
@@ -45,16 +47,9 @@ public class NodeBehaviourMaximize implements NodeBehaviour
     @Override
     public float applyHeuristic(Heuristic heuristic)
     {
-        Optional<Float> score =
-                Arrays.stream(this.children).parallel()
-                        .map((Node node) -> node.applyHeuristic(heuristic)).max(Float::compareTo);
+        return Arrays.stream(this.children).parallel()
+                .map((Node node) -> node.applyHeuristic(heuristic)).max(Float::compareTo)
+                .orElseThrow(() -> {throw new RuntimeException("Max node has no children");});
 
-        if (score.isPresent())
-        {
-            return score.get();
-        } else
-        {
-            throw new RuntimeException("Maximizing node has no children");
-        }
     }
 }

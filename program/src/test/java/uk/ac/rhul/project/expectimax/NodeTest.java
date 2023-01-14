@@ -16,11 +16,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NodeTest
 {
-    Node root2x2;
-    GameState state2x2;
+    private Node root2x2;
+    private GameState state2x2;
+    private Node root4x4;
+    private GameState state4x4;
+    private Node leafNodeMax;
+    private Node leafNodeChance;
 
-    Node root4x4;
-    GameState state4x4;
     @BeforeEach
     void setUp()
     {
@@ -37,8 +39,16 @@ class NodeTest
                 {  0,  0,  0,  2},
         });
 
-        root2x2 = new Node(state2x2);
-        root4x4 = new Node(state4x4);
+        root2x2 = new Node(state2x2, NodeBehaviourMaximize::generate, random);
+        root4x4 = new Node(state4x4, NodeBehaviourMaximize::generate, random);
+
+        GameState state = new GameState(2,2);
+        state.setGrid(new int[][]{
+                {16, 8},
+                {2, 4}
+        });
+        leafNodeMax = new Node(state, NodeBehaviourMaximize::generate, random);
+        leafNodeChance = new Node(state, NodeBehaviourChance::generate, random);
     }
 
     @Test
@@ -83,5 +93,40 @@ class NodeTest
     {
         this.root2x2.generateChildren();
         assertEquals(8f, this.root2x2.applyHeuristic(new LargestLower()));
+    }
+
+    @Test
+    void depth1tree()
+    {
+        this.root4x4.generateChildren();
+        try
+        {
+            Node node = this.root4x4.nextNode(new LargestLower());
+            node.generateChildren();
+            node.applyHeuristic(new LargestLower());
+            assertEquals(853, node.applyHeuristic(new LargestLower()));
+            assertEquals("[[0, 0, 0, 16], [0, 0, 32, 8], [2, 64, 4, 4], [128, 2, 2, 2]]",
+                    Arrays.deepToString(node.nextNode(new LargestLower()).getGameState().getGrid()));
+
+            assertEquals("[[0, 0, 2, 16], [0, 0, 32, 8], [0, 64, 4, 4], [128, 2, 2, 2]]",
+                    Arrays.deepToString(node.nextNode(new LargestLower()).getGameState().getGrid()));
+            assertEquals("[[4, 0, 0, 16], [0, 0, 32, 8], [0, 64, 4, 4], [128, 2, 2, 2]]",
+                    Arrays.deepToString(node.nextNode(new LargestLower()).getGameState().getGrid()));
+
+            assertEquals("[[4, 0, 0, 16], [0, 0, 32, 8], [0, 64, 4, 4], [128, 2, 2, 2]]",
+                    Arrays.deepToString(node.nextNode(new LargestLower()).getGameState().getGrid()));
+        } catch (EndOfGameException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void endState()
+    {
+        leafNodeMax.generateChildren();
+        leafNodeChance.generateChildren();
+        assertThrows(EndOfGameException.class, () -> leafNodeMax.nextNode(new LargestLower()));
+        assertThrows(EndOfGameException.class, () -> leafNodeChance.nextNode(new LargestLower()));
     }
 }
