@@ -39,34 +39,26 @@ public final class MainModel implements Model
         this(rows, cols, new Random());
     }
 
-    /**
-     * Start the game with random grids and score of 0
-     */
-    public void init()
-    {
-        this.gameState.init();
-        this.initSolver();
-    }
 
     /**
      * Start a game with a new size.
      * @param height The height of the new game.
      * @param width The width of the new game.
      */
-    public void init(int height, int width)
+    public void init(int height, int width, int depth, Heuristic heuristic)
     {
         this.gameState = new GameState(height, width, this.rnd);
         this.gameState.init(height, width);
-        this.initSolver();
+        this.initSolver(depth, heuristic);
     }
 
     /**
      * Set the heuristic the solver is using and generate a tree, provide the root of the tree to the
      * solver.
      */
-    private void initSolver()
+    private void initSolver(int depth, Heuristic heuristic)
     {
-        this.solver.configureSolver(7, new Snake());
+        this.solver.configureSolver(depth, heuristic);
         this.solver.setGame(this.gameState);
     }
 
@@ -95,20 +87,9 @@ public final class MainModel implements Model
     }
 
     @Override
-    public void solve(boolean blocking, Heuristic heuristic)
+    public void solve(boolean blocking)
     {
         if (blocking) this.solver.run();
         else new Thread(this.solver).start();
     }
-
-
-    /**
-     * Add an observer to update the user interface while the solver plays the game.
-     * @param method Method to call each time the game needs to update.
-     */
-
-
-    /**
-     * Start solving the 2048 game.
-     */
 }

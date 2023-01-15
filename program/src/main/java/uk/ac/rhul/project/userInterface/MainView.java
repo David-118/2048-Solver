@@ -238,7 +238,7 @@ public class MainView extends Application implements View
             Optional<int[]> result = this.newGameDialog.showAndWait();
             result.ifPresent(size -> {
                 this.make2048Grid(size[0], size[1]);
-                this.newGameObserver.notifyObservers(size[0], size[1]);
+                this.newGameObserver.notifyObservers(size[0], size[1], 7, new Snake());
             });
 
         });
@@ -250,7 +250,7 @@ public class MainView extends Application implements View
      */
     public void addSolveObserver(SolveObserver method)
     {
-        this.solve.setOnAction(actionEvent -> method.notifyObserver(false, new Snake()));
+        this.solve.setOnAction(actionEvent -> method.notifyObserver(false));
     }
 
     /**

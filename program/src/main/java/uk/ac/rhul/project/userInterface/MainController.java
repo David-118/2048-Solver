@@ -37,18 +37,18 @@ public class MainController
      * @param height Height of the game.
      * @param width Width of the game
      */
-    private void handelNewGame(int height, int width)
+    private void handelNewGame(int height, int width, int depth, Heuristic heuristic)
     {
-        this.model.init(height, width);
+        this.model.init(height, width, depth, heuristic);
         this.view.setValues(this.model.getGrid());
     }
 
     /**
      * Handel for solving a 2048 game.
      */
-    public void handelSolve(boolean blocking, Heuristic heuristic)
+    public void handelSolve(boolean blocking)
     {
-        this.model.solve(blocking, heuristic);
+        this.model.solve(blocking);
     }
 
     /**

@@ -14,7 +14,7 @@ import java.util.Random;
 public class BenchmarkerView implements View
 {
     private static final Heuristic[] HEURISTICS =
-            new Heuristic[]{new SumCells(), new LargestLower(), new Snake(), new Diagonal()};
+            new Heuristic[]{new Snake()};
 
     private NewGameObserver newGameObserver;
     private SolveObserver solveObserver;
@@ -45,9 +45,9 @@ public class BenchmarkerView implements View
             for (int j  = 0; j < this.count; j++)
             {
                 this.gameIndex = j;
-                System.out.printf("Starting game %d\n", heuristicIndex +1);
-                this.newGameObserver.notifyObservers(4, 4);
-                this.solveObserver.notifyObserver(true, HEURISTICS[this.heuristicIndex]);
+                System.out.printf("Starting game %d\n", gameIndex +1);
+                this.newGameObserver.notifyObservers(4, 4, 7, HEURISTICS[heuristicIndex]);
+                this.solveObserver.notifyObserver(true);
             }
             this.csvWriter.add(new BenchmarkEntry(HEURISTICS[heuristicIndex].getName(), currentState));
         }

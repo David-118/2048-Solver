@@ -21,7 +21,7 @@ class NodeBehaviourMaximize implements NodeBehaviour
         Node[] childNodes = childStates.map((GameState childState) ->
                 new Node(childState, NodeBehaviourChance::generate, random)).toArray(Node[]::new);
 
-        Arrays.stream(childNodes).forEach((Node child) -> child.generateChildren(depth));
+        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth));
 
         if (childNodes.length > 0)
         {

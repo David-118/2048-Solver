@@ -9,10 +9,9 @@ import uk.ac.rhul.project.heursitics.Heuristic;
  */
 public interface Model
 {
-    void init();
-    void init(int height, int width);
+    void init(int height, int width, int depth, Heuristic heuristic);
     GameState getGrid();
     int getScore();
     void addUpdateObserver(UpdateObserver handelUpdate);
-    void solve(boolean blocking, Heuristic heuristic);
+    void solve(boolean blocking);
 }
