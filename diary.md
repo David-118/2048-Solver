@@ -1,35 +1,62 @@
-# Week 10
-# Week 10.2
+# Term 2
+## Week 1
+I used java parellel streams to create a mutli core implmentation.
+In this process I discovred a bug that in the origonal implemention.
+When transversing the tree the each node subtracts two from the depth if it is 2.
+This bug made it difficult to compare the new impementation.
+
+Before reimpementing exptimax for mutlicore a simple protype was made using the old class.
+The origonal imlementation took 18h23m56s to run 400 games (1 with each currently impemented heurstic)
+The prototye took only took 9h19m53s.
+
+# Christmas
+Over the christmas break I mostly foucused on research.
+First I attempted interpret the proof that 2048 was np complete
+citited in the report.
+
+Secondly I investigated the best approch to introducing multithreading to the project.
+While I made an attempt with the thread object, the code was messy and ineffective.
+I eventualy relised the java streams have a parellel() method. This returns a stream
+were every item can be processed in parellel at the same time.
+
+This was the approch I used in the end
+
+# Term 1
+## Week 11
+This was after the deadlines, I simply just reheased the presentation ready for the Friday.
+
+## Week 10
+### Week 10.2
 Finished off report, ensuring professial issues, and comlexity sections were complete.
 The section on the np hardness of 2048 has been moved to next term,
 as I needed more time to understand the proof, I was planning on citing.
 
-# Week 10.1
+### Week 10.1
 Created and edited demo video of the alorithm running.
 
-# Week 9
-# Week 9.2
+## Week 9
+### Week 9.2
 Stared work on sections of report such as big-O complexity for the 4x4
 game. Also refactered the code to take advantage of software enginering
 princabes such as design patterns. Almost method now has javadoc.
 
-# Week 9.1
+### Week 9.1
 Countied work on presentation, ensuring that there is footagte of the game
 2048 being played, and example of expectimax applied to a simple 2048 game.
 
-# Week 8
-## Week 8.2
+## Week 8
+### Week 8.2
 Worked on the report and presentation.
 As I have complete more than I intened to this for the programing.
 I mostly desighed to work on the report and presentation this week.
 Were 
 
-## Week 8.1
+### Week 8.1
 Got the results from the benchmark on four orignaol benchmarks and
 a snake herutstic with the same penlty as the diagonal heurstic.
 The penatly is mutipled by a heurtsic.
-# Week 7
-## Week 7.2
+## Week 7
+### Week 7.2
 I've created a benchmarking Command Line Interface. When the package
 in run with command line parameters -b \[number of time to run each heuristic\]
 and -o \[location of output file\]. This dumps the results out to a csv file.
@@ -40,7 +67,7 @@ heuristics running Sunday night, but do not expect the result to monday
 afternoon.
 
 
-## Week 7.1
+### Week 7.1
 Attempted to create more advanced heuristics from previous projects.
 Currently unable to get the same results as the original projects.
 First heuristic is a 'snake' [7] shape and the top left corner,
@@ -49,23 +76,23 @@ This node was taking an average of the weighted values. As the weights of
 the chance node add up to 1, it should have just been the sum.
 
 
-# Week 6
+## Week 6
 Added sections on proof of concept expectimax with and without a heuristic
 Counted working on the introduction to the report as well.
 
-# Week 5
-## Week 5.2
+## Week 5
+### Week 5.2
 Developed expectimax algorithm a simple heuristic function applied to the
 main project. The heusrstic can be passed into the constructor as a functional
 interface.
 
-## Week 5.1
+### Week 5.1
 Worked significantly on the introduction to the report, as I was a head of
 schedule on the programing. I decided being up-to-date on the report was more
 important.
 
 
-# Week 4
+## Week 4
 ## Week 4.2
 This week, so far I have created a 2048 game in the main branch of the project.
 This includes a graphical user interface (writen in javaFX) and theoreticaly
@@ -81,7 +108,7 @@ user interface to help test a wider array of situations. This does not include
 dececting the end of a game, as when creating a tree. If I tray to make each move,
 and fail then I now the game has ends. I condierd this function was not relvent.
 
-# Week 3
+## Week 3
 
 This week I completed the expectimax early deliverable by adding both chance nodes
 maximum nodes to the tree strucutre. I've also used what I learn't in the proof of
@@ -90,9 +117,9 @@ algorithm currently works I would like to check validity of the tree. I also cre
 a skeleton for the report and added some information about what I did for the first 
 two early deliverables.
 
-# Week 2
+## Week 2
 
-## Week 2.2
+### Week 2.2
 
 I complete the proof of concept program for a simple decision tree,
 using references and class nodes. I have started adapting the tree to
@@ -100,14 +127,14 @@ the expectimax algorithm. I have created a maximum node which can get the score
 of its largest child. I used JUnit and the IntelliJ debug tools to find why the
 score of a maximizing node was always zero.
 
-## Week 2.1
+### Week 2.1
 
 This week I have finished of my project plan and my planned reading for the
 project so far. I have also made some progress on the prototype for a
 decision tree. It is currently able to make a decision tree with basic layout.
 Nodes are currently not able to store score and edges are not weighted.
 
-# Week 1
+## Week 1
 
 This week I have only done two major things
 
