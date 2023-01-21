@@ -4,9 +4,9 @@ import uk.ac.rhul.project.game.Direction;
 import uk.ac.rhul.project.game.GameState;
 
 /**
- * Diagonal is heurstic based on [8, grid.js:108]
+ * Diagonal4x4 is heurstic based on [8, grid.js:108]
  */
-public class Diagonal implements Heuristic
+public class Diagonal4x4 implements Heuristic
 {
     /**
      * Rewards games where the largest cells are diagonal from the top left. Penalises when large number are next to
@@ -56,7 +56,7 @@ public class Diagonal implements Heuristic
 
     public String getName()
     {
-        return "Diagonal";
+        return "Diagonal (4 x 4)";
     }
 
 }

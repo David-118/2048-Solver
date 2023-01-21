@@ -1,7 +1,7 @@
 package uk.ac.rhul.project.userInterface;
 
+import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
-import uk.ac.rhul.project.heursitics.Heuristic;
 
 /**
  * Controller links view to model
@@ -37,9 +37,9 @@ public class MainController
      * @param height Height of the game.
      * @param width Width of the game
      */
-    private void handelNewGame(int height, int width, int depth, Heuristic heuristic)
+    private void handelNewGame(GameConfiguration configuration)
     {
-        this.model.init(height, width, depth, heuristic);
+        this.model.init(configuration);
         this.view.setValues(this.model.getGrid());
     }
 

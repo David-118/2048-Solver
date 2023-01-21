@@ -1,6 +1,6 @@
 package uk.ac.rhul.project.userInterface;
 
-import uk.ac.rhul.project.heursitics.Heuristic;
+import uk.ac.rhul.project.game.GameConfiguration;
 
 /**
  * Interface for observer that makes new game.
@@ -13,5 +13,5 @@ public interface NewGameObserver
      * @param height
      * @param width
      */
-    void notifyObservers(int height, int width, int depth, Heuristic heuristic);
+    void notifyObservers(GameConfiguration gameConfiguration);
 }

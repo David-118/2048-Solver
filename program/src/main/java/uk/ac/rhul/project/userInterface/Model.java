@@ -1,6 +1,7 @@
 package uk.ac.rhul.project.userInterface;
 
 import uk.ac.rhul.project.game.Direction;
+import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
@@ -9,7 +10,7 @@ import uk.ac.rhul.project.heursitics.Heuristic;
  */
 public interface Model
 {
-    void init(int height, int width, int depth, Heuristic heuristic);
+    void init(GameConfiguration configuration);
     GameState getGrid();
     int getScore();
     void addUpdateObserver(UpdateObserver handelUpdate);

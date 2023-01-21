@@ -4,9 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.ac.rhul.project.game.EndOfGameException;
 import uk.ac.rhul.project.game.GameState;
-import uk.ac.rhul.project.heursitics.Diagonal;
+import uk.ac.rhul.project.heursitics.Diagonal4x4;
 import uk.ac.rhul.project.heursitics.LargestLower;
-import uk.ac.rhul.project.heursitics.Snake;
+import uk.ac.rhul.project.heursitics.Snake4x4;
 import uk.ac.rhul.project.heursitics.SumCells;
 
 import java.util.Arrays;
@@ -70,8 +70,8 @@ class NodeTest
     {
         assertEquals(4f, state2x2.applyHeuristic(new SumCells()));
         assertEquals(6f, state2x2.applyHeuristic(new LargestLower()));
-        assertEquals(1.5707E11, root4x4.applyHeuristic(new Snake()), 0.00005E11);
-        assertEquals(122692f, root4x4.applyHeuristic(new Diagonal()));
+        assertEquals(1.5707E11, root4x4.applyHeuristic(new Snake4x4()), 0.00005E11);
+        assertEquals(122692f, root4x4.applyHeuristic(new Diagonal4x4()));
     }
 
     @Test

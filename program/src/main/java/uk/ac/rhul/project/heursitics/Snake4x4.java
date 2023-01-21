@@ -3,10 +3,10 @@ package uk.ac.rhul.project.heursitics;
 import uk.ac.rhul.project.game.GameState;
 
 /**
- * Snake 4x4 heurstic is based on heurstic found in [7]
+ * Snake4x4 4x4 heurstic is based on heurstic found in [7]
  * Only works on a 4x4 grid
  */
-public class Snake implements Heuristic
+public class Snake4x4 implements Heuristic
 {
     /**
      * Rewards game states where the values are in zigzag pattern from the top left corner.
@@ -46,7 +46,7 @@ public class Snake implements Heuristic
 
     /**
      * Returns the name of the heuristic.
-     * @return "Snake 4x4"
+     * @return "Snake4x4 4x4"
      */
     @Override
     public String getName()

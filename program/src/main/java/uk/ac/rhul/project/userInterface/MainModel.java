@@ -1,10 +1,9 @@
 package uk.ac.rhul.project.userInterface;
 
 import uk.ac.rhul.project.expectimax.Solver;
+import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
-import uk.ac.rhul.project.heursitics.LargestLower;
-import uk.ac.rhul.project.heursitics.Snake;
 
 import java.util.Random;
 /**
@@ -24,7 +23,7 @@ public final class MainModel implements Model
      */
     public MainModel(int rows, int cols, Random random)
     {
-        this.gameState = new GameState(rows, cols, random);
+        this.gameState = new GameState(new GameConfiguration(rows, cols, -1,null), random);
         this.solver = new Solver(random);
         this.rnd = random;
     }
@@ -45,11 +44,11 @@ public final class MainModel implements Model
      * @param height The height of the new game.
      * @param width The width of the new game.
      */
-    public void init(int height, int width, int depth, Heuristic heuristic)
+    public void init(GameConfiguration configuration)
     {
-        this.gameState = new GameState(height, width, this.rnd);
-        this.gameState.init(height, width);
-        this.initSolver(depth, heuristic);
+        this.gameState = new GameState(configuration);
+        this.gameState.init();
+        this.initSolver(configuration.getDepth(), configuration.getHeuristic());
     }
 
     /**

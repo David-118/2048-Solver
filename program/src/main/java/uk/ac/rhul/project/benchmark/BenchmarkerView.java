@@ -1,5 +1,6 @@
 package uk.ac.rhul.project.benchmark;
 
+import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.*;
 import uk.ac.rhul.project.userInterface.NewGameObserver;
@@ -9,12 +10,19 @@ import uk.ac.rhul.project.userInterface.View;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
-import java.util.Random;
 
 public class BenchmarkerView implements View
 {
-    private static final Heuristic[] HEURISTICS =
-            new Heuristic[]{new Snake()};
+    private static final GameConfiguration[] CONFIGERATIONS = new GameConfiguration[] {
+            new GameConfiguration(4, 4, 6, new Snake4x4()),
+            new GameConfiguration(4, 4, 6, new DynamicSnake(4)),
+            new GameConfiguration(3, 3, 6, new DynamicSnake(3)),
+            new GameConfiguration(2, 2, 6, new DynamicSnake(2)),
+            new GameConfiguration(5, 5, 4, new DynamicSnake(5)),
+            new GameConfiguration(3, 3, 6, new LargestLower()),
+            new GameConfiguration(2, 2, 6, new LargestLower()),
+            new GameConfiguration(5, 5, 4, new LargestLower())
+    };
 
     private NewGameObserver newGameObserver;
     private SolveObserver solveObserver;
@@ -22,7 +30,7 @@ public class BenchmarkerView implements View
     private final int count;
     private final BenchmarkWriter csvWriter;
 
-    private int heuristicIndex = 0;
+    private int configIndex = 0;
     private int gameIndex = 0;
 
     private GameState currentState;
@@ -36,20 +44,20 @@ public class BenchmarkerView implements View
 
     public void benchmark(OutputStream log) throws IOException
     {
-        for (int i  = 0; i < HEURISTICS.length;  i++)
+        for (int i = 0; i < CONFIGERATIONS.length; i++)
         {
-            this.heuristicIndex = i;
+            this.configIndex = i;
             System.out.print("Starting with heuristic: ");
-            System.out.println(HEURISTICS[heuristicIndex].getName());
+            System.out.println(CONFIGERATIONS[configIndex].getName());
 
             for (int j  = 0; j < this.count; j++)
             {
                 this.gameIndex = j;
                 System.out.printf("Starting game %d\n", gameIndex +1);
-                this.newGameObserver.notifyObservers(4, 4, 7, HEURISTICS[heuristicIndex]);
+                this.newGameObserver.notifyObservers(CONFIGERATIONS[configIndex]);
                 this.solveObserver.notifyObserver(true);
-            }
-            this.csvWriter.add(new BenchmarkEntry(HEURISTICS[heuristicIndex].getName(), currentState));
+                this.csvWriter.add(new BenchmarkEntry(CONFIGERATIONS[configIndex].getName(), currentState));
+	    }
         }
         this.csvWriter.write(log);
     }
@@ -70,7 +78,7 @@ public class BenchmarkerView implements View
     public void setValues(GameState state)
     {
         System.out.printf("%s Game %d/%d: Score: %d \n %s\n",
-                HEURISTICS[this.heuristicIndex].getName(), gameIndex + 1, count, state.getScore(),
+                CONFIGERATIONS[this.configIndex].getName(), gameIndex + 1, count, state.getScore(),
                 Arrays.deepToString(state.getGrid()));
     }
 

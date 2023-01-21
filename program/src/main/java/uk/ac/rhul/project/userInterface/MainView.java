@@ -16,8 +16,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
-import uk.ac.rhul.project.heursitics.Snake;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -238,7 +238,8 @@ public class MainView extends Application implements View
             Optional<int[]> result = this.newGameDialog.showAndWait();
             result.ifPresent(size -> {
                 this.make2048Grid(size[0], size[1]);
-                this.newGameObserver.notifyObservers(size[0], size[1], 7, new Snake());
+                this.newGameObserver.notifyObservers(new GameConfiguration(size[0], size[1], 7,
+                        new NeonneoHeuristic()));
             });
 
         });
