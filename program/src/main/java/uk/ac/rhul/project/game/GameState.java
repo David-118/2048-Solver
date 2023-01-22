@@ -365,6 +365,15 @@ public class GameState implements Cloneable
         }
     }
 
+    public int getWidth()
+    {
+        return this.width;
+    }
+
+    public int getHeight()
+    {
+        return this.height;
+    }
 
     /**
      * Uses a heuristic function to score the game state.

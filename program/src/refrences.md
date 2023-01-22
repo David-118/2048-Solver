@@ -16,6 +16,7 @@
    [cs229.stanford.edu/proj2016/report/NieHouAn-AIPlays2048-report.pdf](http://cs229.stanford.edu/proj2016/report/NieHouAn-AIPlays2048-report.pdf)
 8. W. Syed Abdul, B. Muhammad, and D. Hamza Javed, 2048 game using expectimax, 2018.
    [github.com/Wahab16/2048-Game-Using-Expectimax](https://github.com/Wahab16/2048-Game-Using-Expectimax)
-
 9. @cowtowncorder 2021, Writing CSV with Jackson:
    [cowtowncoder.medium.com/writing-csv-with-jackson-204fdb3c9dac](https://cowtowncoder.medium.com/writing-csv-with-jackson-204fdb3c9dac)
+10. Robert Xiao, 2048 AI
+   [github.com/nnenneo/2048-ai/](https://github.com/nnenneo/2048-ai/)
