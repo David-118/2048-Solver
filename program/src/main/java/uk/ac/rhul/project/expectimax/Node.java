@@ -13,12 +13,15 @@ class Node
     private final Random random;
     private final NodeBehaviourGenerator behaviourGenerator;
 
+    private float weight;
+
     protected Node(GameState gameState, NodeBehaviourGenerator generator, Random random)
     {
         this.random = random;
         this.gameState = gameState;
         this.behaviour = new LeafNodeBehaviour(gameState);
         this.behaviourGenerator = generator;
+        this.weight = 1f;
     }
 
     public GameState getGameState()
@@ -33,11 +36,16 @@ class Node
 
     public float applyHeuristic(Heuristic heuristic)
     {
-        return this.behaviour.applyHeuristic(heuristic);
+        return this.behaviour.applyHeuristic(heuristic) * weight;
     }
 
     public void generateChildren(int depth)
     {
         if (depth > 0) this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1);
+    }
+
+    public void setWeight(float weight)
+    {
+        this.weight = weight;
     }
 }

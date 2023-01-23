@@ -21,6 +21,12 @@ class NodeBehaviourChance implements NodeBehaviour
         Node[] childNodes = childStates.map((GameState childState) ->
                 new Node(childState, NodeBehaviourMaximize::generate, random)).toArray(Node[]::new);
 
+        for (int i = 0; i < childNodes.length; i+=2)
+        {
+            childNodes[i].setWeight(0.9f);
+            childNodes[i+1].setWeight(0.1f);
+        }
+
         Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth));
 
         if (childNodes.length > 0)
@@ -43,8 +49,13 @@ class NodeBehaviourChance implements NodeBehaviour
     @Override
     public Node nextNode(Heuristic heuristic) throws EndOfGameException
     {
-        int index = random.nextInt(this.children.length);
+        double prob = random.nextDouble() * (this.children.length / 2D);
+
+        int index = (int) (Math.floor(prob) * 2);
+        double node2or4 = prob % 1;
+        if (node2or4 > 0.9) index += 1;
         return this.children[index];
+
     }
 
     @Override
