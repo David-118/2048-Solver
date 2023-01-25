@@ -238,7 +238,7 @@ public class GameState implements Cloneable
             GameState gameState2 = this.clone();
 
             gameState1.grid[freeCells.get(i).x][freeCells.get(i).y] = 2;
-            gameState1.grid[freeCells.get(i).x][freeCells.get(i).y] = 4;
+            gameState2.grid[freeCells.get(i).x][freeCells.get(i).y] = 4;
 
             gameState1.setProbability(CHANCE_OF_2);
             gameState2.setProbability(CHANCE_OF_4);

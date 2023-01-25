@@ -20,10 +20,13 @@ class NodeBehaviourChance implements NodeBehaviour
 
         Node[] childNodes = new Node[childStates.length];
 
+        float sum = 0;
+
         for (int i = 0; i < childNodes.length; i++)
         {
             childNodes[i] = new Node(childStates[i], NodeBehaviourMaximize::generate, random);
         }
+
 
         Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth));
 
@@ -59,9 +62,7 @@ class NodeBehaviourChance implements NodeBehaviour
                 current += child.getWeight();
             }
         }
-        throw new RuntimeException(
-                String.format("Number generated was %f, but now child was selected", prob)
-        );
+        return this.children[0];
     }
 
     @Override
