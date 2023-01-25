@@ -13,7 +13,7 @@ class Node
     private final Random random;
     private final NodeBehaviourGenerator behaviourGenerator;
 
-    private float weight;
+    private final float weight;
 
     protected Node(GameState gameState, NodeBehaviourGenerator generator, Random random)
     {
@@ -21,7 +21,7 @@ class Node
         this.gameState = gameState;
         this.behaviour = new LeafNodeBehaviour(gameState);
         this.behaviourGenerator = generator;
-        this.weight = 1f;
+        this.weight = gameState.getProbability();
     }
 
     public GameState getGameState()
@@ -44,8 +44,9 @@ class Node
         if (depth > 0) this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1);
     }
 
-    public void setWeight(float weight)
+
+    public float getWeight()
     {
-        this.weight = weight;
+        return weight;
     }
 }

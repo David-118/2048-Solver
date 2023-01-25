@@ -203,50 +203,51 @@ public class GameState implements Cloneable
      * Generates all the possible moves.
      * @return An array of the possible moves.
      */
-    public Stream<GameState> getPossibleMoves()
+    public List<GameState> getPossibleMoves()
     {
-        Stream.Builder<GameState> possibleMoves = Stream.builder();
+        List<GameState> possibleMoves = new ArrayList<>(4);
 
         for(Direction dir: Direction.values())
         {
             GameState gameState = this.clone();
             if (gameState.move(dir))
             {
-                possibleMoves.accept(gameState);
+                gameState.probability = 1;
+                possibleMoves.add(gameState);
             }
         }
 
-        return possibleMoves.build();
+        return possibleMoves;
     }
 
     /**
      * Generates all the possible states that can be generated from adding a random tile.
      * @return Array with the possible mutations.
      */
-    public Stream<GameState> getPossibleMutations()
+    public GameState[] getPossibleMutations()
     {
         List<Point> freeCells = this.getFreeCells();
-        Stream.Builder<GameState> gameStates = Stream.builder();
+        GameState[] states = new GameState[freeCells.size() * 2];
 
         final float CHANCE_OF_2 = (1f / freeCells.size()) * (1 - PROB_OF_4);
         final float CHANCE_OF_4 = (1f / freeCells.size()) * PROB_OF_4;
 
-        for (Point freeCell: freeCells)
+        for (int i = 0; i < freeCells.size(); i++)
         {
             GameState gameState1 = this.clone();
             GameState gameState2 = this.clone();
 
-            gameState1.grid[freeCell.x][freeCell.y] = 2;
-            gameState2.grid[freeCell.x][freeCell.y] = 4;
+            gameState1.grid[freeCells.get(i).x][freeCells.get(i).y] = 2;
+            gameState1.grid[freeCells.get(i).x][freeCells.get(i).y] = 4;
 
             gameState1.setProbability(CHANCE_OF_2);
             gameState2.setProbability(CHANCE_OF_4);
 
-            gameStates.accept(gameState1);
-            gameStates.accept(gameState2);
+            states[2*i]= gameState1;
+            states[2*i + 1] = gameState2;
         }
 
-        return gameStates.build();
+        return states;
     }
 
     /**

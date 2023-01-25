@@ -2,6 +2,7 @@ package uk.ac.rhul.project.userInterface;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -18,7 +19,6 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
-import uk.ac.rhul.project.heursitics.Monotonic;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -130,7 +130,7 @@ public class MainView extends Application implements View
     /**
      * Dialog for user to create new game.
      */
-    private Dialog<int[]> newGameDialog;
+    private Dialog<GameConfiguration> newGameDialog;
 
     /**
      * Initialise the user interface when the JavaFX window loads.
@@ -157,9 +157,9 @@ public class MainView extends Application implements View
         pane.setVgap(10d);
 
         pane.addColumn(0);
-        ColumnConstraints lables = new ColumnConstraints(50);
+        ColumnConstraints labels = new ColumnConstraints(75);
         ColumnConstraints spinners = new ColumnConstraints(200);
-        pane.getColumnConstraints().addAll(lables, spinners);
+        pane.getColumnConstraints().addAll(labels, spinners);
 
         Spinner<Integer> widthIn = new Spinner<Integer>();
         widthIn.setMaxWidth(Double.MAX_VALUE);
@@ -173,19 +173,47 @@ public class MainView extends Application implements View
 
         Label heightLabel = new Label("Height:");
 
+        Spinner<Integer> depthIn = new Spinner<Integer>();
+        depthIn.setMaxWidth(Double.MAX_VALUE);
+        depthIn.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 20, 7));
+
+        Label depthLabel = new Label("Depth:");
+
+        ChoiceBox<HeuristicOptions> heuristicIn = new ChoiceBox<>();
+        heuristicIn.setMaxWidth(Double.MAX_VALUE);
+
+        HeuristicOptions monotonic = new MonotonicOption();
+
+        heuristicIn.setItems(FXCollections.observableArrayList(
+                monotonic,
+                new LargestLowerOption(),
+                new LargestRightOption(),
+                new SumCellsOption(),
+                new DynamicSnakeOption()
+        ));
+
+        heuristicIn.setValue(monotonic);
+
+        Label heuristicLabel = new Label("Heuristic:");
+
         pane.add(widthLabel, 0, 0);
         pane.add(widthIn, 1, 0);
         pane.add(heightLabel, 0, 1);
         pane.add(heightIn, 1, 1);
+        pane.add(depthLabel, 0, 2);
+        pane.add(depthIn, 1, 2);
+        pane.add(heuristicLabel, 0, 3);
+        pane.add(heuristicIn, 1, 3);
 
         this.newGameDialog.getDialogPane().setContent(pane);
 
         this.newGameDialog.setResultConverter(buttonType -> {
             if (buttonType == submitButton)
             {
-                return new int[]{heightIn.getValue(), widthIn.getValue()};
+                return new GameConfiguration(heightIn.getValue(), widthIn.getValue(),
+                        depthIn.getValue(), heuristicIn.getValue().make(heightIn.getValue(), widthIn.getValue()));
             }
-            return new int[]{};
+            return null;
         });
 
         instance = this;
@@ -195,6 +223,199 @@ public class MainView extends Application implements View
     /**
      * Get an instance of the singleton MainView.
      * @return Either a new instance or the one existing instance of MainView.
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
      */
     public static synchronized MainView getInstance()
     {
@@ -236,11 +457,10 @@ public class MainView extends Application implements View
         this.newGameObserver = method;
         this.newGame.setOnAction(event ->
         {
-            Optional<int[]> result = this.newGameDialog.showAndWait();
-            result.ifPresent(size -> {
-                this.make2048Grid(size[0], size[1]);
-                this.newGameObserver.notifyObservers(new GameConfiguration(size[0], size[1], 7,
-                        new Monotonic()));
+            Optional<GameConfiguration> result = this.newGameDialog.showAndWait();
+            result.ifPresent((GameConfiguration gameConfiguration) -> {
+                this.make2048Grid(gameConfiguration.getRows(), gameConfiguration.getCols());
+                this.newGameObserver.notifyObservers(gameConfiguration);
             });
 
         });

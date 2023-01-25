@@ -13,11 +13,11 @@ import java.util.Arrays;
 
 public class BenchmarkerView implements View
 {
-    private static final GameConfiguration[] CONFIGERATIONS = new GameConfiguration[] {
-            new GameConfiguration(4, 4, 6, new Monotonic()),
-            new GameConfiguration(3, 3, 6, new Monotonic()),
-            new GameConfiguration(2, 2, 6, new Monotonic()),
-            new GameConfiguration(5, 5, 4, new Monotonic()),
+    private static final GameConfiguration[] CONFIGURATIONS = new GameConfiguration[] {
+            new GameConfiguration(4, 4, 7, new LargestLower()),
+            new GameConfiguration(4, 4, 7, new Monotonic()),
+            new GameConfiguration(4, 4, 7, new DynamicSnake(4)),
+            new GameConfiguration(4, 4, 7, new Snake4x4()),
     };
 
     private NewGameObserver newGameObserver;
@@ -40,19 +40,19 @@ public class BenchmarkerView implements View
 
     public void benchmark(OutputStream log) throws IOException
     {
-        for (int i = 0; i < CONFIGERATIONS.length; i++)
+        for (int i = 0; i < CONFIGURATIONS.length; i++)
         {
             this.configIndex = i;
             System.out.print("Starting with heuristic: ");
-            System.out.println(CONFIGERATIONS[configIndex].getName());
+            System.out.println(CONFIGURATIONS[configIndex].getName());
 
             for (int j  = 0; j < this.count; j++)
             {
                 this.gameIndex = j;
                 System.out.printf("Starting game %d\n", gameIndex +1);
-                this.newGameObserver.notifyObservers(CONFIGERATIONS[configIndex]);
+                this.newGameObserver.notifyObservers(CONFIGURATIONS[configIndex]);
                 this.solveObserver.notifyObserver(true);
-                this.csvWriter.add(new BenchmarkEntry(CONFIGERATIONS[configIndex].getName(), currentState));
+                this.csvWriter.add(new BenchmarkEntry(CONFIGURATIONS[configIndex].getName(), currentState));
 	    }
         }
         this.csvWriter.write(log);
@@ -74,7 +74,7 @@ public class BenchmarkerView implements View
     public void setValues(GameState state)
     {
         System.out.printf("%s Game %d/%d: Score: %d \n %s\n",
-                CONFIGERATIONS[this.configIndex].getName(), gameIndex + 1, count, state.getScore(),
+                CONFIGURATIONS[this.configIndex].getName(), gameIndex + 1, count, state.getScore(),
                 Arrays.deepToString(state.getGrid()));
     }
 

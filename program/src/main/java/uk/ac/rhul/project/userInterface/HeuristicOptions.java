@@ -1,9 +1,6 @@
 package uk.ac.rhul.project.userInterface;
 
-import uk.ac.rhul.project.heursitics.Heuristic;
-import uk.ac.rhul.project.heursitics.LargestLower;
-import uk.ac.rhul.project.heursitics.SumCells;
-import uk.ac.rhul.project.heursitics.Monotonic;
+import uk.ac.rhul.project.heursitics.*;
 
 abstract class HeuristicOptions
 {
@@ -48,6 +45,20 @@ class LargestLowerOption extends HeuristicOptions
     }
 }
 
+class LargestRightOption extends HeuristicOptions
+{
+    public LargestRightOption()
+    {
+        super("Largest Right");
+    }
+
+    @Override
+    public Heuristic make(int rows, int cols)
+    {
+        return new LargestRight();
+    }
+}
+
 class MonotonicOption extends HeuristicOptions
 {
     public MonotonicOption()
@@ -59,5 +70,18 @@ class MonotonicOption extends HeuristicOptions
     public Heuristic make(int rows, int cols)
     {
         return new Monotonic();
+    }
+}
+
+class DynamicSnakeOption extends HeuristicOptions
+{
+    public DynamicSnakeOption()
+    {
+        super("Dynamic Snake");
+    }
+
+    @Override
+    public Heuristic make(int rows, int cols) {
+        return new DynamicSnake(Math.max(rows, cols));
     }
 }

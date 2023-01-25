@@ -16,15 +16,13 @@ class NodeBehaviourChance implements NodeBehaviour
     public static NodeBehaviour generate(GameState state, Random random, int depth)
     {
         NodeBehaviour generated;
-        Stream<GameState> childStates = state.getPossibleMutations();
+        GameState[] childStates = state.getPossibleMutations();
 
-        Node[] childNodes = childStates.map((GameState childState) ->
-                new Node(childState, NodeBehaviourMaximize::generate, random)).toArray(Node[]::new);
+        Node[] childNodes = new Node[childStates.length];
 
-        for (int i = 0; i < childNodes.length; i+=2)
+        for (int i = 0; i < childNodes.length; i++)
         {
-            childNodes[i].setWeight(0.9f);
-            childNodes[i+1].setWeight(0.1f);
+            childNodes[i] = new Node(childStates[i], NodeBehaviourMaximize::generate, random);
         }
 
         Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth));
@@ -49,13 +47,21 @@ class NodeBehaviourChance implements NodeBehaviour
     @Override
     public Node nextNode(Heuristic heuristic) throws EndOfGameException
     {
-        double prob = random.nextDouble() * (this.children.length / 2D);
-
-        int index = (int) (Math.floor(prob) * 2);
-        double node2or4 = prob % 1;
-        if (node2or4 > 0.9) index += 1;
-        return this.children[index];
-
+        float prob = random.nextFloat();
+        float current = 0;
+        for (Node child : children)
+        {
+            if (prob < current)
+            {
+                return child;
+            } else
+            {
+                current += child.getWeight();
+            }
+        }
+        throw new RuntimeException(
+                String.format("Number generated was %f, but now child was selected", prob)
+        );
     }
 
     @Override
@@ -63,7 +69,6 @@ class NodeBehaviourChance implements NodeBehaviour
     {
         // Intend on migrating scores to double, for better java stream support in the future.
         return (float) Arrays.stream(this.children).mapToDouble((Node child) ->
-                (double) child.applyHeuristic(heuristic)).average()
-                .orElseThrow(() -> new RuntimeException("Chance node has no children"));
+                (double) child.applyHeuristic(heuristic)).sum();
     }
 }

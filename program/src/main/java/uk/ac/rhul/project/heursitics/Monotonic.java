@@ -2,7 +2,6 @@ package uk.ac.rhul.project.heursitics;
 
 import uk.ac.rhul.project.game.GameState;
 
-import javax.imageio.plugins.tiff.TIFFField;
 
 
 /**
