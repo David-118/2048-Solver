@@ -64,7 +64,7 @@ class NodeBehaviourChance implements NodeBehaviour
     @Override
     public double applyHeuristic(Heuristic heuristic)
     {
-        return Arrays.stream(this.children).mapToDouble((Node child) ->
+        return Arrays.stream(this.children).unordered().parallel().mapToDouble((Node child) ->
                 child.applyHeuristic(heuristic)).sum();
     }
 }

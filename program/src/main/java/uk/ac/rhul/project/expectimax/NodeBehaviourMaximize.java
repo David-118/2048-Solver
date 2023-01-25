@@ -42,7 +42,7 @@ class NodeBehaviourMaximize implements NodeBehaviour
     @Override
     public Node nextNode(Heuristic heuristic) throws EndOfGameException
     {
-        return Arrays.stream(this.children).parallel().max(
+        return Arrays.stream(this.children).unordered().parallel().max(
                 Comparator.comparingDouble((Node a) -> a.applyHeuristic(heuristic)))
                 .orElseThrow(() -> {throw new RuntimeException("Max node has no children");});
     }
@@ -50,7 +50,7 @@ class NodeBehaviourMaximize implements NodeBehaviour
     @Override
     public double applyHeuristic(Heuristic heuristic)
     {
-        return Arrays.stream(this.children).parallel()
+        return Arrays.stream(this.children).unordered().parallel()
                 .mapToDouble((Node node) -> node.applyHeuristic(heuristic)).max()
                 .orElseThrow(() -> {throw new RuntimeException("Max node has no children");});
 
