@@ -18,6 +18,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.heursitics.Monotonic;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -239,7 +240,7 @@ public class MainView extends Application implements View
             result.ifPresent(size -> {
                 this.make2048Grid(size[0], size[1]);
                 this.newGameObserver.notifyObservers(new GameConfiguration(size[0], size[1], 7,
-                        new NeonneoHeuristic()));
+                        new Monotonic()));
             });
 
         });
