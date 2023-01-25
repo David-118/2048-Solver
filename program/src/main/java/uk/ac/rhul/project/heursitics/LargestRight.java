@@ -10,13 +10,13 @@ public class LargestRight implements Heuristic
      * @return The sum of all the cells multiplied by the (index + 1) of the row they are in..
      */
     @Override
-    public float heuristic(GameState state)
+    public double heuristic(GameState state)
     {
         float sum = 0f;
         int[][] grid = state.getGrid();
-        for (int i = 0; i < grid.length; i++)
+        for (int i = 0; i < state.getHeight(); i++)
         {
-            for (int j = 0; j < grid[0].length; j++)
+            for (int j = 0; j < state.getWidth(); j++)
             {
                 sum += grid[i][j] * (j+1);
             }

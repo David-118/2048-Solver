@@ -12,10 +12,11 @@ public class Diagonal4x4 implements Heuristic
      * Rewards games where the largest cells are diagonal from the top left. Penalises when large number are next to
      * small neighbors.
      * <p>Based on heuristic from [8, grid.js:108]</p>
+     *
      * @param state The game state to be evaluated.
      * @return sum of  each cell multiplied by an internal weight.
      */
-    public float heuristic(GameState state)
+    public double heuristic(GameState state)
     {
         int[][] weights = new int[][]{
                 {6, 5, 4, 1},
@@ -24,8 +25,8 @@ public class Diagonal4x4 implements Heuristic
                 {1, 0, -1, -2},
         };
 
-        float score = 0;
-        float penalty = 0;
+        double score = 0;
+        double penalty = 0;
 
         for (int i = 0; i < 4; i++)
         {

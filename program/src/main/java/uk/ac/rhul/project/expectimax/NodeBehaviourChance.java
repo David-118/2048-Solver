@@ -6,8 +6,6 @@ import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.stream.DoubleStream;
-import java.util.stream.Stream;
 
 class NodeBehaviourChance implements NodeBehaviour
 {
@@ -64,10 +62,9 @@ class NodeBehaviourChance implements NodeBehaviour
     }
 
     @Override
-    public float applyHeuristic(Heuristic heuristic)
+    public double applyHeuristic(Heuristic heuristic)
     {
-        // Intend on migrating scores to double, for better java stream support in the future.
-        return (float) Arrays.stream(this.children).mapToDouble((Node child) ->
-                (double) child.applyHeuristic(heuristic)).sum();
+        return Arrays.stream(this.children).mapToDouble((Node child) ->
+                child.applyHeuristic(heuristic)).sum();
     }
 }

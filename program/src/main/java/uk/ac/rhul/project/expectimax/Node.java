@@ -14,7 +14,7 @@ class Node
     private final Random random;
     private final NodeBehaviourGenerator behaviourGenerator;
 
-    private final float weight;
+    private final double weight;
 
     protected Node(GameState gameState, NodeBehaviourGenerator generator, Random random)
     {
@@ -35,7 +35,7 @@ class Node
         return this.behaviour.nextNode(heuristic);
     }
 
-    public float applyHeuristic(Heuristic heuristic)
+    public double applyHeuristic(Heuristic heuristic)
     {
         return this.behaviour.applyHeuristic(heuristic) * weight;
     }
@@ -46,7 +46,7 @@ class Node
     }
 
 
-    public float getWeight()
+    public double getWeight()
     {
         return weight;
     }

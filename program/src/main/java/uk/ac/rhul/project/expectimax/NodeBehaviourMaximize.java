@@ -4,11 +4,7 @@ import uk.ac.rhul.project.game.EndOfGameException;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.stream.Stream;
+import java.util.*;
 
 class NodeBehaviourMaximize implements NodeBehaviour
 {
@@ -46,16 +42,16 @@ class NodeBehaviourMaximize implements NodeBehaviour
     @Override
     public Node nextNode(Heuristic heuristic) throws EndOfGameException
     {
-        return Arrays.stream(this.children).parallel().max((Node a, Node b) ->
-                Float.compare(a.applyHeuristic(heuristic), b.applyHeuristic(heuristic)))
+        return Arrays.stream(this.children).parallel().max(
+                Comparator.comparingDouble((Node a) -> a.applyHeuristic(heuristic)))
                 .orElseThrow(() -> {throw new RuntimeException("Max node has no children");});
     }
 
     @Override
-    public float applyHeuristic(Heuristic heuristic)
+    public double applyHeuristic(Heuristic heuristic)
     {
-        return (float) Arrays.stream(this.children).parallel()
-                .mapToDouble((Node node) -> (double) node.applyHeuristic(heuristic)).max()
+        return Arrays.stream(this.children).parallel()
+                .mapToDouble((Node node) -> node.applyHeuristic(heuristic)).max()
                 .orElseThrow(() -> {throw new RuntimeException("Max node has no children");});
 
     }

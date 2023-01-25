@@ -6,5 +6,5 @@ import uk.ac.rhul.project.heursitics.Heuristic;
 interface NodeBehaviour
 {
     Node nextNode(Heuristic heuristic) throws EndOfGameException;
-    float applyHeuristic(Heuristic heuristic);
+    double applyHeuristic(Heuristic heuristic);
 }

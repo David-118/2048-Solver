@@ -18,7 +18,7 @@ public class LeafNodeBehaviour implements NodeBehaviour
     }
 
     @Override
-    public float applyHeuristic(Heuristic heuristic)
+    public double applyHeuristic(Heuristic heuristic)
     {
         return state.applyHeuristic(heuristic);
     }

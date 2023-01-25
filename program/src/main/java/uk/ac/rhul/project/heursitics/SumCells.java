@@ -14,9 +14,9 @@ public class SumCells implements Heuristic
      * @return The sum of all the cells.
      */
     @Override
-    public float heuristic(GameState state)
+    public double heuristic(GameState state)
     {
-        float sum = 0f;
+        double sum = 0f;
         int[][] grid = state.getGrid();
         for (int[] row : grid)
         {

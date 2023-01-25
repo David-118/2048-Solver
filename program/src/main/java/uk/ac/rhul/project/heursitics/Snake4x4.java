@@ -14,15 +14,8 @@ public class Snake4x4 implements Heuristic
      * @param state The game state to be evaluated.
      * @return sum of each value in the gird multiplied by a weight matrix.
      */
-    public float heuristic(GameState state)
+    public double heuristic(GameState state)
     {
-        double[] powers = new double[7];
-
-        for (int i = 0; i < 7; i++)
-        {
-            powers[i] = Math.pow(4, i);
-        }
-
         int[][] weights = new int[][] {
                 {15, 14, 13, 12},
                 { 8,  9, 10, 11},
@@ -30,7 +23,7 @@ public class Snake4x4 implements Heuristic
                 { 0,  1,  2,  3},
         };
 
-        float sum = 0;
+        double sum = 0;
         int[][] grid = state.getGrid();
 
         for (int i = 0; i < grid.length; i++)

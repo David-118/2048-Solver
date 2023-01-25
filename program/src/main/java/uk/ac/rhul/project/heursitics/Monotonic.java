@@ -15,7 +15,7 @@ import uk.ac.rhul.project.game.GameState;
 public class Monotonic implements Heuristic
 {
     @Override
-    public float heuristic(GameState state)
+    public double heuristic(GameState state)
     {
         if (loss(state)) return Float.MIN_VALUE;
         return sumEdges(state) - monotonicPenalty(state) + freeCells(state);
@@ -35,7 +35,7 @@ public class Monotonic implements Heuristic
         return true;
     }
 
-    public float sumEdges(GameState state)
+    public double sumEdges(GameState state)
     {
         float sum = 0;
         int height = state.getHeight(),
@@ -54,10 +54,10 @@ public class Monotonic implements Heuristic
         return sum;
     }
 
-    public float monotonicPenalty(GameState state)
+    public double monotonicPenalty(GameState state)
     {
-        float monotonicity_left = 0;
-        float monotonicity_right = 0;
+        double monotonicity_left = 0;
+        double monotonicity_right = 0;
 
         for (int i = 0; i < state.getHeight(); i++)
         {
@@ -75,8 +75,8 @@ public class Monotonic implements Heuristic
             }
         }
 
-        float monotonicity_upper = 0;
-        float monotonicity_lower = 0;
+        double monotonicity_upper = 0;
+        double monotonicity_lower = 0;
 
         for (int j = 0; j < state.getWidth(); j++)
         {
@@ -97,7 +97,7 @@ public class Monotonic implements Heuristic
         return Math.min(monotonicity_left, monotonicity_right) + Math.min(monotonicity_upper, monotonicity_lower);
     }
 
-    public float freeCells(GameState state)
+    public double freeCells(GameState state)
     {
         float count = 0;
         for (int i = 0; i < state.getHeight(); i++)

@@ -56,17 +56,17 @@ public class GameState implements Cloneable
      */
     private int score;
 
-    public float getProbability()
+    public double getProbability()
     {
         return probability;
     }
 
-    public void setProbability(float probability)
+    public void setProbability(double probability)
     {
         this.probability = probability;
     }
 
-    private float probability;
+    private double probability;
 
 
     /**
@@ -381,7 +381,7 @@ public class GameState implements Cloneable
      * @param heuristic The heuristic function.
      * @return heuristic(this)
      */
-    public float applyHeuristic(Heuristic heuristic)
+    public double applyHeuristic(Heuristic heuristic)
     {
         return heuristic.heuristic(this);
     }

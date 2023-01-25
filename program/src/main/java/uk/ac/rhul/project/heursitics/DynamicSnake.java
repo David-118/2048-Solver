@@ -24,9 +24,9 @@ public class DynamicSnake implements Heuristic
         }
     }
     @Override
-    public float heuristic(GameState state)
+    public double heuristic(GameState state)
     {
-        float sum = 0;
+        double sum = 0;
         int[][] grid = state.getGrid();
         for (int i = 0; i < grid.length; i++)
         {
