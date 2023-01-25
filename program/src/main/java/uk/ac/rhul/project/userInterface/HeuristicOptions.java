@@ -85,3 +85,16 @@ class DynamicSnakeOption extends HeuristicOptions
         return new DynamicSnake(Math.max(rows, cols));
     }
 }
+
+class Snake4x4Option extends HeuristicOptions
+{
+    public Snake4x4Option()
+    {
+        super("Snake 4x4");
+    }
+
+    @Override
+    public Heuristic make(int rows, int cols) {
+        return new Snake4x4();
+    }
+}

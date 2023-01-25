@@ -54,8 +54,8 @@ class NodeBehaviourMaximize implements NodeBehaviour
     @Override
     public float applyHeuristic(Heuristic heuristic)
     {
-        return Arrays.stream(this.children).parallel()
-                .map((Node node) -> node.applyHeuristic(heuristic)).max(Float::compareTo)
+        return (float) Arrays.stream(this.children).parallel()
+                .mapToDouble((Node node) -> (double) node.applyHeuristic(heuristic)).max()
                 .orElseThrow(() -> {throw new RuntimeException("Max node has no children");});
 
     }

@@ -4,6 +4,7 @@ import uk.ac.rhul.project.game.EndOfGameException;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
+import java.util.Arrays;
 import java.util.Random;
 
 class Node
@@ -48,5 +49,11 @@ class Node
     public float getWeight()
     {
         return weight;
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.gameState.toString();
     }
 }

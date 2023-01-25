@@ -19,6 +19,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.heursitics.Snake4x4;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -189,7 +190,8 @@ public class MainView extends Application implements View
                 new LargestLowerOption(),
                 new LargestRightOption(),
                 new SumCellsOption(),
-                new DynamicSnakeOption()
+                new DynamicSnakeOption(),
+                new Snake4x4Option()
         ));
 
         heuristicIn.setValue(monotonic);

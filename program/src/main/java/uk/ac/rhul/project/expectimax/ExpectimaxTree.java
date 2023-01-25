@@ -6,6 +6,8 @@ import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.util.Random;
 
+import static java.lang.Thread.sleep;
+
 public class ExpectimaxTree
 {
     private Node currentRoot;

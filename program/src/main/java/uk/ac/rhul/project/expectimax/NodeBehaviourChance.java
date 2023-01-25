@@ -54,13 +54,11 @@ class NodeBehaviourChance implements NodeBehaviour
         float current = 0;
         for (Node child : children)
         {
+            current += child.getWeight();
             if (prob < current)
             {
                 return child;
-            } else
-            {
-                current += child.getWeight();
-            }
+            } 
         }
         return this.children[0];
     }

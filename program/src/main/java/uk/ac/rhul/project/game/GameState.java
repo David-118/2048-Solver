@@ -385,4 +385,10 @@ public class GameState implements Cloneable
     {
         return heuristic.heuristic(this);
     }
+
+    @Override
+    public String toString()
+    {
+        return Arrays.deepToString(this.grid);
+    }
 }
