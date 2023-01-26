@@ -17,22 +17,7 @@ public class Monotonic implements Heuristic
     @Override
     public double heuristic(GameState state)
     {
-        if (loss(state)) return Float.MIN_VALUE;
         return sumEdges(state) - monotonicPenalty(state) + freeCells(state);
-    }
-
-    public boolean loss(GameState state)
-    {
-        for (int i = 0; i < state.getHeight(); i++)
-        {
-            for (int j = 0; j < state.getWidth(); j++)
-            {
-                if (state.getGrid()[i][j] == 0) return false;
-                if (i > 1 && state.getGrid()[i - 1][j] == state.getGrid()[i][j]) return false;
-                if (j > 1 && state.getGrid()[i][j - 1] == state.getGrid()[i][j]) return false;
-            }
-        }
-        return true;
     }
 
     public double sumEdges(GameState state)

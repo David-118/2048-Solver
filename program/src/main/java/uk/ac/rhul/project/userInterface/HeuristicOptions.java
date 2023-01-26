@@ -4,7 +4,7 @@ import uk.ac.rhul.project.heursitics.*;
 
 abstract class HeuristicOptions
 {
-    private String label;
+    private final String label;
     public HeuristicOptions(String label)
     {
         this.label = label;
@@ -69,7 +69,7 @@ class MonotonicOption extends HeuristicOptions
     @Override
     public Heuristic make(int rows, int cols)
     {
-        return new Monotonic();
+        return new FailWrapper(new Monotonic(), Float.MIN_VALUE);
     }
 }
 
@@ -82,7 +82,7 @@ class DynamicSnakeOption extends HeuristicOptions
 
     @Override
     public Heuristic make(int rows, int cols) {
-        return new DynamicSnake(Math.max(rows, cols));
+        return new FailWrapper(new DynamicSnake(Math.max(rows, cols)), Float.MIN_VALUE);
     }
 }
 
