@@ -1,4 +1,31 @@
 # Term 2
+## Week 3
+This week I found the source of the older heuristic under preforming.
+
+The new implementation of expetimax returned the first maximum child node found at a max node. This was
+which ever maximum move was quicker to process, before there was much more consitiaty in which move was chosen.
+
+Since this change both snake heuristics are able to reach 8192 on depth of 6.
+
+Dynamic snake is also now supporting rectangular games, however I have not finished testing about 
+what changes can be made to improve the performance, the only change so far is that a rectangular weight
+matrix can be generated.
+
+## Week 2
+Two variable sized square heuristics were created this week, this stated a week late based on the plan.
+
+I also created the DynamicSnake heuristic. This is a heuristic generates a weight matrix similar to the one
+used in the old snake heuristic.
+
+I also created a heurstic based on [10]. This annualised features like the monotony of the rows/cols as well as
+the values on the edge. There is also a significant penalty for a losing game state.
+
+The DynamicSnake and old snake heuristic appeared to be underprefoming in the benchmark however the Monotonic heuristic
+was able to get 8192 on a depth of 6 or 7. With a depth of 7 it even acheived 8192 24% of time (100 samples).
+
+While developing the heuristics I also added a Graphical option to set the heuristic and depth of the search.
+Constantly changing the code was getting irritating.
+
 ## Week 1
 I used java parellel streams to create a mutli core implmentation.
 In this process I discovred a bug that in the origonal implemention.
@@ -19,7 +46,7 @@ While I made an attempt with the thread object, the code was messy and ineffecti
 I eventualy relised the java streams have a parellel() method. This returns a stream
 were every item can be processed in parellel at the same time.
 
-This was the approch I used in the end
+This was the approach I used in the end
 
 # Term 1
 ## Week 11

@@ -8,7 +8,7 @@ public class DynamicSnake implements Heuristic
 {
     double[][] powers;
 
-    private int rows, cols;
+    private final int rows, cols;
 
     public DynamicSnake(int row, int col)
     {
