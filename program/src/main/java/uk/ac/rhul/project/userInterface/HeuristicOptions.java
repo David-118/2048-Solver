@@ -82,7 +82,7 @@ class DynamicSnakeOption extends HeuristicOptions
 
     @Override
     public Heuristic make(int rows, int cols) {
-        return new FailWrapper(new DynamicSnake(Math.max(rows, cols)), Float.MIN_VALUE);
+        return new DynamicSnake(rows, cols);
     }
 }
 

@@ -14,7 +14,12 @@ import java.util.Arrays;
 public class BenchmarkerView implements View
 {
     private static final GameConfiguration[] CONFIGURATIONS = new GameConfiguration[] {
-            new GameConfiguration(4, 4, 7, new DynamicSnake(4)),
+            new GameConfiguration(2, 9, 6, new DynamicSnake(2, 9)),
+            new GameConfiguration(9, 2, 6, new DynamicSnake(9, 2)),
+            new GameConfiguration(3, 6, 6, new DynamicSnake(3, 6)),
+            new GameConfiguration(6, 3, 6, new DynamicSnake(6, 3)),
+            new GameConfiguration(4, 5, 6, new DynamicSnake(4, 5)),
+            new GameConfiguration(5, 4, 6, new DynamicSnake(5, 4)),
     };
 
     private NewGameObserver newGameObserver;
