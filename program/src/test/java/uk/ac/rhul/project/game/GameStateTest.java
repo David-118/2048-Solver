@@ -1,16 +1,14 @@
 package uk.ac.rhul.project.game;
 
-import javafx.util.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.ac.rhul.project.heursitics.LargestLower;
 import uk.ac.rhul.project.heursitics.SumCells;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameStateTest
 {
@@ -74,56 +72,13 @@ class GameStateTest
     {
         this.model_2x2.init();
         assertEquals(model_2x2.getMoveType(), MoveType.MUTATION);
-        for (Pair<GameState, Integer> move: this.model_2x2.getPossibleMoves())
+        for (GameState move: this.model_2x2.getPossibleMoves())
         {
-            assertEquals(move.getKey().getMoveType(), MoveType.PLAYER_MOVE);
-            for (Pair<GameState, Double> mutation: move.getKey().getPossibleMutations())
+            assertEquals(move.getMoveType(), MoveType.PLAYER_MOVE);
+            for (GameState mutation: move.getPossibleMutations())
             {
-                assertEquals(mutation.getKey().getMoveType(), MoveType.MUTATION);
+                assertEquals(mutation.getMoveType(), MoveType.MUTATION);
             }
         }
-    }
-
-    @Test
-    void test_probabilities()
-    {
-        this.model_2x2.setGrid(new int[][]{{8, 0}, {0, 0}});
-        List<Pair<GameState, Double>> mutations = this.model_2x2.getPossibleMutations();
-        for (int i = 0; i < 6; i++)
-        {
-            assertEquals(mutations.get(i).getValue(), i % 2 == 0 ? (1d / 3) * 0.9d : (1d / 3) * 0.1d, 0.001);
-        }
-
-    }
-
-    @Test
-    void test_scoreDeltas()
-    {
-        this.model_classic.setGrid(new int[][]{
-                {4, 4, 4, 4},
-                {8, 4, 16, 2},
-                {0, 0, 0, 0},
-                {0, 0, 0, 0}
-        });
-
-        List<Pair<GameState, Integer>> move = model_classic.getPossibleMoves();
-        int[] deltas = new int[]{8, 8, 16, 16};
-
-        for (int i = 0; i < 4; i++)
-        {
-            assertEquals(deltas[i], move.get(i).getValue());
-        }
-    }
-
-    @Test
-    void test_hashAndEquals()
-    {
-        GameState model_2x2Clone = model_2x2.clone();
-        assertEquals(this.model_2x2, model_2x2Clone);
-        assertNotEquals(5, this.model_2x2);
-        assertNotEquals(this.model_classic, this.model_2x2);
-
-        assertEquals(model_2x2.hashCode(), model_2x2Clone.hashCode());
-        assertNotEquals(this.model_classic.hashCode(), this.model_2x2.hashCode());
     }
 }

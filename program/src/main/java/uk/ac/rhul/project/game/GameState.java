@@ -1,11 +1,12 @@
 package uk.ac.rhul.project.game;
 
-import javafx.util.Pair;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Represents the state of the game.
@@ -55,6 +56,18 @@ public class GameState implements Cloneable
     private int score;
 
     private MoveType moveType;
+
+    public double getProbability()
+    {
+        return probability;
+    }
+
+    public void setProbability(double probability)
+    {
+        this.probability = probability;
+    }
+
+    private double probability;
 
 
     /**
@@ -170,54 +183,41 @@ public class GameState implements Cloneable
      * @param dir The direction for the tiles to move.
      * @return True if any changes are made to the grid.
      */
-    private OptionalInt move(Direction dir)
+    private boolean move(Direction dir)
     {
         boolean[][] merged = new boolean[this.height][this.width];
         boolean flag = false;
-        int scoreDelta = 0;
 
         for (int i : dir.getVerticalStream(this.height))
         {
             for (int j: dir.getHorizontalStream(this.width))
             {
-                if (grid[i][j] != 0)
+                if (grid[i][j] != 0 && this.slideTile(i, j, dir, merged))
                 {
-                    OptionalInt score = this.slideTile(i, j, dir, merged);
-                    if (score.isPresent())
-                    {
-                        this.moveType = MoveType.PLAYER_MOVE;
-                        scoreDelta += score.getAsInt();
-                        flag = true;
-                    }
+                    this.moveType = MoveType.PLAYER_MOVE;
+                    flag = true;
                 }
             }
         }
-
-        if (flag)
-        {
-            return OptionalInt.of(scoreDelta);
-        } else
-        {
-            return OptionalInt.empty();
-        }
+        return flag;
     }
-
 
     /**
      * Generates all the possible moves.
      * @return An array of the possible moves.
      */
-    public List<Pair<GameState, Integer>> getPossibleMoves()
+    public List<GameState> getPossibleMoves()
     {
-        List<Pair<GameState, Integer>> possibleMoves = new ArrayList<>(4);
+        List<GameState> possibleMoves = new ArrayList<>(4);
 
         for(Direction dir: Direction.values())
         {
-            int scoreDelta = 0;
             GameState gameState = this.clone();
-            gameState.move(dir).ifPresent((int delta) -> {
-                possibleMoves.add(new Pair<>(gameState, delta));
-            });
+            if (gameState.move(dir))
+            {
+                gameState.probability = 1;
+                possibleMoves.add(gameState);
+            }
         }
 
         return possibleMoves;
@@ -227,13 +227,13 @@ public class GameState implements Cloneable
      * Generates all the possible states that can be generated from adding a random tile.
      * @return Array with the possible mutations.
      */
-    public List<Pair<GameState, Double>> getPossibleMutations()
+    public GameState[] getPossibleMutations()
     {
         List<Point> freeCells = this.getFreeCells();
-        List<Pair<GameState, Double>> states = new ArrayList<>(freeCells.size() * 2);
+        GameState[] states = new GameState[freeCells.size() * 2];
 
-        double CHANCE_OF_2 = (1f / freeCells.size()) * (1 - PROB_OF_4);
-        double CHANCE_OF_4 = (1f / freeCells.size()) * PROB_OF_4;
+        final float CHANCE_OF_2 = (1f / freeCells.size()) * (1 - PROB_OF_4);
+        final float CHANCE_OF_4 = (1f / freeCells.size()) * PROB_OF_4;
 
         for (int i = 0; i < freeCells.size(); i++)
         {
@@ -246,8 +246,11 @@ public class GameState implements Cloneable
             gameState1.moveType = MoveType.MUTATION;
             gameState2.moveType = MoveType.MUTATION;
 
-            states.add(new Pair<>(gameState1, CHANCE_OF_2));
-            states.add(new Pair<>(gameState2, CHANCE_OF_4));
+            gameState1.setProbability(CHANCE_OF_2);
+            gameState2.setProbability(CHANCE_OF_4);
+
+            states[2*i]= gameState1;
+            states[2*i + 1] = gameState2;
         }
 
         return states;
@@ -261,12 +264,10 @@ public class GameState implements Cloneable
      * @param merged Array that keeps track of which tiles hae been merged .
      * @return Returns true if the tile is moved or merged.
      */
-    private OptionalInt slideTile(final int row, final int col, Direction dir, boolean[][] merged)
+    private boolean slideTile(final int row, final int col, Direction dir, boolean[][] merged)
     {
         int target_row = row;
         int target_col = col;
-
-        int scoreDelta = 0;
 
         // Calculate how far the tile can be moved (assuming no merge)
         while (nextCellInGrid(target_row, target_col, dir) && this.nextCellValue(target_row, target_col, dir) == 0)
@@ -286,20 +287,20 @@ public class GameState implements Cloneable
             merged[target_row][target_col] = true;
 
             this.grid[target_row][target_col] <<= 1;
-            scoreDelta += this.grid[target_row][target_col];
+            this.score += this.grid[target_row][target_col];
         }  // move but no merge
         else if (target_row != row || target_col != col)
         {
             this.grid[target_row][target_col] = this.grid[row][col];
         }  // No move made
         else {
-            return OptionalInt.empty();
+            return false;
         }
 
         // Remove previous cell
         this.grid[row][col] = 0;
 
-        return OptionalInt.of(scoreDelta);
+        return true;
     }
 
     /**
@@ -400,24 +401,5 @@ public class GameState implements Cloneable
     public String toString()
     {
         return Arrays.deepToString(this.grid);
-    }
-
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GameState gameState = (GameState) o;
-        return height == gameState.height && width == gameState.width &&
-                score == gameState.score && Objects.equals(random, gameState.random) &&
-                Arrays.deepEquals(grid, gameState.grid) && moveType == gameState.moveType;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int result = Objects.hash(height, width, random, score, moveType);
-        result = 31 * result + Arrays.deepHashCode(grid);
-        return result;
     }
 }

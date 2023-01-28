@@ -7,16 +7,14 @@ import uk.ac.rhul.project.heursitics.Heuristic;
 public class LeafNodeBehaviour implements NodeBehaviour
 {
     private GameState state;
-    private StateScoreTracker stateScoreTracker;
-    public LeafNodeBehaviour(GameState state, StateScoreTracker stateScoreTracker)
+    public LeafNodeBehaviour(GameState state)
     {
         this.state = state;
-        this.stateScoreTracker = stateScoreTracker;
     }
     @Override
     public Node nextNode(Heuristic heuristic) throws EndOfGameException
     {
-        throw new EndOfGameException(this.stateScoreTracker);
+        throw new EndOfGameException(this.state);
     }
 
     @Override

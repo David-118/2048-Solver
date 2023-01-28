@@ -1,16 +1,14 @@
 package uk.ac.rhul.project.game;
 
-import uk.ac.rhul.project.expectimax.StateScoreTracker;
-
 public class EndOfGameException extends Exception
 {
-    private StateScoreTracker state;
-    public EndOfGameException(StateScoreTracker state)
+    private GameState state;
+    public EndOfGameException(GameState state)
     {
         this.state = state;
     }
 
-    public StateScoreTracker getFinalState()
+    public GameState getFinalState()
     {
         return state;
     }

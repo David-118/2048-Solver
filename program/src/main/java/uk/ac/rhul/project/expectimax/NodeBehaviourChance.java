@@ -1,29 +1,28 @@
 package uk.ac.rhul.project.expectimax;
 
-import javafx.util.Pair;
 import uk.ac.rhul.project.game.EndOfGameException;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
-public class NodeBehaviourChance implements NodeBehaviour
+class NodeBehaviourChance implements NodeBehaviour
 {
     private final Node[] children;
     private final Random random;
-    public static NodeBehaviour generate(GameState state, Random random, int depth, StateScoreTracker stateScoreTracker)
+    public static NodeBehaviour generate(GameState state, Random random, int depth)
     {
         NodeBehaviour generated;
-        List<Pair<GameState, Double>> childStates = state.getPossibleMutations();
+        GameState[] childStates = state.getPossibleMutations();
 
-        Node[] childNodes = new Node[childStates.size()];
+        Node[] childNodes = new Node[childStates.length];
+
+        float sum = 0;
 
         for (int i = 0; i < childNodes.length; i++)
         {
-            childNodes[i] = new Node(childStates.get(i).getKey(), NodeBehaviourMaximize::generate, random, stateScoreTracker);
-            childNodes[i].setWeight(childStates.get(i).getValue());
+            childNodes[i] = new Node(childStates[i], NodeBehaviourMaximize::generate, random);
         }
 
 
@@ -35,7 +34,7 @@ public class NodeBehaviourChance implements NodeBehaviour
         }
         else
         {
-            generated = new LeafNodeBehaviour(state, stateScoreTracker);
+            generated = new LeafNodeBehaviour(state);
         }
         return generated;
     }

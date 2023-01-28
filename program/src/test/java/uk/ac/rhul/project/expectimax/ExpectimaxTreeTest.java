@@ -20,9 +20,7 @@ class ExpectimaxTreeTest
         Random random = new Random(1);
         GameState state3x3 = new GameState(new GameConfiguration(3, 3, 4, new LargestLower()), random);
         state3x3.init();
-        StateScoreTracker stateScoreTracker = new StateScoreTracker();
-        stateScoreTracker.setState(state3x3);
-        ExpectimaxTree expectimaxTree = new ExpectimaxTree(stateScoreTracker, random,4, new LargestLower());
+        ExpectimaxTree expectimaxTree = new ExpectimaxTree(state3x3, random,4, new LargestLower());
 
         try {
             while (true)
@@ -32,7 +30,7 @@ class ExpectimaxTreeTest
         }
         catch (EndOfGameException endOfGame)
         {
-            int[][] grid = endOfGame.getFinalState().getState().getGrid();
+            int[][] grid = endOfGame.getFinalState().getGrid();
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 2; j++)

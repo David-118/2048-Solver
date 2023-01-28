@@ -14,18 +14,15 @@ class Node
     private final Random random;
     private final NodeBehaviourGenerator behaviourGenerator;
 
-    private final StateScoreTracker scoreTracker;
+    private final double weight;
 
-    private double weight;
-
-    protected Node(GameState gameState, NodeBehaviourGenerator generator, Random random, StateScoreTracker scoreTracker)
+    protected Node(GameState gameState, NodeBehaviourGenerator generator, Random random)
     {
         this.random = random;
         this.gameState = gameState;
-        this.behaviour = new LeafNodeBehaviour(gameState, scoreTracker);
+        this.behaviour = new LeafNodeBehaviour(gameState);
         this.behaviourGenerator = generator;
-        this.weight = 1;
-        this.scoreTracker = scoreTracker;
+        this.weight = gameState.getProbability();
     }
 
     public GameState getGameState()
@@ -35,9 +32,7 @@ class Node
 
     public Node nextNode(Heuristic heuristic) throws EndOfGameException
     {
-        Node nextNode = this.behaviour.nextNode(heuristic);
-        this.scoreTracker.setState(nextNode.gameState);
-        return nextNode;
+        return this.behaviour.nextNode(heuristic);
     }
 
     public double applyHeuristic(Heuristic heuristic)
@@ -47,8 +42,7 @@ class Node
 
     public void generateChildren(int depth)
     {
-        if (depth > 0) this.behaviour =
-                this.behaviourGenerator.generate(this.gameState, random, depth - 1, scoreTracker);
+        if (depth > 0) this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1);
     }
 
 
@@ -61,10 +55,5 @@ class Node
     public String toString()
     {
         return this.gameState.toString();
-    }
-
-    public void setWeight(double weight)
-    {
-        this.weight = weight;
     }
 }

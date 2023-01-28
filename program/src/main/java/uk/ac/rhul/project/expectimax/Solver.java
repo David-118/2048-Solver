@@ -1,6 +1,7 @@
 package uk.ac.rhul.project.expectimax;
 
 import uk.ac.rhul.project.game.EndOfGameException;
+import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 import uk.ac.rhul.project.userInterface.UpdateObserver;
 
@@ -20,7 +21,6 @@ public class Solver implements Runnable
     private UpdateObserver updateObserver;
     private Heuristic heuristic;
     private ExpectimaxTree tree;
-    private StateScoreTracker stateScoreTracker;
 
     private Random random;
 
@@ -42,10 +42,9 @@ public class Solver implements Runnable
         this.heuristic = heuristic;
     }
 
-    public void setGame(StateScoreTracker state)
+    public void setGame(GameState state)
     {
         this.tree = new ExpectimaxTree(state, this.random, depth, this.heuristic);
-        this.stateScoreTracker = state;
     }
 
     public void run()
@@ -54,8 +53,7 @@ public class Solver implements Runnable
         {
             while (true)
             {
-                this.tree.makeMove();
-                updateObserver.notifyObservers(this.stateScoreTracker);
+                updateObserver.notifyObservers(this.tree.makeMove());
             }
         } catch (EndOfGameException end)
         {

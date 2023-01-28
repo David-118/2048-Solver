@@ -1,6 +1,5 @@
 package uk.ac.rhul.project.userInterface;
 
-import uk.ac.rhul.project.expectimax.StateScoreTracker;
 import uk.ac.rhul.project.game.GameState;
 
 /**
@@ -13,5 +12,5 @@ public interface UpdateObserver
      * Interface for methods to be used as an updateObserver.
      * @param gameState Current state of the game.
      */
-    void notifyObservers(StateScoreTracker gameState);
+    void notifyObservers(GameState gameState);
 }

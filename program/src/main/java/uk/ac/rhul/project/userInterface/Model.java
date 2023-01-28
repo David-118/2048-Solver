@@ -1,7 +1,9 @@
 package uk.ac.rhul.project.userInterface;
 
-import uk.ac.rhul.project.expectimax.StateScoreTracker;
+import uk.ac.rhul.project.game.Direction;
 import uk.ac.rhul.project.game.GameConfiguration;
+import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.heursitics.Heuristic;
 
 /**
  * The model used by a javafx interface.
@@ -9,7 +11,7 @@ import uk.ac.rhul.project.game.GameConfiguration;
 public interface Model
 {
     void init(GameConfiguration configuration);
-    StateScoreTracker getGrid();
+    GameState getGrid();
     int getScore();
     void addUpdateObserver(UpdateObserver handelUpdate);
     void solve(boolean blocking);

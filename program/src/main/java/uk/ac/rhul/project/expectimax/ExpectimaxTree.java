@@ -14,17 +14,17 @@ public class ExpectimaxTree
     private final int depth;
     private final Heuristic heuristic;
 
-    public ExpectimaxTree(StateScoreTracker initialState, Random random, int depth, Heuristic heuristic)
+    public ExpectimaxTree(GameState initialState, Random random, int depth, Heuristic heuristic)
     {
         this.depth = depth;
         this.heuristic = heuristic;
-        this.currentRoot =
-                new Node(initialState.getState(), NodeBehaviourMaximize::generate, random, initialState);
+        this.currentRoot = new Node(initialState, NodeBehaviourMaximize::generate, random);
     }
 
-    public void makeMove() throws EndOfGameException
+    public GameState makeMove() throws EndOfGameException
     {
         this.currentRoot.generateChildren(this.depth);
         this.currentRoot = this.currentRoot.nextNode(this.heuristic).nextNode(this.heuristic);
+        return this.currentRoot.getGameState();
     }
 }

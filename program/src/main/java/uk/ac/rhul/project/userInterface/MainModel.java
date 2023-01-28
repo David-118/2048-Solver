@@ -1,7 +1,6 @@
 package uk.ac.rhul.project.userInterface;
 
 import uk.ac.rhul.project.expectimax.Solver;
-import uk.ac.rhul.project.expectimax.StateScoreTracker;
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
@@ -12,9 +11,9 @@ import java.util.Random;
  */
 public final class MainModel implements Model
 {
-    private StateScoreTracker gameStateScore;
-    private final Solver solver;
-    private final Random rnd;
+    private GameState gameState;
+    private Solver solver;
+    private Random rnd;
 
     /**
      * Create a model of the game 2048
@@ -24,8 +23,7 @@ public final class MainModel implements Model
      */
     public MainModel(int rows, int cols, Random random)
     {
-        this.gameStateScore = new StateScoreTracker();
-        this.gameStateScore.setState(new GameState(new GameConfiguration(rows, cols, -1,null), random));
+        this.gameState = new GameState(new GameConfiguration(rows, cols, -1,null), random);
         this.solver = new Solver(random);
         this.rnd = random;
     }
@@ -48,9 +46,8 @@ public final class MainModel implements Model
      */
     public void init(GameConfiguration configuration)
     {
-        this.gameStateScore = new StateScoreTracker();
-        this.gameStateScore.setState(new GameState(configuration));
-        this.gameStateScore.getState().init();
+        this.gameState = new GameState(configuration);
+        this.gameState.init();
         this.initSolver(configuration.getDepth(), configuration.getHeuristic());
     }
 
@@ -61,17 +58,16 @@ public final class MainModel implements Model
     private void initSolver(int depth, Heuristic heuristic)
     {
         this.solver.configureSolver(depth, heuristic);
-        this.solver.setGame(this.gameStateScore);
+        this.solver.setGame(this.gameState);
     }
 
     /**
      * Get the grid from the 2048 game.
-     *
      * @return a 2D array stored [rows, cols] representing the 2048 games.
      */
-    public StateScoreTracker getGrid()
+    public GameState getGrid()
     {
-        return gameStateScore;
+        return gameState;
     }
 
     /**
@@ -80,7 +76,7 @@ public final class MainModel implements Model
      */
     public int getScore()
     {
-        return gameStateScore.getScore();
+        return gameState.getScore();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package uk.ac.rhul.project.userInterface;
 
-import uk.ac.rhul.project.expectimax.StateScoreTracker;
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 
@@ -56,7 +55,7 @@ public class MainController
      * Handel for updating 2048 game while solver is running.
      * @param state The current state of the game
      */
-    public void handelUpdate(StateScoreTracker state)
+    public void handelUpdate(GameState state)
     {
         this.view.updateGrid(state);
     }
