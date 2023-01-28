@@ -74,10 +74,10 @@ class GameStateTest
     {
         this.model_2x2.init();
         assertEquals(model_2x2.getMoveType(), MoveType.MUTATION);
-        for (GameState move: this.model_2x2.getPossibleMoves())
+        for (Pair<GameState, Integer> move: this.model_2x2.getPossibleMoves())
         {
-            assertEquals(move.getMoveType(), MoveType.PLAYER_MOVE);
-            for (Pair<GameState, Double> mutation: move.getPossibleMutations())
+            assertEquals(move.getKey().getMoveType(), MoveType.PLAYER_MOVE);
+            for (Pair<GameState, Double> mutation: move.getKey().getPossibleMutations())
             {
                 assertEquals(mutation.getKey().getMoveType(), MoveType.MUTATION);
             }
@@ -94,5 +94,24 @@ class GameStateTest
             assertEquals(mutations.get(i).getValue(), i % 2 == 0 ? (1d / 3) * 0.9d : (1d / 3) * 0.1d, 0.001);
         }
 
+    }
+
+    @Test
+    void test_scoreDeltas()
+    {
+        this.model_classic.setGrid(new int[][]{
+                {4, 4, 4, 4},
+                {8, 4, 16, 2},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0}
+        });
+
+        List<Pair<GameState, Integer>> move = model_classic.getPossibleMoves();
+        int[] deltas = new int[]{8, 8, 16, 16};
+
+        for (int i = 0; i < 4; i++)
+        {
+            assertEquals(deltas[i], move.get(i).getValue());
+        }
     }
 }

@@ -4,10 +4,8 @@ import javafx.util.Pair;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Represents the state of the game.
@@ -172,40 +170,53 @@ public class GameState implements Cloneable
      * @param dir The direction for the tiles to move.
      * @return True if any changes are made to the grid.
      */
-    private boolean move(Direction dir)
+    private OptionalInt move(Direction dir)
     {
         boolean[][] merged = new boolean[this.height][this.width];
         boolean flag = false;
+        int scoreDelta = 0;
 
         for (int i : dir.getVerticalStream(this.height))
         {
             for (int j: dir.getHorizontalStream(this.width))
             {
-                if (grid[i][j] != 0 && this.slideTile(i, j, dir, merged))
+                if (grid[i][j] != 0)
                 {
-                    this.moveType = MoveType.PLAYER_MOVE;
-                    flag = true;
+                    OptionalInt score = this.slideTile(i, j, dir, merged);
+                    if (score.isPresent())
+                    {
+                        this.moveType = MoveType.PLAYER_MOVE;
+                        scoreDelta += score.getAsInt();
+                        flag = true;
+                    }
                 }
             }
         }
-        return flag;
+
+        if (flag)
+        {
+            return OptionalInt.of(scoreDelta);
+        } else
+        {
+            return OptionalInt.empty();
+        }
     }
 
     /**
      * Generates all the possible moves.
      * @return An array of the possible moves.
      */
-    public List<GameState> getPossibleMoves()
+    public List<Pair<GameState, Integer>> getPossibleMoves()
     {
-        List<GameState> possibleMoves = new ArrayList<>(4);
+        List<Pair<GameState, Integer>> possibleMoves = new ArrayList<>(4);
 
         for(Direction dir: Direction.values())
         {
+            int scoreDelta = 0;
             GameState gameState = this.clone();
-            if (gameState.move(dir))
-            {
-                possibleMoves.add(gameState);
-            }
+            gameState.move(dir).ifPresent((int delta) -> {
+                possibleMoves.add(new Pair<>(gameState, delta));
+            });
         }
 
         return possibleMoves;
@@ -249,10 +260,12 @@ public class GameState implements Cloneable
      * @param merged Array that keeps track of which tiles hae been merged .
      * @return Returns true if the tile is moved or merged.
      */
-    private boolean slideTile(final int row, final int col, Direction dir, boolean[][] merged)
+    private OptionalInt slideTile(final int row, final int col, Direction dir, boolean[][] merged)
     {
         int target_row = row;
         int target_col = col;
+
+        int scoreDelta = 0;
 
         // Calculate how far the tile can be moved (assuming no merge)
         while (nextCellInGrid(target_row, target_col, dir) && this.nextCellValue(target_row, target_col, dir) == 0)
@@ -272,20 +285,20 @@ public class GameState implements Cloneable
             merged[target_row][target_col] = true;
 
             this.grid[target_row][target_col] <<= 1;
-            this.score += this.grid[target_row][target_col];
+            scoreDelta += this.grid[target_row][target_col];
         }  // move but no merge
         else if (target_row != row || target_col != col)
         {
             this.grid[target_row][target_col] = this.grid[row][col];
         }  // No move made
         else {
-            return false;
+            return OptionalInt.empty();
         }
 
         // Remove previous cell
         this.grid[row][col] = 0;
 
-        return true;
+        return OptionalInt.of(scoreDelta);
     }
 
     /**
