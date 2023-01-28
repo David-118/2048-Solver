@@ -13,7 +13,7 @@ class NodeBehaviourChance implements NodeBehaviour
 {
     private final Node[] children;
     private final Random random;
-    public static NodeBehaviour generate(GameState state, Random random, int depth)
+    public static NodeBehaviour generate(GameState state, Random random, int depth, StateScoreTracker stateScoreTracker)
     {
         NodeBehaviour generated;
         List<Pair<GameState, Double>> childStates = state.getPossibleMutations();
@@ -22,7 +22,7 @@ class NodeBehaviourChance implements NodeBehaviour
 
         for (int i = 0; i < childNodes.length; i++)
         {
-            childNodes[i] = new Node(childStates.get(i).getKey(), NodeBehaviourMaximize::generate, random);
+            childNodes[i] = new Node(childStates.get(i).getKey(), NodeBehaviourMaximize::generate, random, stateScoreTracker);
             childNodes[i].setWeight(childStates.get(i).getValue());
         }
 
@@ -35,7 +35,7 @@ class NodeBehaviourChance implements NodeBehaviour
         }
         else
         {
-            generated = new LeafNodeBehaviour(state);
+            generated = new LeafNodeBehaviour(state, stateScoreTracker);
         }
         return generated;
     }

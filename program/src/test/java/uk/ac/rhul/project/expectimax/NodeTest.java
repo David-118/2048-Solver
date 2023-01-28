@@ -31,6 +31,9 @@ class NodeTest
         state2x2 = new GameState(new GameConfiguration(2, 2, 0, new SumCells()), random);
         state2x2.init();
 
+        StateScoreTracker tracker2x2 = new StateScoreTracker();
+        tracker2x2.setState(state2x2);
+
         state4x4 = new GameState(new GameConfiguration(4, 4, 0, new SumCells()), random);
         state4x4.init();
         state4x4.setGrid(new int[][]{
@@ -40,16 +43,23 @@ class NodeTest
                 {  0,  0,  0,  2},
         });
 
-        root2x2 = new Node(state2x2, NodeBehaviourMaximize::generate, random);
-        root4x4 = new Node(state4x4, NodeBehaviourMaximize::generate, random);
+        StateScoreTracker tracker4x4 = new StateScoreTracker();
+        tracker4x4.setState(state4x4);
+
+        root2x2 = new Node(state2x2, NodeBehaviourMaximize::generate, random, tracker2x2);
+        root4x4 = new Node(state4x4, NodeBehaviourMaximize::generate, random, tracker4x4);
 
         GameState state = new GameState(new GameConfiguration(2, 2, 0, new SumCells()));
         state.setGrid(new int[][]{
                 {16, 8},
                 {2, 4}
         });
-        leafNodeMax = new Node(state, NodeBehaviourMaximize::generate, random);
-        leafNodeChance = new Node(state, NodeBehaviourChance::generate, random);
+
+        StateScoreTracker tracker = new StateScoreTracker();
+        tracker.setState(state);
+
+        leafNodeMax = new Node(state, NodeBehaviourMaximize::generate, random, tracker);
+        leafNodeChance = new Node(state, NodeBehaviourChance::generate, random, tracker);
     }
 
     @Test

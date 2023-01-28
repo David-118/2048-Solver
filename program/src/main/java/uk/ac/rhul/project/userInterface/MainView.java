@@ -17,6 +17,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import uk.ac.rhul.project.expectimax.StateScoreTracker;
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Snake4x4;
@@ -573,15 +574,15 @@ public class MainView extends Application implements View
      * Set the value in each label in the grid view.
      * @param state The current state of the game.
      */
-    public void setValues(GameState state)
+    public void setValues(StateScoreTracker state)
     {
-        if (state.getGrid().length == height && state.getGrid()[0].length == width)
+        if (state.getState().getGrid().length == height && state.getState().getGrid()[0].length == width)
         {
             for (int row = 0; row < height; row++)
             {
                 for (int col = 0; col < width; col++)
                 {
-                    setLabel(row, col, state.getGrid()[row][col]);
+                    setLabel(row, col, state.getState().getGrid()[row][col]);
                 }
             }
         }
@@ -589,7 +590,7 @@ public class MainView extends Application implements View
     }
 
     @Override
-    public void updateGrid(GameState state)
+    public void updateGrid(StateScoreTracker state)
     {
         Platform.runLater(() -> this.setValues(state));
     }

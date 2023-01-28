@@ -1,5 +1,6 @@
 package uk.ac.rhul.project.userInterface;
 
+import uk.ac.rhul.project.expectimax.StateScoreTracker;
 import uk.ac.rhul.project.game.GameState;
 
 public interface View
@@ -8,7 +9,7 @@ public interface View
 
     void addSolveObserver(SolveObserver handelSolve);
 
-    void setValues(GameState state);
+    void setValues(StateScoreTracker state);
 
-    void updateGrid(GameState state);
+    void updateGrid(StateScoreTracker state);
 }

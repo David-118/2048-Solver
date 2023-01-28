@@ -1,5 +1,6 @@
 package uk.ac.rhul.project.benchmark;
 
+import uk.ac.rhul.project.expectimax.StateScoreTracker;
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.*;
@@ -73,17 +74,17 @@ public class BenchmarkerView implements View
     }
 
     @Override
-    public void setValues(GameState state)
+    public void setValues(StateScoreTracker state)
     {
         System.out.printf("%s Game %d/%d: Score: %d \n %s\n",
                 CONFIGURATIONS[this.configIndex].getName(), gameIndex + 1, count, state.getScore(),
-                Arrays.deepToString(state.getGrid()));
+                Arrays.deepToString(state.getState().getGrid()));
     }
 
     @Override
-    public void updateGrid(GameState state)
+    public void updateGrid(StateScoreTracker state)
     {
-        this.currentState = state;
+        this.currentState = state.getState();
         setValues(state);
     }
 }
