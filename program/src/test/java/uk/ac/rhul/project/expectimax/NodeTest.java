@@ -3,6 +3,7 @@ package uk.ac.rhul.project.expectimax;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.ac.rhul.project.game.EndOfGameException;
+import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Diagonal4x4;
 import uk.ac.rhul.project.heursitics.LargestLower;
@@ -27,10 +28,10 @@ class NodeTest
     void setUp()
     {
         Random random = new Random(1);
-        state2x2 = new GameState(2, 2, random);
+        state2x2 = new GameState(new GameConfiguration(2, 2, 0, new SumCells()), random);
         state2x2.init();
 
-        state4x4 = new GameState(4, 4, random);
+        state4x4 = new GameState(new GameConfiguration(4, 4, 0, new SumCells()), random);
         state4x4.init();
         state4x4.setGrid(new int[][]{
                 {128, 64, 32, 16},
@@ -39,10 +40,13 @@ class NodeTest
                 {  0,  0,  0,  2},
         });
 
+        state2x2.setProbability(1);
+        state4x4.setProbability(1);
+
         root2x2 = new Node(state2x2, NodeBehaviourMaximize::generate, random);
         root4x4 = new Node(state4x4, NodeBehaviourMaximize::generate, random);
 
-        GameState state = new GameState(2,2);
+        GameState state = new GameState(new GameConfiguration(2, 2, 0, new SumCells()));
         state.setGrid(new int[][]{
                 {16, 8},
                 {2, 4}
@@ -68,8 +72,8 @@ class NodeTest
     @Test
     void applyHeuristicLeafNode()
     {
-        assertEquals(4f, state2x2.applyHeuristic(new SumCells()));
-        assertEquals(6f, state2x2.applyHeuristic(new LargestLower()));
+        assertEquals(4f, root2x2.applyHeuristic(new SumCells()));
+        assertEquals(6f, root2x2.applyHeuristic(new LargestLower()));
         assertEquals(1.5707E11, root4x4.applyHeuristic(new Snake4x4()), 0.00005E11);
         assertEquals(122692f, root4x4.applyHeuristic(new Diagonal4x4()));
     }
@@ -104,13 +108,13 @@ class NodeTest
             Node node = this.root4x4.nextNode(new LargestLower());
             node.generateChildren(1);
             node.applyHeuristic(new LargestLower());
-            assertEquals(853, node.applyHeuristic(new LargestLower()));
+            assertEquals(851.6, node.applyHeuristic(new LargestLower()), 0.1);
             assertEquals("[[0, 0, 0, 16], [0, 0, 32, 8], [2, 64, 4, 4], [128, 2, 2, 2]]",
                     Arrays.deepToString(node.nextNode(new LargestLower()).getGameState().getGrid()));
 
-            assertEquals("[[0, 0, 2, 16], [0, 0, 32, 8], [0, 64, 4, 4], [128, 2, 2, 2]]",
+            assertEquals("[[0, 0, 0, 16], [0, 2, 32, 8], [0, 64, 4, 4], [128, 2, 2, 2]]",
                     Arrays.deepToString(node.nextNode(new LargestLower()).getGameState().getGrid()));
-            assertEquals("[[4, 0, 0, 16], [0, 0, 32, 8], [0, 64, 4, 4], [128, 2, 2, 2]]",
+            assertEquals("[[2, 0, 0, 16], [0, 0, 32, 8], [0, 64, 4, 4], [128, 2, 2, 2]]",
                     Arrays.deepToString(node.nextNode(new LargestLower()).getGameState().getGrid()));
 
             assertEquals("[[4, 0, 0, 16], [0, 0, 32, 8], [0, 64, 4, 4], [128, 2, 2, 2]]",

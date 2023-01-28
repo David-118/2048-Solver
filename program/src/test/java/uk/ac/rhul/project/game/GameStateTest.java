@@ -21,10 +21,10 @@ class GameStateTest
     void setup()
     {
         Random r = new Random(2022);
-        model_2x2 = new GameState(2, 2, r);
-        model_classic = new GameState(4, 4, r);
-        model_rect1 = new GameState(9, 3, r);
-        model_rect2 = new GameState(4, 5, r);
+        model_2x2 = new GameState(new GameConfiguration(2, 2, 0, null), r);
+        model_classic = new GameState(new GameConfiguration(4, 4, 0, null), r);
+        model_rect1 = new GameState(new GameConfiguration(9, 3, 0, null), r);
+        model_rect2 = new GameState(new GameConfiguration(4, 5, 0, null), r);
     }
     @Test
     void test_init()
@@ -65,5 +65,20 @@ class GameStateTest
 
         assertEquals(3066, this.model_rect1.applyHeuristic(new SumCells()));
         assertEquals(17976, this.model_rect1.applyHeuristic(new LargestLower()));
+    }
+
+    @Test
+    void test_moveType()
+    {
+        this.model_2x2.init();
+        assertEquals(model_2x2.getMoveType(), MoveType.MUTATION);
+        for (GameState move: this.model_2x2.getPossibleMoves())
+        {
+            assertEquals(move.getMoveType(), MoveType.PLAYER_MOVE);
+            for (GameState mutation: move.getPossibleMutations())
+            {
+                assertEquals(mutation.getMoveType(), MoveType.MUTATION);
+            }
+        }
     }
 }

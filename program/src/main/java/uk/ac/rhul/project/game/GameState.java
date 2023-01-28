@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Stream;
 
 /**
  * Represents the state of the game.
@@ -55,6 +54,8 @@ public class GameState implements Cloneable
      * Stores the current score of the game.
      */
     private int score;
+
+    private MoveType moveType;
 
     public double getProbability()
     {
@@ -133,6 +134,7 @@ public class GameState implements Cloneable
      */
     private void addRandomCell()
     {
+        this.moveType = MoveType.MUTATION;
         List<Point> cells = this.getFreeCells();
         int size = cells.size();
 
@@ -192,6 +194,7 @@ public class GameState implements Cloneable
             {
                 if (grid[i][j] != 0 && this.slideTile(i, j, dir, merged))
                 {
+                    this.moveType = MoveType.PLAYER_MOVE;
                     flag = true;
                 }
             }
@@ -239,6 +242,9 @@ public class GameState implements Cloneable
 
             gameState1.grid[freeCells.get(i).x][freeCells.get(i).y] = 2;
             gameState2.grid[freeCells.get(i).x][freeCells.get(i).y] = 4;
+
+            gameState1.moveType = MoveType.MUTATION;
+            gameState2.moveType = MoveType.MUTATION;
 
             gameState1.setProbability(CHANCE_OF_2);
             gameState2.setProbability(CHANCE_OF_4);
@@ -374,6 +380,11 @@ public class GameState implements Cloneable
     public int getHeight()
     {
         return this.height;
+    }
+
+    public MoveType getMoveType()
+    {
+        return moveType;
     }
 
     /**
