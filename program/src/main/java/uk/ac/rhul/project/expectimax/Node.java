@@ -14,7 +14,7 @@ class Node
     private final Random random;
     private final NodeBehaviourGenerator behaviourGenerator;
 
-    private final double weight;
+    private double weight;
 
     protected Node(GameState gameState, NodeBehaviourGenerator generator, Random random)
     {
@@ -22,7 +22,7 @@ class Node
         this.gameState = gameState;
         this.behaviour = new LeafNodeBehaviour(gameState);
         this.behaviourGenerator = generator;
-        this.weight = gameState.getProbability();
+        this.weight = 1;
     }
 
     public GameState getGameState()
@@ -55,5 +55,10 @@ class Node
     public String toString()
     {
         return this.gameState.toString();
+    }
+
+    public void setWeight(double weight)
+    {
+        this.weight = weight;
     }
 }

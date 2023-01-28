@@ -20,11 +20,10 @@ class NodeBehaviourChance implements NodeBehaviour
 
         Node[] childNodes = new Node[childStates.size()];
 
-        float sum = 0;
-
         for (int i = 0; i < childNodes.length; i++)
         {
             childNodes[i] = new Node(childStates.get(i).getKey(), NodeBehaviourMaximize::generate, random);
+            childNodes[i].setWeight(childStates.get(i).getValue());
         }
 
 

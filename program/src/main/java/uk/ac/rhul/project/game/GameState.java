@@ -58,18 +58,6 @@ public class GameState implements Cloneable
 
     private MoveType moveType;
 
-    public double getProbability()
-    {
-        return probability;
-    }
-
-    public void setProbability(double probability)
-    {
-        this.probability = probability;
-    }
-
-    private double probability;
-
 
     /**
      * Create a game state.
@@ -216,7 +204,6 @@ public class GameState implements Cloneable
             GameState gameState = this.clone();
             if (gameState.move(dir))
             {
-                gameState.probability = 1;
                 possibleMoves.add(gameState);
             }
         }
@@ -246,9 +233,6 @@ public class GameState implements Cloneable
 
             gameState1.moveType = MoveType.MUTATION;
             gameState2.moveType = MoveType.MUTATION;
-
-            gameState1.setProbability(CHANCE_OF_2);
-            gameState2.setProbability(CHANCE_OF_4);
 
             states.add(new Pair<>(gameState1, CHANCE_OF_2));
             states.add(new Pair<>(gameState2, CHANCE_OF_4));

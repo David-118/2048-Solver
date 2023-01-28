@@ -40,9 +40,6 @@ class NodeTest
                 {  0,  0,  0,  2},
         });
 
-        state2x2.setProbability(1);
-        state4x4.setProbability(1);
-
         root2x2 = new Node(state2x2, NodeBehaviourMaximize::generate, random);
         root4x4 = new Node(state4x4, NodeBehaviourMaximize::generate, random);
 
