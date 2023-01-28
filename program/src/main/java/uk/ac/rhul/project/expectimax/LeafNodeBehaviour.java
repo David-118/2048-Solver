@@ -22,4 +22,10 @@ public class LeafNodeBehaviour implements NodeBehaviour
     {
         return state.applyHeuristic(heuristic);
     }
+
+    @Override
+    public Node[] getChildren()
+    {
+        return new Node[0];
+    }
 }

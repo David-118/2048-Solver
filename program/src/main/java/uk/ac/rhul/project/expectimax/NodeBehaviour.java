@@ -7,4 +7,6 @@ interface NodeBehaviour
 {
     Node nextNode(Heuristic heuristic) throws EndOfGameException;
     double applyHeuristic(Heuristic heuristic);
+
+    public Node[] getChildren();
 }

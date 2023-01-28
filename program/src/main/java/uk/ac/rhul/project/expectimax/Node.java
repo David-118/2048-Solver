@@ -12,7 +12,7 @@ class Node
     private NodeBehaviour behaviour;
     private final GameState gameState;
     private final Random random;
-    private final NodeBehaviourGenerator behaviourGenerator;
+    private NodeBehaviourGenerator behaviourGenerator;
 
     private final double weight;
 
@@ -23,6 +23,14 @@ class Node
         this.behaviour = new LeafNodeBehaviour(gameState);
         this.behaviourGenerator = generator;
         this.weight = gameState.getProbability();
+    }
+
+    private NodeBehaviour generated(GameState state, Random random, int depth)
+    {
+        Arrays.stream(this.behaviour.getChildren()).parallel().unordered().
+                forEach((Node child) -> child.generateChildren(depth));
+
+        return this.behaviour;
     }
 
     public GameState getGameState()
@@ -42,7 +50,11 @@ class Node
 
     public void generateChildren(int depth)
     {
-        if (depth > 0) this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1);
+        if (depth > 0)
+        {
+            this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1);
+            this.behaviourGenerator = this::generated;
+        }
     }
 
 

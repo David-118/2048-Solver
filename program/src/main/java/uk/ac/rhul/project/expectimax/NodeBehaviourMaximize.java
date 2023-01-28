@@ -55,4 +55,10 @@ class NodeBehaviourMaximize implements NodeBehaviour
                 .orElseThrow(() -> {throw new RuntimeException("Max node has no children");});
 
     }
+
+    @Override
+    public Node[] getChildren()
+    {
+        return children;
+    }
 }
