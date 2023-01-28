@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GameStateTest
 {
@@ -113,5 +113,17 @@ class GameStateTest
         {
             assertEquals(deltas[i], move.get(i).getValue());
         }
+    }
+
+    @Test
+    void test_hashAndEquals()
+    {
+        GameState model_2x2Clone = model_2x2.clone();
+        assertEquals(this.model_2x2, model_2x2Clone);
+        assertNotEquals(5, this.model_2x2);
+        assertNotEquals(this.model_classic, this.model_2x2);
+
+        assertEquals(model_2x2.hashCode(), model_2x2Clone.hashCode());
+        assertNotEquals(this.model_classic.hashCode(), this.model_2x2.hashCode());
     }
 }

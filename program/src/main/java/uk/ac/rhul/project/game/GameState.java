@@ -202,6 +202,7 @@ public class GameState implements Cloneable
         }
     }
 
+
     /**
      * Generates all the possible moves.
      * @return An array of the possible moves.
@@ -399,5 +400,24 @@ public class GameState implements Cloneable
     public String toString()
     {
         return Arrays.deepToString(this.grid);
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameState gameState = (GameState) o;
+        return height == gameState.height && width == gameState.width &&
+                score == gameState.score && Objects.equals(random, gameState.random) &&
+                Arrays.deepEquals(grid, gameState.grid) && moveType == gameState.moveType;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = Objects.hash(height, width, random, score, moveType);
+        result = 31 * result + Arrays.deepHashCode(grid);
+        return result;
     }
 }
