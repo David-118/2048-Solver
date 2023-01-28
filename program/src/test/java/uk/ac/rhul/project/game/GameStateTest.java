@@ -1,11 +1,13 @@
 package uk.ac.rhul.project.game;
 
+import javafx.util.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.ac.rhul.project.heursitics.LargestLower;
 import uk.ac.rhul.project.heursitics.SumCells;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,10 +77,22 @@ class GameStateTest
         for (GameState move: this.model_2x2.getPossibleMoves())
         {
             assertEquals(move.getMoveType(), MoveType.PLAYER_MOVE);
-            for (GameState mutation: move.getPossibleMutations())
+            for (Pair<GameState, Double> mutation: move.getPossibleMutations())
             {
-                assertEquals(mutation.getMoveType(), MoveType.MUTATION);
+                assertEquals(mutation.getKey().getMoveType(), MoveType.MUTATION);
             }
         }
+    }
+
+    @Test
+    void test_probabilities()
+    {
+        this.model_2x2.setGrid(new int[][]{{8, 0}, {0, 0}});
+        List<Pair<GameState, Double>> mutations = this.model_2x2.getPossibleMutations();
+        for (int i = 0; i < 6; i++)
+        {
+            assertEquals(mutations.get(i).getValue(), i % 2 == 0 ? (1d / 3) * 0.9d : (1d / 3) * 0.1d, 0.001);
+        }
+
     }
 }

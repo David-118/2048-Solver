@@ -1,5 +1,6 @@
 package uk.ac.rhul.project.game;
 
+import javafx.util.Pair;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.awt.*;
@@ -227,13 +228,13 @@ public class GameState implements Cloneable
      * Generates all the possible states that can be generated from adding a random tile.
      * @return Array with the possible mutations.
      */
-    public GameState[] getPossibleMutations()
+    public List<Pair<GameState, Double>> getPossibleMutations()
     {
         List<Point> freeCells = this.getFreeCells();
-        GameState[] states = new GameState[freeCells.size() * 2];
+        List<Pair<GameState, Double>> states = new ArrayList<>(freeCells.size() * 2);
 
-        final float CHANCE_OF_2 = (1f / freeCells.size()) * (1 - PROB_OF_4);
-        final float CHANCE_OF_4 = (1f / freeCells.size()) * PROB_OF_4;
+        double CHANCE_OF_2 = (1f / freeCells.size()) * (1 - PROB_OF_4);
+        double CHANCE_OF_4 = (1f / freeCells.size()) * PROB_OF_4;
 
         for (int i = 0; i < freeCells.size(); i++)
         {
@@ -249,8 +250,8 @@ public class GameState implements Cloneable
             gameState1.setProbability(CHANCE_OF_2);
             gameState2.setProbability(CHANCE_OF_4);
 
-            states[2*i]= gameState1;
-            states[2*i + 1] = gameState2;
+            states.add(new Pair<>(gameState1, CHANCE_OF_2));
+            states.add(new Pair<>(gameState2, CHANCE_OF_4));
         }
 
         return states;

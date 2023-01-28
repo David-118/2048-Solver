@@ -1,10 +1,12 @@
 package uk.ac.rhul.project.expectimax;
 
+import javafx.util.Pair;
 import uk.ac.rhul.project.game.EndOfGameException;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 class NodeBehaviourChance implements NodeBehaviour
@@ -14,15 +16,15 @@ class NodeBehaviourChance implements NodeBehaviour
     public static NodeBehaviour generate(GameState state, Random random, int depth)
     {
         NodeBehaviour generated;
-        GameState[] childStates = state.getPossibleMutations();
+        List<Pair<GameState, Double>> childStates = state.getPossibleMutations();
 
-        Node[] childNodes = new Node[childStates.length];
+        Node[] childNodes = new Node[childStates.size()];
 
         float sum = 0;
 
         for (int i = 0; i < childNodes.length; i++)
         {
-            childNodes[i] = new Node(childStates[i], NodeBehaviourMaximize::generate, random);
+            childNodes[i] = new Node(childStates.get(i).getKey(), NodeBehaviourMaximize::generate, random);
         }
 
 
