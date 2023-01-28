@@ -3,6 +3,7 @@ package uk.ac.rhul.project.expectimax;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.ac.rhul.project.game.EndOfGameException;
+import uk.ac.rhul.project.game.GameAbandonedException;
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Diagonal4x4;
@@ -56,21 +57,21 @@ class NodeTest
     }
 
     @Test
-    void getGameState()
+    void test_getGameState()
     {
         assertEquals(state2x2, root2x2.getGameState());
         assertEquals(state4x4, root4x4.getGameState());
     }
 
     @Test
-    void nextNodeLeafNode()
+    void test_nextNodeLeafNode()
     {
         assertThrows(EndOfGameException.class, () -> this.root2x2.nextNode(new SumCells()));
         assertThrows(EndOfGameException.class, () -> this.root4x4.nextNode(new SumCells()));
     }
 
     @Test
-    void applyHeuristicLeafNode()
+    void test_applyHeuristicLeafNode()
     {
         assertEquals(4f, root2x2.applyHeuristic(new SumCells()));
         assertEquals(6f, root2x2.applyHeuristic(new LargestLower()));
@@ -79,7 +80,7 @@ class NodeTest
     }
 
     @Test
-    void nextNodeMaxNode()
+    void test_nextNodeMaxNode()
     {
         try
         {
@@ -93,14 +94,14 @@ class NodeTest
     }
 
     @Test
-    void applyHeuristicMaxNode()
+    void test_applyHeuristicMaxNode()
     {
         this.root2x2.generateChildren(1);
         assertEquals(8f, this.root2x2.applyHeuristic(new LargestLower()));
     }
 
     @Test
-    void depth1tree()
+    void test_depth1tree()
     {
         this.root4x4.generateChildren(1);
         try
@@ -126,7 +127,7 @@ class NodeTest
     }
 
     @Test
-    public void endState()
+    public void test_endState()
     {
         leafNodeMax.generateChildren(1);
         leafNodeChance.generateChildren(1);
@@ -135,7 +136,7 @@ class NodeTest
     }
 
     @Test
-    void depth4tree()
+    void test_depth4tree()
     {
         this.root2x2.generateChildren(4);
         try
@@ -148,5 +149,16 @@ class NodeTest
         {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    void test_abandon() throws EndOfGameException
+    {
+        this.root2x2.generateChildren(4);
+        assertNotEquals(Double.NEGATIVE_INFINITY, this.root2x2.applyHeuristic(new LargestLower()));
+        assertInstanceOf(Node.class, this.root2x2.nextNode(new LargestLower()));
+        this.root2x2.abandon();
+        assertEquals(Double.NEGATIVE_INFINITY, this.root2x2.applyHeuristic(new LargestLower()));
+        assertThrows(GameAbandonedException.class, ()->this.root2x2.nextNode(new LargestLower()));
     }
 }

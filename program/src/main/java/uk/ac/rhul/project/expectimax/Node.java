@@ -33,6 +33,8 @@ class Node
         return this.behaviour;
     }
 
+    private NodeBehaviourGenerator afterGeneration = NodeBehaviourPruned::generate;
+
     public GameState getGameState()
     {
         return this.gameState;
@@ -53,7 +55,7 @@ class Node
         if (depth > 0)
         {
             this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1);
-            this.behaviourGenerator = this::generated;
+            this.behaviourGenerator = this.afterGeneration;
         }
     }
 
@@ -61,6 +63,13 @@ class Node
     public double getWeight()
     {
         return weight;
+    }
+
+    public void abandon()
+    {
+        this.behaviourGenerator = NodeBehaviourPruned::generate;
+        this.afterGeneration = NodeBehaviourPruned::generate;
+        this.generateChildren(1);
     }
 
     @Override

@@ -14,7 +14,8 @@ public class ExpectimaxTree
     private final int depth;
     private final Heuristic heuristic;
 
-    public ExpectimaxTree(GameState initialState, Random random, int depth, Heuristic heuristic)
+    public ExpectimaxTree(GameState initialState, Random random, int depth,
+                          Heuristic heuristic)
     {
         this.depth = depth;
         this.heuristic = heuristic;
