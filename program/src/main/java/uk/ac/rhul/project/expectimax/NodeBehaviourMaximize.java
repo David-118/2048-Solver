@@ -10,10 +10,13 @@ class NodeBehaviourMaximize implements NodeBehaviour
 {
     private final Node[] children;
 
-    public static NodeBehaviour generate(GameState state, Random random, int depth)
+    public static NodeBehaviour generate(GameState state, Random random, int depth,
+                                         int abandonCount, double abandonThreshold)
     {
         NodeBehaviour generated;
         List<GameState> childStates = state.getPossibleMoves();
+
+        if (state.applyHeuristic() < abandonThreshold) abandonCount--;
 
         Node[] childNodes = new Node[childStates.size()];
 
@@ -22,7 +25,10 @@ class NodeBehaviourMaximize implements NodeBehaviour
             childNodes[i] = new Node(childStates.get(i), NodeBehaviourChance::generate, random);
         }
 
-        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth));
+
+        int finalAbandonCount = abandonCount;
+        Arrays.stream(childNodes).parallel().unordered().forEach((Node child) ->
+                child.generateChildren(depth, finalAbandonCount, abandonThreshold));
 
         if (childNodes.length > 0)
         {

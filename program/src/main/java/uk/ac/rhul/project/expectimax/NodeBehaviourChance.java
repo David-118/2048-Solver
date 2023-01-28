@@ -11,7 +11,8 @@ class NodeBehaviourChance implements NodeBehaviour
 {
     private final Node[] children;
     private final Random random;
-    public static NodeBehaviour generate(GameState state, Random random, int depth)
+    public static NodeBehaviour generate(GameState state, Random random, int depth,
+                                         int abandonCount, double abandonThreshold)
     {
         NodeBehaviour generated;
         GameState[] childStates = state.getPossibleMutations();
@@ -26,7 +27,8 @@ class NodeBehaviourChance implements NodeBehaviour
         }
 
 
-        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth));
+        Arrays.stream(childNodes).parallel().forEach((Node child) ->
+                child.generateChildren(depth, abandonCount, abandonThreshold));
 
         if (childNodes.length > 0)
         {

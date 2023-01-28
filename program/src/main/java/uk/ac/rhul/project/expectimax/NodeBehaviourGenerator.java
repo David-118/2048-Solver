@@ -7,5 +7,5 @@ import java.util.Random;
 @FunctionalInterface
 interface NodeBehaviourGenerator
 {
-    NodeBehaviour generate(GameState state, Random random, int depth);
+    NodeBehaviour generate(GameState state, Random random, int depth, int abandonCount, double abandonThreshold);
 }

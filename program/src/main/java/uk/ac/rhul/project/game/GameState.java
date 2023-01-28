@@ -69,6 +69,10 @@ public class GameState implements Cloneable
 
     private double probability;
 
+    private Heuristic heuristic;
+
+    private Double heuristicScore = null;
+
 
     /**
      * Create a game state.
@@ -82,6 +86,7 @@ public class GameState implements Cloneable
         this.width = gameConfiguration.getCols();
         this.grid = new int[height][width];
         this.random = random;
+        this.heuristic = gameConfiguration.getHeuristic();
     }
 
     /**
@@ -135,6 +140,7 @@ public class GameState implements Cloneable
     private void addRandomCell()
     {
         this.moveType = MoveType.MUTATION;
+        this.heuristicScore = null;
         List<Point> cells = this.getFreeCells();
         int size = cells.size();
 
@@ -195,6 +201,7 @@ public class GameState implements Cloneable
                 if (grid[i][j] != 0 && this.slideTile(i, j, dir, merged))
                 {
                     this.moveType = MoveType.PLAYER_MOVE;
+                    this.heuristicScore = null;
                     flag = true;
                 }
             }
@@ -245,6 +252,9 @@ public class GameState implements Cloneable
 
             gameState1.moveType = MoveType.MUTATION;
             gameState2.moveType = MoveType.MUTATION;
+
+            gameState1.heuristicScore = null;
+            gameState2.heuristicScore = null;
 
             gameState1.setProbability(CHANCE_OF_2);
             gameState2.setProbability(CHANCE_OF_4);
@@ -394,7 +404,17 @@ public class GameState implements Cloneable
      */
     public double applyHeuristic(Heuristic heuristic)
     {
-        return heuristic.heuristic(this);
+
+        if (heuristicScore == null)
+        {
+            heuristicScore = heuristic.heuristic(this);
+        }
+        return heuristicScore;
+    }
+
+    public double applyHeuristic()
+    {
+        return this.applyHeuristic(this.heuristic);
     }
 
     @Override

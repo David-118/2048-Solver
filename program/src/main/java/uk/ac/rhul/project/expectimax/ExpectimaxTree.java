@@ -24,7 +24,14 @@ public class ExpectimaxTree
 
     public GameState makeMove() throws EndOfGameException
     {
-        this.currentRoot.generateChildren(this.depth);
+        return makeMove(Integer.MAX_VALUE, Double.NEGATIVE_INFINITY);
+    }
+
+    public GameState makeMove(int abandonCount, double abandonRatio) throws EndOfGameException
+    {
+        double abandonThreshold = this.currentRoot.directlyApplyHeuristic(this.heuristic) * abandonRatio;
+
+        this.currentRoot.generateChildren(this.depth, abandonCount, abandonThreshold);
         this.currentRoot = this.currentRoot.nextNode(this.heuristic).nextNode(this.heuristic);
         return this.currentRoot.getGameState();
     }

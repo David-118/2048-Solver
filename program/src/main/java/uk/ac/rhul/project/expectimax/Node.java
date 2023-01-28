@@ -25,15 +25,16 @@ class Node
         this.weight = gameState.getProbability();
     }
 
-    private NodeBehaviour generated(GameState state, Random random, int depth)
+    private NodeBehaviour generated(GameState state, Random random, int depth,
+                                    int abandonCount, double abandonThreshold)
     {
         Arrays.stream(this.behaviour.getChildren()).parallel().unordered().
-                forEach((Node child) -> child.generateChildren(depth));
+                forEach((Node child) -> child.generateChildren(depth, abandonCount, abandonThreshold));
 
         return this.behaviour;
     }
 
-    private NodeBehaviourGenerator afterGeneration = NodeBehaviourPruned::generate;
+    private NodeBehaviourGenerator afterGeneration = this::generated;
 
     public GameState getGameState()
     {
@@ -50,15 +51,21 @@ class Node
         return this.behaviour.applyHeuristic(heuristic) * weight;
     }
 
-    public void generateChildren(int depth)
+    public void generateChildren(int depth, int abandonCount, double abandonThreshold)
     {
+        if (abandonCount == 0) this.abandon();
         if (depth > 0)
         {
-            this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1);
+            this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1,
+            abandonCount, abandonThreshold);
             this.behaviourGenerator = this.afterGeneration;
         }
     }
 
+    public void generateChildren(int depth)
+    {
+        this.generateChildren(depth, Integer.MAX_VALUE, Double.NEGATIVE_INFINITY);
+    }
 
     public double getWeight()
     {
@@ -70,6 +77,11 @@ class Node
         this.behaviourGenerator = NodeBehaviourPruned::generate;
         this.afterGeneration = NodeBehaviourPruned::generate;
         this.generateChildren(1);
+    }
+
+    public double directlyApplyHeuristic(Heuristic heuristic)
+    {
+        return this.gameState.applyHeuristic(heuristic);
     }
 
     @Override

@@ -9,8 +9,9 @@ import java.util.Random;
 
 public class NodeBehaviourPruned implements NodeBehaviour
 {
-    private GameState state;
-    public static NodeBehaviour generate(GameState state, Random random, int depth)
+    private final GameState state;
+    public static NodeBehaviour generate(GameState state, Random random, int depth,
+                                         int abandonCount, double abandonThreshold)
     {
         return new NodeBehaviourPruned(state);
     }
