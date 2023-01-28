@@ -8,7 +8,7 @@ import uk.ac.rhul.project.heursitics.Heuristic;
 import java.util.*;
 import java.util.stream.IntStream;
 
-class NodeBehaviourMaximize implements NodeBehaviour
+public class NodeBehaviourMaximize implements NodeBehaviour
 {
     private final Node[] children;
     private final int[] deltas;

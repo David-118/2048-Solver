@@ -5,7 +5,7 @@ import uk.ac.rhul.project.game.GameState;
 import java.util.Random;
 
 @FunctionalInterface
-interface NodeBehaviourGenerator
+public interface NodeBehaviourGenerator
 {
     NodeBehaviour generate(GameState state, Random random, int depth, StateScoreTracker stateScoreTracker);
 }

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-class NodeBehaviourChance implements NodeBehaviour
+public class NodeBehaviourChance implements NodeBehaviour
 {
     private final Node[] children;
     private final Random random;
