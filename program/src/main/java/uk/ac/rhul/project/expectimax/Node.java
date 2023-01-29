@@ -26,10 +26,10 @@ class Node
     }
 
     private NodeBehaviour generated(GameState state, Random random, int depth,
-                                    int abandonCount, double abandonThreshold)
+                                    int abandonCount, double abandonThreshold, int max4count)
     {
         Arrays.stream(this.behaviour.getChildren()).parallel().unordered().
-                forEach((Node child) -> child.generateChildren(depth, abandonCount, abandonThreshold));
+                forEach((Node child) -> child.generateChildren(depth, abandonCount, abandonThreshold, max4count));
 
         return this.behaviour;
     }
@@ -51,20 +51,21 @@ class Node
         return this.behaviour.applyHeuristic(heuristic) * weight;
     }
 
-    public void generateChildren(int depth, int abandonCount, double abandonThreshold)
+    public void generateChildren(int depth, int abandonCount, double abandonThreshold, int max4count)
     {
-        if (abandonCount == 0) this.abandon();
-        if (depth > 0)
+        if (abandonCount <= 0) this.abandon();
+        if (depth > 0 && max4count > 0)
         {
+            if (gameState.lastChangeAdded4()) max4count--;
             this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1,
-            abandonCount, abandonThreshold);
+            abandonCount, abandonThreshold, max4count);
             this.behaviourGenerator = this.afterGeneration;
         }
     }
 
     public void generateChildren(int depth)
     {
-        this.generateChildren(depth, Integer.MAX_VALUE, Double.NEGATIVE_INFINITY);
+        this.generateChildren(depth, Integer.MAX_VALUE, Double.NEGATIVE_INFINITY, Integer.MAX_VALUE);
     }
 
     public double getWeight()
@@ -77,6 +78,11 @@ class Node
         this.behaviourGenerator = NodeBehaviourPruned::generate;
         this.afterGeneration = NodeBehaviourPruned::generate;
         this.generateChildren(1);
+    }
+
+    public void tempPrune()
+    {
+
     }
 
     public double directlyApplyHeuristic(Heuristic heuristic)

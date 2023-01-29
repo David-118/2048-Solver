@@ -53,7 +53,7 @@ public class Solver implements Runnable
         {
             while (true)
             {
-                updateObserver.notifyObservers(this.tree.makeMove(2, 1));
+                updateObserver.notifyObservers(this.tree.makeMove(2, 0.5));
             }
         } catch (EndOfGameException end)
         {

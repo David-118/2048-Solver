@@ -7,14 +7,22 @@ import uk.ac.rhul.project.heursitics.Heuristic;
 public class LeafNodeBehaviour implements NodeBehaviour
 {
     private GameState state;
+
+    boolean gameOver;
     public LeafNodeBehaviour(GameState state)
     {
+        this(state, false);
+    }
+    public LeafNodeBehaviour(GameState state, Boolean gameOver)
+    {
         this.state = state;
+        this.gameOver = gameOver;
     }
     @Override
     public Node nextNode(Heuristic heuristic) throws EndOfGameException
     {
-        throw new EndOfGameException(this.state);
+        if (gameOver) throw new EndOfGameException(state);
+        else throw new RuntimeException("Unexpected end of game");
     }
 
     @Override

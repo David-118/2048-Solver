@@ -14,6 +14,8 @@ public class ExpectimaxTree
     private final int depth;
     private final Heuristic heuristic;
 
+    private final int max4Count = 2;
+
     public ExpectimaxTree(GameState initialState, Random random, int depth,
                           Heuristic heuristic)
     {
@@ -31,7 +33,7 @@ public class ExpectimaxTree
     {
         double abandonThreshold = this.currentRoot.directlyApplyHeuristic(this.heuristic) * abandonRatio;
 
-        this.currentRoot.generateChildren(this.depth, abandonCount, abandonThreshold);
+        this.currentRoot.generateChildren(this.depth, abandonCount, abandonThreshold, this.max4Count);
         this.currentRoot = this.currentRoot.nextNode(this.heuristic).nextNode(this.heuristic);
         return this.currentRoot.getGameState();
     }

@@ -73,6 +73,8 @@ public class GameState implements Cloneable
 
     private Double heuristicScore = null;
 
+    boolean added4;
+
 
     /**
      * Create a game state.
@@ -87,6 +89,7 @@ public class GameState implements Cloneable
         this.grid = new int[height][width];
         this.random = random;
         this.heuristic = gameConfiguration.getHeuristic();
+        this.added4 = false;
     }
 
     /**
@@ -149,6 +152,7 @@ public class GameState implements Cloneable
 
         // Set cell to 4 PROB_OF_4 of the time otherwise set to 2.
         int value = random.nextFloat() < PROB_OF_4 ? 4 : 2;
+        this.added4 = value == 4;
         this.grid[cell.x][cell.y] = value;
     }
 
@@ -203,6 +207,7 @@ public class GameState implements Cloneable
                     this.moveType = MoveType.PLAYER_MOVE;
                     this.heuristicScore = null;
                     flag = true;
+                    this.added4 = false;
                 }
             }
         }
@@ -257,7 +262,9 @@ public class GameState implements Cloneable
             gameState2.heuristicScore = null;
 
             gameState1.setProbability(CHANCE_OF_2);
+            gameState1.added4 = false;
             gameState2.setProbability(CHANCE_OF_4);
+            gameState2.added4 = true;
 
             states[2*i]= gameState1;
             states[2*i + 1] = gameState2;
@@ -417,6 +424,10 @@ public class GameState implements Cloneable
         return this.applyHeuristic(this.heuristic);
     }
 
+    public boolean lastChangeAdded4()
+    {
+        return this.added4;
+    }
     @Override
     public String toString()
     {

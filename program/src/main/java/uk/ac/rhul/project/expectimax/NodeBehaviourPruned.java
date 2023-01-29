@@ -11,7 +11,7 @@ public class NodeBehaviourPruned implements NodeBehaviour
 {
     private final GameState state;
     public static NodeBehaviour generate(GameState state, Random random, int depth,
-                                         int abandonCount, double abandonThreshold)
+                                         int abandonCount, double abandonThreshold, int max4count)
     {
         return new NodeBehaviourPruned(state);
     }
@@ -24,7 +24,7 @@ public class NodeBehaviourPruned implements NodeBehaviour
     @Override
     public Node nextNode(Heuristic heuristic) throws EndOfGameException
     {
-        throw new GameAbandonedException(state);
+        throw new RuntimeException("Game Abandoned Error");
     }
 
     @Override
