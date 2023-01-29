@@ -13,15 +13,16 @@ public class Hybrid implements Heuristic
         this.powers = new double[row][col];
         this.rows = row; this.cols = col;
 
-        int max_power = (rows - 1) + 2 * cols;
+        int max_power = (row - 3) + (col - 1) + 2 * col;
 
         for (int j = 0; j < col; j++)
         {
-            for (int i = 0; i < rows - 1; i++)
+            for (int i = 0; i < rows - 2; i++)
             {
-                this.powers[i][j] = Math.pow(4, i + j);
+                this.powers[i][j] = Math.pow(4, i + col - j - 1);
             }
-            this.powers[rows - 1][col] = Math.pow(4, max_power - 1);
+            this.powers[rows - 1][j] = Math.pow(4, max_power - 2*col + 1 + j);
+            this.powers[rows - 1][j] = Math.pow(4, max_power - j);
         }
 
     }

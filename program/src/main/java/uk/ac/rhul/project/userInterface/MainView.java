@@ -2,7 +2,6 @@ package uk.ac.rhul.project.userInterface;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -19,7 +18,6 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
-import uk.ac.rhul.project.heursitics.Snake4x4;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -183,18 +181,9 @@ public class MainView extends Application implements View
         ChoiceBox<HeuristicOptions> heuristicIn = new ChoiceBox<>();
         heuristicIn.setMaxWidth(Double.MAX_VALUE);
 
-        HeuristicOptions monotonic = new MonotonicOption();
 
-        heuristicIn.setItems(FXCollections.observableArrayList(
-                monotonic,
-                new LargestLowerOption(),
-                new LargestRightOption(),
-                new SumCellsOption(),
-                new DynamicSnakeOption(),
-                new Snake4x4Option()
-        ));
-
-        heuristicIn.setValue(monotonic);
+        heuristicIn.setItems(HeuristicOptions.registered);
+        heuristicIn.setValue(HeuristicOptions.registered.get(0));
 
         Label heuristicLabel = new Label("Heuristic:");
 
@@ -225,199 +214,6 @@ public class MainView extends Application implements View
     /**
      * Get an instance of the singleton MainView.
      * @return Either a new instance or the one existing instance of MainView.
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
      */
     public static synchronized MainView getInstance()
     {

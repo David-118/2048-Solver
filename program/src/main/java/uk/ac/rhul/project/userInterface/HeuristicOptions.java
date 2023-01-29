@@ -1,5 +1,7 @@
 package uk.ac.rhul.project.userInterface;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import uk.ac.rhul.project.heursitics.*;
 
 abstract class HeuristicOptions
@@ -9,12 +11,20 @@ abstract class HeuristicOptions
     {
         this.label = label;
     }
-     public abstract Heuristic make(int rows, int cols);
+    public abstract Heuristic make(int rows, int cols);
 
     public String toString()
     {
         return label;
     }
+
+    public static ObservableList<HeuristicOptions> registered = FXCollections.observableArrayList(
+            new MonotonicOption(),
+            new DynamicSnakeOption(0),
+            new HybridOption(),
+            new LargestLowerOption(),
+            new LargestRightOption()
+    );
 }
 
 class SumCellsOption extends HeuristicOptions
@@ -75,7 +85,7 @@ class MonotonicOption extends HeuristicOptions
 
 class DynamicSnakeOption extends HeuristicOptions
 {
-    public DynamicSnakeOption()
+    public DynamicSnakeOption(int failValue)
     {
         super("Dynamic Snake");
     }
@@ -96,5 +106,16 @@ class Snake4x4Option extends HeuristicOptions
     @Override
     public Heuristic make(int rows, int cols) {
         return new Snake4x4();
+    }
+}
+
+class HybridOption extends HeuristicOptions
+{
+    public HybridOption() { super("Hybrid");}
+
+    @Override
+    public  Heuristic make(int rows, int cols)
+    {
+        return new Hybrid(rows, cols);
     }
 }
