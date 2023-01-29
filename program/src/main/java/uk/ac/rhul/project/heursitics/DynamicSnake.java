@@ -6,20 +6,21 @@ import java.util.Arrays;
 
 public class DynamicSnake implements Heuristic
 {
-    int size;
     double[][] powers;
 
-    public DynamicSnake(int size)
-    {
-        this.size = size;
-        this.powers = new double[size][size];
+    private final int rows, cols;
 
-        for (int i = 0; i < size; i++)
+    public DynamicSnake(int row, int col)
+    {
+        this.powers = new double[row][col];
+        this.rows = row; this.cols = col;
+
+        for (int i = 0; i < row; i++)
         {
-            for (int j = 0; j < size; j++)
+            for (int j = 0; j < col; j++)
             {
-                int k = i%2==0 ? j : size - j - 1;
-                this.powers[i][j] = Math.pow(4, size*i + k);
+                int k = i%2==0 ? j : row - j - 1;
+                this.powers[i][j] = Math.pow(4, col*i + k);
             }
         }
     }
@@ -41,6 +42,6 @@ public class DynamicSnake implements Heuristic
     @Override
     public String getName()
     {
-        return String.format("Dynamic Snake", size, size);
+        return String.format("Dynamic Snake %dx%d", this.rows, this.cols);
     }
 }
