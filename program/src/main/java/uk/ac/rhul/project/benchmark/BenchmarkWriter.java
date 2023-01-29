@@ -2,6 +2,7 @@ package uk.ac.rhul.project.benchmark;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SequenceWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
@@ -24,6 +25,8 @@ public class BenchmarkWriter
 
     private final CsvSchema schema;
     private final CsvMapper mapper;
+
+    private SequenceWriter writer;
 
     /**
      * Define an instance of benchmark writer.
@@ -49,10 +52,19 @@ public class BenchmarkWriter
      * @param output The stream to write the output to.;
      * @throws IOException Thrown if the output stream is not writable.
      */
-    public void write(OutputStream output) throws IOException
+    public void write() throws IOException
     {
-        SequenceWriter writer = mapper.writer(schema).writeValues(output);
         writer.write(this.entries);
+        this.entries.clear();
+    }
+    
+    public void close() throws IOException
+    {
         writer.close();
+    }
+
+    public void setOutput(OutputStream output) throws IOException
+    {
+        this.writer = mapper.writer(schema).writeValues(output);
     }
 }
