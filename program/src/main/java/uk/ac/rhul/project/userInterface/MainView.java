@@ -21,6 +21,7 @@ import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Snake4x4;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Optional;
@@ -592,6 +593,12 @@ public class MainView extends Application implements View
     public void updateGrid(GameState state)
     {
         Platform.runLater(() -> this.setValues(state));
+    }
+
+    @Override
+    public void startIfTerminal(File log) throws IOException
+    {
+
     }
 
     /**

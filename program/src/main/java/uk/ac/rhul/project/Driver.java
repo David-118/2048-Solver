@@ -2,6 +2,7 @@
 package uk.ac.rhul.project;
 
 import uk.ac.rhul.project.benchmark.BenchmarkerView;
+import uk.ac.rhul.project.benchmark.OptimiserView;
 import uk.ac.rhul.project.userInterface.MainController;
 import uk.ac.rhul.project.userInterface.MainModel;
 import uk.ac.rhul.project.userInterface.MainView;
@@ -33,6 +34,7 @@ public class Driver
         int size = 0;
         int i = 0;
         boolean benchmark = false;
+        boolean optimise = false;
         while (i < args.length)
         {
             switch (args[i])
@@ -40,17 +42,40 @@ public class Driver
                 case "-b":
                 case "--benchmark":
                     benchmark = true;
+                    if (optimise) {
+                        System.err.println("Benchmark and Optimise flags are incompatible");
+                        System.exit(1);
+                    }
+
                     if (i <= args.length - 2) {
                         try
                         {
                             size = Integer.parseInt(args[++i]);
                         } catch (NumberFormatException e)
                         {
-                            System.err.println("Specify how many time to run each heuristic");
-                            System.exit(0);
+                            System.err.println("Specify how many times to run each heuristic");
+                            System.exit(1);
                         }
                     }
                     break;
+                case "-s":
+                case "--optimise":
+                    optimise = true;
+                    if (benchmark) {
+                        System.err.println("Benchmark and Optimise flags are incompatible");
+                        System.exit(1);
+                    }
+
+                    if (i <= args.length - 2) {
+                        try
+                        {
+                            size = Integer.parseInt(args[++i]);
+                        } catch (NumberFormatException e)
+                        {
+                            System.err.println("Specify how many times to run each heuristic");
+                            System.exit(1);
+                        }
+                    }
                 case "-o":
                 case "--output":
                     if (i <= args.length - 2) {
@@ -69,6 +94,9 @@ public class Driver
         if (benchmark)
         {
             view = new BenchmarkerView(size);
+        } else if (optimise)
+        {
+            view = new OptimiserView(size);
         } else
         {
             view = MainView.getInstance();
@@ -77,13 +105,12 @@ public class Driver
         MainModel model = new MainModel(4, 4);
         new MainController(model, view);
 
-        if (benchmark)
+        if (output != "")
         {
             try
             {
                 File file = new File(output);
-                file.createNewFile();
-                ((BenchmarkerView)view).benchmark(new FileOutputStream(file));
+                view.startIfTerminal(file);
             } catch (IOException e)
             {
                 System.err.println("Failed to open file " + output);

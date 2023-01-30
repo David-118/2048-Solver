@@ -2,7 +2,8 @@ package uk.ac.rhul.project.benchmark;
 
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
-import uk.ac.rhul.project.heursitics.*;
+import uk.ac.rhul.project.heursitics.DynamicSnake;
+import uk.ac.rhul.project.heursitics.FailSetter;
 import uk.ac.rhul.project.userInterface.NewGameObserver;
 import uk.ac.rhul.project.userInterface.SolveObserver;
 import uk.ac.rhul.project.userInterface.View;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 
-public class BenchmarkerView implements View
+public class OptimiserView implements View
 {
     public static GameConfiguration quickGame(int n)
     {
@@ -37,7 +38,7 @@ public class BenchmarkerView implements View
     private GameState currentState;
 
 
-    public BenchmarkerView(int count)
+    public OptimiserView(int count)
     {
         this.count = count;
         this.csvWriter = new BenchmarkWriter();
@@ -61,7 +62,7 @@ public class BenchmarkerView implements View
                 this.csvWriter.add(new BenchmarkEntry(CONFIGURATIONS[configIndex].getName(), currentState));
                 System.out.println(this.csvWriter.median());
                 this.csvWriter.write();
-	        }
+            }
             this.csvWriter.flushEntries();
         }
         this.csvWriter.close();
@@ -82,10 +83,9 @@ public class BenchmarkerView implements View
     @Override
     public void setValues(GameState state)
     {
-        System.out.printf("%s Game %d/%d: Score: %d \n %s\n",
-                CONFIGURATIONS[this.configIndex].getName(), gameIndex + 1, count, state.getScore(),
-                Arrays.deepToString(state.getGrid()));
-
+        String score = Integer.toString(state.getScore());
+        System.out.print(score);
+        for (int i = 0; i < score.length(); i++) System.out.print("\b");
     }
 
     @Override
@@ -95,10 +95,10 @@ public class BenchmarkerView implements View
         setValues(state);
     }
 
-    @Override
     public void startIfTerminal(File log) throws IOException
     {
         log.createNewFile();
         this.benchmark(new FileOutputStream(log));
     }
 }
+
