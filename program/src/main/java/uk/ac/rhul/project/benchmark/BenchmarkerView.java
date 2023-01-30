@@ -13,10 +13,22 @@ import java.util.Arrays;
 
 public class BenchmarkerView implements View
 {
+    public static GameConfiguration quickDSnake(int n)
+    {
+        return new GameConfiguration(n, n, 6, new DynamicSnake(n, n));
+    }
+
+    public static GameConfiguration quickDSnakeFail(int n, double m)
+    {
+        return new GameConfiguration(n, n, 6, new FailWrapper(new DynamicSnake(n, n), 0));
+    }
     private static final GameConfiguration[] CONFIGURATIONS = new GameConfiguration[] {
-            new GameConfiguration(3, 3, 6, new DynamicSnake(3, 3)),
-            new GameConfiguration(3, 3, 6, new LargestLower()),
-            new GameConfiguration(3, 3, 6, new LargestRight())
+            quickDSnake(2),
+            quickDSnake(3),
+            quickDSnake(4),
+            quickDSnakeFail(4, 0),
+            quickDSnakeFail(4, Float.MIN_VALUE),
+            quickDSnakeFail(4, Float.MIN_VALUE / 2),
     };
 
     private NewGameObserver newGameObserver;
