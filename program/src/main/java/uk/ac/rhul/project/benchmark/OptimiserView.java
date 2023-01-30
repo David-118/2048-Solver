@@ -3,7 +3,7 @@ package uk.ac.rhul.project.benchmark;
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.DynamicSnake;
-import uk.ac.rhul.project.heursitics.FailSetter;
+import uk.ac.rhul.project.heursitics.FailRatio;
 import uk.ac.rhul.project.userInterface.NewGameObserver;
 import uk.ac.rhul.project.userInterface.SolveObserver;
 import uk.ac.rhul.project.userInterface.View;
@@ -16,15 +16,24 @@ import java.util.Arrays;
 
 public class OptimiserView implements View
 {
-    public static GameConfiguration quickGame(int n)
+    private final int iterationCount;
+
+    public static GameConfiguration makeGame(double n)
     {
-        return new GameConfiguration(n, n, 4, new FailSetter(new DynamicSnake(n, n), Float.MIN_VALUE));
+        return new GameConfiguration(4, 4, 6, new FailRatio(new DynamicSnake(4, 4), n));
     }
-    private static final GameConfiguration[] CONFIGURATIONS = new GameConfiguration[] {
-            quickGame(2),
-            quickGame(3),
-            quickGame(4),
-    };
+
+
+    private double optimalN;
+    private BenchmarkEntry optimalMedian;
+
+    private BenchmarkEntry[] medianScores;
+    private double[] ns;
+
+    private static final double minN = -1;
+
+    private static final double maxN = 1;
+
 
     private NewGameObserver newGameObserver;
     private SolveObserver solveObserver;
@@ -37,35 +46,108 @@ public class OptimiserView implements View
 
     private GameState currentState;
 
-
-    public OptimiserView(int count)
+    public OptimiserView(int gameCount, int iterations)
     {
-        this.count = count;
+        this.count = gameCount;
+        this.iterationCount = iterations;
         this.csvWriter = new BenchmarkWriter();
+        this.medianScores = new BenchmarkEntry[iterations];
+        this.ns = new double[iterations];
     }
 
     public void benchmark(OutputStream log) throws IOException
     {
-        this.csvWriter.setOutput(log);
-        for (int i = 0; i < CONFIGURATIONS.length; i++)
-        {
-            this.configIndex = i;
-            System.out.print("Starting with heuristic: ");
-            System.out.println(CONFIGURATIONS[configIndex].getName());
+        this.configIndex = 0;
+        this.table();
 
-            for (int j  = 0; j < this.count; j++)
+        this.csvWriter.setOutput(log);
+        for (double n = minN; n <= maxN; n += (maxN - minN) / (iterationCount - 1))
+        {
+            runGames(n);
+
+            BenchmarkEntry median = csvWriter.median();
+
+            if (optimalMedian == null || median.compareTo(optimalMedian) > 0)
             {
-                this.gameIndex = j;
-                System.out.printf("Starting game %d\n", gameIndex +1);
-                this.newGameObserver.notifyObservers(CONFIGURATIONS[configIndex]);
-                this.solveObserver.notifyObserver(true);
-                this.csvWriter.add(new BenchmarkEntry(CONFIGURATIONS[configIndex].getName(), currentState));
-                System.out.println(this.csvWriter.median());
-                this.csvWriter.write();
+                optimalMedian = median;
+                optimalN = n;
             }
+
             this.csvWriter.flushEntries();
+            this.configIndex++;
         }
         this.csvWriter.close();
+    }
+
+    public void tableDivide(int scoreWidth, int tileWidth)
+    {
+        System.out.print("+-----+-");
+        for (int j = 0; j < scoreWidth; j++) System.out.print("-");
+        System.out.print("-+-");
+        for (int j = 0; j < tileWidth; j++) System.out.print("-");
+        System.out.println("-+");
+    }
+    private void table()
+    {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+        int maxTile = 0;
+        int maxScore = 0;
+
+        for (int i = 0; i < this.iterationCount; i++)
+        {
+            if (medianScores[i] != null)
+            {
+                if (medianScores[i].maxTile > maxTile)
+                {
+                    maxTile = medianScores[i].maxTile;
+                }
+
+                if (medianScores[i].score > maxScore)
+                {
+                    maxScore = medianScores[i].score;
+                }
+            }
+        }
+
+        int scoreWidth = "Median Score".length();
+        int tileWidth = "Median Max Tile".length();
+        tableDivide(scoreWidth, tileWidth);
+        System.out.println("|  N  | Median Score | Median Max Tile |");
+
+        for (int i = 0; i < this.iterationCount; i++)
+        {
+            int score, tile;
+            if (medianScores[i] == null)
+            {
+                score = 0; tile = 0;
+            } else
+            {
+                score = medianScores[i].score;
+                tile = medianScores[i].maxTile;
+            }
+            tableDivide(scoreWidth, tileWidth);
+            System.out.printf("|% .1f | %" + scoreWidth + "d | %" + tileWidth + "d |\n", this.ns[i],
+                    score, tile);
+        }
+        tableDivide(scoreWidth, tileWidth);
+    }
+    private void runGames(double n) throws IOException
+    {
+        for (int j  = 0; j < this.count; j++)
+        {
+            this.gameIndex = j;
+            this.newGameObserver.notifyObservers(makeGame(n));
+            this.solveObserver.notifyObserver(true);
+            this.csvWriter.add(new BenchmarkEntry("n=" + n, this.currentState));
+
+            BenchmarkEntry median = csvWriter.median();
+            this.medianScores[configIndex] = median;
+            this.ns[configIndex] = n;
+            this.table();
+            this.csvWriter.write();
+        }
     }
 
     @Override
@@ -83,9 +165,11 @@ public class OptimiserView implements View
     @Override
     public void setValues(GameState state)
     {
-        String score = Integer.toString(state.getScore());
-        System.out.print(score);
-        for (int i = 0; i < score.length(); i++) System.out.print("\b");
+        String output = String.format("Value: %d/%d Game: %d/%d Current Score: %d",
+                configIndex + 1, iterationCount, gameIndex + 1, count, state.getScore());
+
+        System.out.print(output);
+        for (int i = 0; i < output.length(); i++) System.out.print("\b");
     }
 
     @Override
@@ -97,7 +181,6 @@ public class OptimiserView implements View
 
     public void startIfTerminal(File log) throws IOException
     {
-        log.createNewFile();
         this.benchmark(new FileOutputStream(log));
     }
 }

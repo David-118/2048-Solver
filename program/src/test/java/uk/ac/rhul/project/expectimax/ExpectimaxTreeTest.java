@@ -3,6 +3,7 @@ package uk.ac.rhul.project.expectimax;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.ac.rhul.project.game.EndOfGameException;
+import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.LargestLower;
 
@@ -17,9 +18,9 @@ class ExpectimaxTreeTest
     void testGame()
     {
         Random random = new Random(1);
-        GameState state2x2 = new GameState(3, 3, random);
-        state2x2.init();
-        ExpectimaxTree expectimaxTree = new ExpectimaxTree(state2x2, random,4, new LargestLower());
+        GameState state3x3 = new GameState(new GameConfiguration(3, 3, 0, null), random);
+        state3x3.init();
+        ExpectimaxTree expectimaxTree = new ExpectimaxTree(state3x3, random,4, new LargestLower());
 
         try {
             while (true)

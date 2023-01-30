@@ -17,14 +17,19 @@ class GameStateTest
     private GameState model_rect1;
     private GameState model_rect2;
 
+    private GameConfiguration gameConfig(int n, int m)
+    {
+        return new GameConfiguration(n, m, 0, null);
+    }
+
     @BeforeEach
     void setup()
     {
         Random r = new Random(2022);
-        model_2x2 = new GameState(2, 2, r);
-        model_classic = new GameState(4, 4, r);
-        model_rect1 = new GameState(9, 3, r);
-        model_rect2 = new GameState(4, 5, r);
+        model_2x2 = new GameState(gameConfig(2, 2), r);
+        model_classic = new GameState(gameConfig(4, 4), r);
+        model_rect1 = new GameState(gameConfig(9, 3), r);
+        model_rect2 = new GameState(gameConfig(4, 5), r);
     }
     @Test
     void test_init()

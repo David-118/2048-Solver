@@ -98,7 +98,6 @@ public class BenchmarkerView implements View
     @Override
     public void startIfTerminal(File log) throws IOException
     {
-        log.createNewFile();
         this.benchmark(new FileOutputStream(log));
     }
 }

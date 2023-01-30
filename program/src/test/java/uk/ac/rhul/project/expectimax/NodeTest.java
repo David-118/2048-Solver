@@ -3,6 +3,7 @@ package uk.ac.rhul.project.expectimax;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.ac.rhul.project.game.EndOfGameException;
+import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Diagonal4x4;
 import uk.ac.rhul.project.heursitics.LargestLower;
@@ -27,10 +28,10 @@ class NodeTest
     void setUp()
     {
         Random random = new Random(1);
-        state2x2 = new GameState(2, 2, random);
+        state2x2 = new GameState(new GameConfiguration(2, 2, 0, null), random);
         state2x2.init();
 
-        state4x4 = new GameState(4, 4, random);
+        state4x4 = new GameState(new GameConfiguration(4, 4, 0, null), random);
         state4x4.init();
         state4x4.setGrid(new int[][]{
                 {128, 64, 32, 16},
@@ -42,7 +43,7 @@ class NodeTest
         root2x2 = new Node(state2x2, NodeBehaviourMaximize::generate, random);
         root4x4 = new Node(state4x4, NodeBehaviourMaximize::generate, random);
 
-        GameState state = new GameState(2,2);
+        GameState state = new GameState(new GameConfiguration(2, 2, 0, null));
         state.setGrid(new int[][]{
                 {16, 8},
                 {2, 4}

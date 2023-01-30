@@ -11,6 +11,7 @@ import uk.ac.rhul.project.userInterface.View;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Class that starts the whole program.
@@ -33,6 +34,7 @@ public class Driver
         String output = "";
         int size = 0;
         int i = 0;
+        int iterations = 0;
         boolean benchmark = false;
         boolean optimise = false;
         while (i < args.length)
@@ -53,7 +55,7 @@ public class Driver
                             size = Integer.parseInt(args[++i]);
                         } catch (NumberFormatException e)
                         {
-                            System.err.println("Specify how many times to run each heuristic");
+                            System.err.println("Specify how many times to run each heuristic, and the number of iterations");
                             System.exit(1);
                         }
                     }
@@ -66,16 +68,23 @@ public class Driver
                         System.exit(1);
                     }
 
-                    if (i <= args.length - 2) {
+                    if (i <= args.length - 3) {
                         try
                         {
                             size = Integer.parseInt(args[++i]);
+                            iterations = Integer.parseInt(args[++i]);
+                            if (iterations < 2)
+                            {
+                                System.err.println("Iterations must be at least 2");
+                                System.exit(1);
+                            }
                         } catch (NumberFormatException e)
                         {
-                            System.err.println("Specify how many times to run each heuristic");
+                            System.err.println("Specify how many times to run each heuristic, and the number of iterations");
                             System.exit(1);
                         }
                     }
+                    break;
                 case "-o":
                 case "--output":
                     if (i <= args.length - 2) {
@@ -96,7 +105,7 @@ public class Driver
             view = new BenchmarkerView(size);
         } else if (optimise)
         {
-            view = new OptimiserView(size);
+            view = new OptimiserView(size, iterations);
         } else
         {
             view = MainView.getInstance();
