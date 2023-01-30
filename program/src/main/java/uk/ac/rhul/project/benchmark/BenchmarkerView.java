@@ -13,22 +13,14 @@ import java.util.Arrays;
 
 public class BenchmarkerView implements View
 {
-    public static GameConfiguration quickDSnake(int n)
+    public static GameConfiguration quickGame(int n)
     {
-        return new GameConfiguration(n, n, 6, new DynamicSnake(n, n));
-    }
-
-    public static GameConfiguration quickDSnakeFail(int n, double m)
-    {
-        return new GameConfiguration(n, n, 6, new FailWrapper(new DynamicSnake(n, n), 0));
+        return new GameConfiguration(n, n, 4, new FailSetter(new DynamicSnake(n, n), Float.MIN_VALUE));
     }
     private static final GameConfiguration[] CONFIGURATIONS = new GameConfiguration[] {
-            quickDSnake(2),
-            quickDSnake(3),
-            quickDSnake(4),
-            quickDSnakeFail(4, 0),
-            quickDSnakeFail(4, Float.MIN_VALUE),
-            quickDSnakeFail(4, Float.MIN_VALUE / 2),
+            quickGame(2),
+            quickGame(3),
+            quickGame(4),
     };
 
     private NewGameObserver newGameObserver;
@@ -65,8 +57,10 @@ public class BenchmarkerView implements View
                 this.newGameObserver.notifyObservers(CONFIGURATIONS[configIndex]);
                 this.solveObserver.notifyObserver(true);
                 this.csvWriter.add(new BenchmarkEntry(CONFIGURATIONS[configIndex].getName(), currentState));
+                System.out.println(this.csvWriter.median());
                 this.csvWriter.write();
 	        }
+            this.csvWriter.flushEntries();
         }
         this.csvWriter.close();
     }
@@ -89,6 +83,7 @@ public class BenchmarkerView implements View
         System.out.printf("%s Game %d/%d: Score: %d \n %s\n",
                 CONFIGURATIONS[this.configIndex].getName(), gameIndex + 1, count, state.getScore(),
                 Arrays.deepToString(state.getGrid()));
+
     }
 
     @Override

@@ -2,24 +2,24 @@ package uk.ac.rhul.project.heursitics;
 
 import uk.ac.rhul.project.game.GameState;
 
-public class FailWrapper implements Heuristic
+public abstract  class FailWrapper implements Heuristic
 {
     private final Heuristic heuristic;
-    private final double score;
-    public FailWrapper(Heuristic heuristic, double score)
+
+    public FailWrapper(Heuristic heuristic)
     {
         this.heuristic = heuristic;
-        this.score = score;
     }
 
     @Override
-    public double heuristic(GameState state)
+    public abstract double heuristic(GameState state);
+
+    protected double applyChildHeuristic(GameState state)
     {
-        if (loss(state)) return score;
         return heuristic.heuristic(state);
     }
 
-    public boolean loss(GameState state)
+    protected boolean isLoss(GameState state)
     {
         for (int i = 0; i < state.getHeight(); i++)
         {
