@@ -17,12 +17,21 @@ public class BenchmarkerView implements View
 {
     public static GameConfiguration quickGame(int n)
     {
-        return new GameConfiguration(n, n, 4, new FailSetter(new DynamicSnake(n, n), Float.MIN_VALUE));
+        return new GameConfiguration(n, n, 6, new FailSetter(new SumCells(), Float.MIN_VALUE));
     }
+
+        public static GameConfiguration quickGame2(int n)
+    {
+        return new GameConfiguration(n, n, 6, new SumCells());
+    }
+
     private static final GameConfiguration[] CONFIGURATIONS = new GameConfiguration[] {
-            quickGame(2),
-            quickGame(3),
-            quickGame(4),
+        quickGame2(2),
+        quickGame2(3),
+        quickGame2(4),
+        quickGame(2),
+        quickGame(3),
+        quickGame(4),
     };
 
     private NewGameObserver newGameObserver;
