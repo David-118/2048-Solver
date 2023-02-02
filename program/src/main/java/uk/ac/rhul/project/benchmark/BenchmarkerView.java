@@ -15,23 +15,10 @@ import java.util.Arrays;
 
 public class BenchmarkerView implements View
 {
-    public static GameConfiguration quickGame(int n)
-    {
-        return new GameConfiguration(n, n, 6, new FailSetter(new SumCells(), Float.MIN_VALUE));
-    }
-
-        public static GameConfiguration quickGame2(int n)
-    {
-        return new GameConfiguration(n, n, 6, new SumCells());
-    }
-
     private static final GameConfiguration[] CONFIGURATIONS = new GameConfiguration[] {
-        quickGame2(2),
-        quickGame2(3),
-        quickGame2(4),
-        quickGame(2),
-        quickGame(3),
-        quickGame(4),
+            new GameConfiguration(3, 3, 6, new DynamicSnake(3, 3)),
+            new GameConfiguration(3, 3, 6, new LargestLower()),
+            new GameConfiguration(3, 3, 6, new LargestRight())
     };
 
     private NewGameObserver newGameObserver;
@@ -68,10 +55,8 @@ public class BenchmarkerView implements View
                 this.newGameObserver.notifyObservers(CONFIGURATIONS[configIndex]);
                 this.solveObserver.notifyObserver(true);
                 this.csvWriter.add(new BenchmarkEntry(CONFIGURATIONS[configIndex].getName(), currentState));
-                System.out.println(this.csvWriter.median());
                 this.csvWriter.write();
 	        }
-            this.csvWriter.flushEntries();
         }
         this.csvWriter.close();
     }

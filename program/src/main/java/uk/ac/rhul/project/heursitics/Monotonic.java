@@ -41,12 +41,11 @@ public class Monotonic implements Heuristic
 
     public double monotonicPenalty(GameState state)
     {
-        double monotonicity = 0D;
+        double monotonicity_left = 0;
+        double monotonicity_right = 0;
+
         for (int i = 0; i < state.getHeight(); i++)
         {
-            double monotonicity_left = 0;
-            double monotonicity_right = 0;
-
             for (int j = 1; j < state.getWidth(); j++)
             {
                 double leftmost = state.getGrid()[i][j-1];
@@ -59,14 +58,13 @@ public class Monotonic implements Heuristic
                     monotonicity_right += rightmost - leftmost;
                 }
             }
-            monotonicity += Math.min(monotonicity_left, monotonicity_right);
         }
+
+        double monotonicity_upper = 0;
+        double monotonicity_lower = 0;
 
         for (int j = 0; j < state.getWidth(); j++)
         {
-            double monotonicity_upper = 0;
-            double monotonicity_lower = 0;
-
             for (int i = 1; i < state.getHeight(); i++)
             {
                 double uppermost = state.getGrid()[i-1][j];
@@ -79,10 +77,9 @@ public class Monotonic implements Heuristic
                     monotonicity_lower += lowermost - uppermost;
                 }
             }
-            monotonicity += Math.min(monotonicity_upper, monotonicity_lower);
         }
 
-        return monotonicity;
+        return Math.min(monotonicity_left, monotonicity_right) + Math.min(monotonicity_upper, monotonicity_lower);
     }
 
     public double freeCells(GameState state)
