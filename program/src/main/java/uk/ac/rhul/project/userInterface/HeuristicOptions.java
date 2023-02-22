@@ -69,7 +69,7 @@ class MonotonicOption extends HeuristicOptions
     @Override
     public Heuristic make(int rows, int cols)
     {
-        return new FailWrapper(new Monotonic(), Float.MIN_VALUE);
+        return new FailSetter(new Monotonic(), Float.MIN_VALUE);
     }
 }
 

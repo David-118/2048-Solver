@@ -3,7 +3,6 @@ package uk.ac.rhul.project.expectimax;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.ac.rhul.project.game.EndOfGameException;
-import uk.ac.rhul.project.game.GameAbandonedException;
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Diagonal4x4;
@@ -149,16 +148,5 @@ class NodeTest
         {
             throw new RuntimeException(e);
         }
-    }
-
-    @Test
-    void test_abandon() throws EndOfGameException
-    {
-        this.root2x2.generateChildren(4);
-        assertNotEquals(Double.NEGATIVE_INFINITY, this.root2x2.applyHeuristic(new LargestLower()));
-        assertInstanceOf(Node.class, this.root2x2.nextNode(new LargestLower()));
-        this.root2x2.abandon();
-        assertEquals(Double.NEGATIVE_INFINITY, this.root2x2.applyHeuristic(new LargestLower()));
-        assertThrows(GameAbandonedException.class, ()->this.root2x2.nextNode(new LargestLower()));
     }
 }

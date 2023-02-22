@@ -21,7 +21,7 @@ import uk.ac.rhul.project.game.GameState;
  * </p>
  */
 @JsonPropertyOrder({"heuristicName", "maxTile", "score"})
-public class BenchmarkEntry
+public class BenchmarkEntry implements Comparable<BenchmarkEntry>
 {
     /**
      * Create an instance of BenchmarkEntry.
@@ -64,4 +64,14 @@ public class BenchmarkEntry
      */
     public final int score;
 
+    @Override
+    public String toString()
+    {
+        return String.format("score: %d, max-tile: %d", this.score, this.maxTile);
+    }
+
+    public int compareTo(BenchmarkEntry o)
+    {
+        return Integer.compare(this.score, o.score);
+    }
 }

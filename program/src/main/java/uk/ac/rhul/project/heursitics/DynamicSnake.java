@@ -33,7 +33,10 @@ public class DynamicSnake implements Heuristic
         {
             for (int j = 0; j < grid[0].length; j++)
             {
-                sum += grid[i][j] * this.powers[i][j];
+                if (this.powers[i][j] != rows*cols - 1 - cols || grid[i][j] < grid[i+1][j])
+                {
+                    sum += grid[i][j] * this.powers[i][j];
+                }
             }
         }
         return sum;
