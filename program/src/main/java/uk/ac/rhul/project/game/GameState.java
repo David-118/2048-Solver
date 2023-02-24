@@ -391,4 +391,20 @@ public class GameState implements Cloneable
     {
         return Arrays.deepToString(this.grid);
     }
+
+    public String toHtml()
+    {
+        StringBuilder tableBuilder = new StringBuilder("<table>");
+        for (int i = 0; i < this.height; i++)
+        {
+            tableBuilder.append("<tr>");
+            for (int j = 0; j < this.width; j++)
+            {
+                tableBuilder.append("<td>").append(this.grid[i][j]).append("</td>");
+            }
+            tableBuilder.append("</tr>");
+        }
+        tableBuilder.append("</table>");
+        return tableBuilder.toString();
+    }
 }

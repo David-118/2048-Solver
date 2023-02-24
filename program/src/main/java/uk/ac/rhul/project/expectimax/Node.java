@@ -51,6 +51,14 @@ class Node
         return weight;
     }
 
+    public String toHtml()
+    {
+        return "<div class=Node>" +
+                gameState.toHtml() +
+                behaviour.toHtml() +
+                "</div>";
+    }
+
     @Override
     public String toString()
     {
