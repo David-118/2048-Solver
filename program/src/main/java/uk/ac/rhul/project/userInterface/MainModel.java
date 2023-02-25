@@ -49,6 +49,7 @@ public final class MainModel implements Model
         this.gameState = new GameState(configuration);
         this.gameState.init();
         this.initSolver(configuration.getDepth(), configuration.getHeuristic());
+        this.rnd = configuration.getRandom();
     }
 
     /**

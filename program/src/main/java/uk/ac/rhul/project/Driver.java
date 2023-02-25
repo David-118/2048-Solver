@@ -1,8 +1,10 @@
 
 package uk.ac.rhul.project;
 
+import org.junit.platform.commons.util.StringUtils;
 import uk.ac.rhul.project.benchmark.BenchmarkerView;
 import uk.ac.rhul.project.benchmark.OptimiserView;
+import uk.ac.rhul.project.benchmark.SeededGameView;
 import uk.ac.rhul.project.userInterface.MainController;
 import uk.ac.rhul.project.userInterface.MainModel;
 import uk.ac.rhul.project.userInterface.MainView;
@@ -37,6 +39,9 @@ public class Driver
         int iterations = 0;
         boolean benchmark = false;
         boolean optimise = false;
+        boolean seeded = false;
+        long seed = 0;
+
         while (i < args.length)
         {
             switch (args[i])
@@ -87,10 +92,25 @@ public class Driver
                     break;
                 case "-o":
                 case "--output":
-                    if (i <= args.length - 2) {
+                    if (i <= args.length - 2)
+                    {
                         output = args[++i];
-                    } else {
+                    } else
+                    {
                         System.err.println("No output file specified");
+                        System.exit(0);
+                    }
+                    break;
+
+                case "-e":
+                case "--seed":
+                    if (i <= args.length - 2)
+                    {
+                        seed = Long.parseLong(args[++i]);
+                        seeded = true;
+                    } else
+                    {
+                        System.err.println("No seed specified");
                         System.exit(0);
                     }
                     break;
@@ -106,6 +126,9 @@ public class Driver
         } else if (optimise)
         {
             view = new OptimiserView(size, iterations);
+        } else if (seeded)
+        {
+            view = new SeededGameView(seed);
         } else
         {
             view = MainView.getInstance();
@@ -114,7 +137,7 @@ public class Driver
         MainModel model = new MainModel(4, 4);
         new MainController(model, view);
 
-        if (output != "")
+        if (!output.equals("") || seeded)
         {
             try
             {

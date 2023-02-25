@@ -26,7 +26,7 @@ struct tree** menu;
 int rows_count;
 int offset = 1;
 int node_count = 0;
-
+int cols_count;
 
 void mkTree(struct tree* t);
 void drawTree(struct tree* t, int* row, int col);
@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
   struct winsize w;
   ioctl(0, TIOCGWINSZ, &w);
   rows_count = w.ws_row;
+  cols_count = w.ws_col;
   FILE* f = fopen(argv[1], "r");
   root = readf(f);
   fclose(f);
@@ -160,14 +161,20 @@ void drawNode(struct tree* node, int row, int col)
 {
   if ((0 <= (row + offset)) && ((row + offset) < rows_count - 1))
   {
-    move(row+offset, col);
+    move(row+offset, 0);
     if (row==sindex) attron(COLOR_PAIR(SELECTED));
+    for(int i = 0; i < cols_count; i++) printw(" ");
+    move(row+offset, col);
     printw("(%c)  ", node->m);
     printw("Values: ");
     for (int i = 0; i < 16; i++) printw("%d ", node->vals[i]);
     printw("  Heurisitc: %lf ", node->h);
     printw("  Derived Score: %lf", node->d);
-    if (row==sindex) attroff(COLOR_PAIR(SELECTED));
+    if (row==sindex) 
+    {
+      if (node->show_c) mvprintw(sindex + offset, 0, "->");
+      attroff(COLOR_PAIR(SELECTED));
+    }
   }
 }
 
@@ -208,6 +215,5 @@ void selectOption(int max)
       offset--;
       break;
   }
-  mvprintw(sindex + offset, 0, "->");
 
 }

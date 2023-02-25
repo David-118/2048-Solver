@@ -2,7 +2,9 @@ package uk.ac.rhul.project.game;
 
 import uk.ac.rhul.project.expectimax.ExpectimaxTree;
 import uk.ac.rhul.project.heursitics.Heuristic;
+import uk.ac.rhul.project.userInterface.View;
 
+import java.util.Locale;
 import java.util.Random;
 
 public class GameConfiguration
@@ -12,6 +14,8 @@ public class GameConfiguration
     private final int cols;
     private final int depth;
     private final Heuristic heuristic;
+
+    private Long seed;
 
     public int getRows()
     {
@@ -33,6 +37,18 @@ public class GameConfiguration
         return heuristic;
     }
 
+    public Random getRandom()
+    {
+        if (this.seed == null)
+        {
+            return new Random();
+        }
+        else
+        {
+            return new Random(seed);
+        }
+
+    }
 
     public GameConfiguration(int rows, int cols, int depth, Heuristic heuristic)
     {
@@ -40,6 +56,12 @@ public class GameConfiguration
         this.cols = cols;
         this.depth = depth;
         this.heuristic = heuristic;
+    }
+
+
+    public void setSeed(Long seed)
+    {
+        this.seed = seed;
     }
 
     public String getName()

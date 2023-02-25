@@ -31,6 +31,11 @@ public class Solver implements Runnable
         this.random = random;
     }
 
+    public void setRandom(Random random)
+    {
+        this.random = random;
+    }
+
     public void addUpdateObserver(UpdateObserver updateObserver)
     {
         this.updateObserver = updateObserver;
