@@ -8,5 +8,5 @@ interface NodeBehaviour
     Node nextNode(Heuristic heuristic) throws EndOfGameException;
     double applyHeuristic(Heuristic heuristic);
 
-    String toHtml();
+    String toTxt(int indent, Heuristic heuristic);
 }

@@ -57,14 +57,13 @@ class NodeBehaviourMaximize implements NodeBehaviour
     }
 
     @Override
-    public String toHtml()
+    public String toTxt(int indent, Heuristic heuristic)
     {
-        StringBuilder childBuilder = new StringBuilder("<div class='children'><b>Max</b>");
+        StringBuilder childBuilder = new StringBuilder("M\n");
         for (Node node: this.children)
         {
-            childBuilder.append(node.toHtml());
+            childBuilder.append(node.toTxt(indent + 1, heuristic));
         }
-        childBuilder.append("</div>");
         return childBuilder.toString();
     }
 }

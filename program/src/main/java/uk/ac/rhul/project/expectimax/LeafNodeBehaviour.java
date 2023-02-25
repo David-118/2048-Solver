@@ -24,8 +24,8 @@ public class LeafNodeBehaviour implements NodeBehaviour
     }
 
     @Override
-    public String toHtml()
+    public String toTxt(int indent, Heuristic heuristic)
     {
-        return "";
+        return "L\n";
     }
 }

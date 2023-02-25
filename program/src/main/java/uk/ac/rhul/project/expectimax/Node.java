@@ -40,6 +40,11 @@ class Node
         return this.behaviour.applyHeuristic(heuristic) * weight;
     }
 
+    private double unweightedApplyHeuristic(Heuristic heuristic)
+    {
+        return this.behaviour.applyHeuristic(heuristic);
+    }
+
     public void generateChildren(int depth)
     {
         if (depth > 0) this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1);
@@ -51,12 +56,10 @@ class Node
         return weight;
     }
 
-    public String toHtml()
+    public String toTxt(int indent, Heuristic heuristic)
     {
-        return "<div class=Node>" +
-                gameState.toHtml() +
-                behaviour.toHtml() +
-                "</div>";
+        return " ".repeat(indent) + this.gameState.toTxt(heuristic) + "#" + this.unweightedApplyHeuristic(heuristic) +
+                behaviour.toTxt(indent, heuristic);
     }
 
     @Override

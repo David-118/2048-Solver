@@ -37,7 +37,7 @@ public class ExpectimaxTree
 
         try
         {
-            dmpHtml(key);
+            dmpTxt(key);
         } catch (IOException e)
         {
             System.err.printf("Failed to write state %08d to html.\n", key);
@@ -49,22 +49,17 @@ public class ExpectimaxTree
         return this.currentRoot.getGameState();
     }
 
-    public void dmpHtml(int key) throws IOException
+    public void dmpTxt(int key) throws IOException
     {
-
-        InputStream templateStream = getClass().getResourceAsStream("GameTreeTemplate.html");
-        String template = new String(templateStream.readAllBytes());
-        templateStream.close();
-
-        String html =  template.replace("{% content %}", currentRoot.toHtml());
+        String txt =  currentRoot.toTxt(0, this.heuristic);
 
         File folder = new File("trees");
         folder.delete(); folder.mkdir();
-        File file = new File(String.format("trees/tree-%08d.html", key));
+        File file = new File(String.format("trees/tree-%08d.tree", key));
 
         file.createNewFile();
         FileWriter fileWriter = new FileWriter(file);
-        fileWriter.write(html);
+        fileWriter.write(txt);
         fileWriter.close();
     }
 }
