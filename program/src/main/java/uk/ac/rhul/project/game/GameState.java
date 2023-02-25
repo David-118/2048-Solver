@@ -1,6 +1,7 @@
 package uk.ac.rhul.project.game;
 
 import uk.ac.rhul.project.heursitics.Heuristic;
+import uk.ac.rhul.project.heursitics.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -395,6 +396,7 @@ public class GameState implements Cloneable
     public String toHtml()
     {
         StringBuilder tableBuilder = new StringBuilder("<table>");
+        tableBuilder.append(String.format("<tr><th colspan=%d>Score: %f</th></tr>", 4, this.applyHeuristic(new FailSetter(new Monotonic(), -Math.pow(10, 3)))));
         for (int i = 0; i < this.height; i++)
         {
             tableBuilder.append("<tr>");
