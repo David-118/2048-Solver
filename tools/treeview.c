@@ -5,7 +5,8 @@
 #include <stdio.h>
 #include <sys/ioctl.h>
 
-#define SELECTED 1
+#define SELECTED 2
+#define STATUS 1
 
 int sindex = 0;
 
@@ -24,11 +25,13 @@ struct tree
 struct tree** menu;
 int rows_count;
 int offset = 1;
+int node_count = 0;
 
 
 void mkTree(struct tree* t);
 void drawTree(struct tree* t, int* row, int col);
 void selectOption(int row);
+void statusbar(int count, char* filename, int width);
 struct tree* readf(FILE *f);
 void mkNode(struct tree* t);
 
@@ -44,7 +47,8 @@ int main(int argc, char *argv[])
   getch();
   initscr();
   start_color();
-  init_pair(1, COLOR_BLACK, COLOR_WHITE);
+  init_pair(STATUS, COLOR_BLACK, COLOR_WHITE);
+  init_pair(SELECTED, COLOR_BLACK, COLOR_YELLOW);
   
   curs_set(0);
   noecho();
@@ -53,6 +57,7 @@ int main(int argc, char *argv[])
   {
     int row = 0;
     drawTree(root, &row, 3);
+    statusbar(node_count, argv[1], w.ws_col);
     refresh();
     selectOption(row);
   }
@@ -129,11 +134,19 @@ struct tree* readf(FILE* f)
       mkNode(c_node);
     }
   }
-  menu = malloc(sizeof(struct tree**)*count); 
+  menu = malloc(sizeof(struct tree**)*count);
+  node_count = count;
   return depths[0];
 }
 
-
+void statusbar(int count, char* filename, int width)
+{
+  attron(COLOR_PAIR(STATUS));
+  move(rows_count -1, 0);
+  for (int i = 0; i < width; i++) addch(' ');
+  mvprintw(rows_count - 1, 0, "File: %s     Node Count: %d", filename, count); 
+  attroff(COLOR_PAIR(STATUS));
+}
 
 void mkNode(struct tree* t)
 {
@@ -145,16 +158,16 @@ void mkNode(struct tree* t)
 
 void drawNode(struct tree* node, int row, int col)
 {
-  if ((0 <= (row + offset)) && ((row + offset) < rows_count))
+  if ((0 <= (row + offset)) && ((row + offset) < rows_count - 1))
   {
     move(row+offset, col);
-    if (row==sindex) attron(COLOR_PAIR(1));
+    if (row==sindex) attron(COLOR_PAIR(SELECTED));
     printw("(%c)  ", node->m);
     printw("Values: ");
     for (int i = 0; i < 16; i++) printw("%d ", node->vals[i]);
     printw("  Heurisitc: %lf ", node->h);
     printw("  Derived Score: %lf", node->d);
-    if (row==sindex) attroff(COLOR_PAIR(1));
+    if (row==sindex) attroff(COLOR_PAIR(SELECTED));
   }
 }
 
