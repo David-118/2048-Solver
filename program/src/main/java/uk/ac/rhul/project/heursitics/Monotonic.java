@@ -89,7 +89,7 @@ public class Monotonic implements Heuristic
         {
             for (int j = 0; j < state.getWidth(); j++)
             {
-                count += 1f;
+                if (state.getGrid()[i][j] == 0) count += 1f;
             }
         }
         return count * count;

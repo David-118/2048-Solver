@@ -19,13 +19,15 @@ public final class MainModel implements Model
      * Create a model of the game 2048
      * @param  rows The height of the games grid
      * @param cols The width the games grid
-     * @param random the random number generator used to test the project. Allows for testing with a known seed.
+     * @param seed Optional seed for a random number generated
      */
-    public MainModel(int rows, int cols, Random random)
+    public MainModel(int rows, int cols, long seed)
     {
-        this.gameState = new GameState(new GameConfiguration(rows, cols, -1,null), random);
-        this.solver = new Solver(random);
-        this.rnd = random;
+        GameConfiguration conf = new GameConfiguration(rows, cols, -1, null);
+        conf.setSeed(seed);
+        this.gameState = new GameState(conf);
+        this.solver = new Solver(conf.getRandom());
+        this.rnd = conf.getRandom();
     }
 
     /**
@@ -35,7 +37,10 @@ public final class MainModel implements Model
      */
     public MainModel(int rows, int cols)
     {
-        this(rows, cols, new Random());
+        GameConfiguration conf = new GameConfiguration(rows, cols, -1, null);
+        this.gameState = new GameState(conf);
+        this.solver = new Solver(conf.getRandom());
+        this.rnd = conf.getRandom();
     }
 
 

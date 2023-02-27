@@ -5,15 +5,9 @@ import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.io.*;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Objects;
+
 import java.util.Random;
 
-import static java.lang.Thread.sleep;
 
 public class ExpectimaxTree
 {

@@ -76,22 +76,12 @@ public class GameState implements Cloneable
      * @param cols The number of cols in the games grid.
      * @param random The random number generator used to place new tiles.
      */
-    public GameState(GameConfiguration gameConfiguration, Random random)
+    public GameState(GameConfiguration gameConfiguration)
     {
         this.height = gameConfiguration.getRows();
         this.width = gameConfiguration.getCols();
         this.grid = new int[height][width];
-        this.random = random;
-    }
-
-    /**
-     * Create a game state.
-     * @param rows The number of rows in the games grid.
-     * @param cols The number of cols in the games grid.
-     */
-    public GameState(GameConfiguration gameConfiguration)
-    {
-        this(gameConfiguration, new Random());
+        this.random = gameConfiguration.getRandom();
     }
 
     /**

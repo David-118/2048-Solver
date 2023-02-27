@@ -1,7 +1,6 @@
 
 package uk.ac.rhul.project;
 
-import org.junit.platform.commons.util.StringUtils;
 import uk.ac.rhul.project.benchmark.BenchmarkerView;
 import uk.ac.rhul.project.benchmark.OptimiserView;
 import uk.ac.rhul.project.benchmark.SeededGameView;
@@ -11,17 +10,13 @@ import uk.ac.rhul.project.userInterface.MainView;
 import uk.ac.rhul.project.userInterface.View;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Class that starts the whole program.
  */
 public class Driver
 {
-
-
     /**
      * Main function
      * @param args <p>The arguments supported are<ul>
@@ -46,15 +41,16 @@ public class Driver
         {
             switch (args[i])
             {
-                case "-b":
-                case "--benchmark":
+                case "-b", "--benchmark" ->
+                {
                     benchmark = true;
-                    if (optimise) {
+                    if (optimise)
+                    {
                         System.err.println("Benchmark and Optimise flags are incompatible");
                         System.exit(1);
                     }
-
-                    if (i <= args.length - 2) {
+                    if (i <= args.length - 2)
+                    {
                         try
                         {
                             size = Integer.parseInt(args[++i]);
@@ -64,16 +60,17 @@ public class Driver
                             System.exit(1);
                         }
                     }
-                    break;
-                case "-s":
-                case "--optimise":
+                }
+                case "-s", "--optimise" ->
+                {
                     optimise = true;
-                    if (benchmark) {
+                    if (benchmark)
+                    {
                         System.err.println("Benchmark and Optimise flags are incompatible");
                         System.exit(1);
                     }
-
-                    if (i <= args.length - 3) {
+                    if (i <= args.length - 3)
+                    {
                         try
                         {
                             size = Integer.parseInt(args[++i]);
@@ -89,9 +86,9 @@ public class Driver
                             System.exit(1);
                         }
                     }
-                    break;
-                case "-o":
-                case "--output":
+                }
+                case "-o", "--output" ->
+                {
                     if (i <= args.length - 2)
                     {
                         output = args[++i];
@@ -100,10 +97,9 @@ public class Driver
                         System.err.println("No output file specified");
                         System.exit(0);
                     }
-                    break;
-
-                case "-e":
-                case "--seed":
+                }
+                case "-e", "--seed" ->
+                {
                     if (i <= args.length - 2)
                     {
                         seed = Long.parseLong(args[++i]);
@@ -113,7 +109,7 @@ public class Driver
                         System.err.println("No seed specified");
                         System.exit(0);
                     }
-                    break;
+                }
             }
             i++;
         }
