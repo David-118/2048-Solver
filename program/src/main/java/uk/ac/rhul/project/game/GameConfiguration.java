@@ -15,7 +15,9 @@ public class GameConfiguration
     private final int depth;
     private final Heuristic heuristic;
 
-    private Long seed;
+    private Random random;
+
+    private Long seed = null;
 
     public int getRows()
     {
@@ -39,15 +41,7 @@ public class GameConfiguration
 
     public Random getRandom()
     {
-        if (this.seed == null)
-        {
-            return new Random();
-        }
-        else
-        {
-            return new Random(seed);
-        }
-
+        return random;
     }
 
     public GameConfiguration(int rows, int cols, int depth, Heuristic heuristic)
@@ -61,7 +55,14 @@ public class GameConfiguration
 
     public void setSeed(Long seed)
     {
-        this.seed = seed;
+        if (this.seed == null)
+        {
+            this.random = new Random();
+        }
+        else
+        {
+            this.random = new Random(seed);
+        }
     }
 
     public String getName()
