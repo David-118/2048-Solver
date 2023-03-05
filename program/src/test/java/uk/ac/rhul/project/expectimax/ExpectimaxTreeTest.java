@@ -19,13 +19,13 @@ class ExpectimaxTreeTest {
 
     @BeforeEach
     void setup() {
-        GameConfiguration conf = new GameConfiguration(4, 4, 4,
+        GameConfiguration conf = new GameConfiguration(4, 4, 4, Integer.MAX_VALUE,
                 new FailSetter(new Monotonic(), -1000));
         conf.setSeed(0L);
 
         inital = new GameState(conf);
         inital.init();
-        tree = new ExpectimaxTree(inital, conf.getRandom(), conf.getDepth(), conf.getHeuristic());
+        tree = new ExpectimaxTree(inital, conf.getRandom(), conf.getDepth(), Integer.MAX_VALUE, conf.getHeuristic());
     }
     @Test
     void makeMove() {

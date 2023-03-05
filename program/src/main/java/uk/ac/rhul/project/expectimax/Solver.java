@@ -26,6 +26,8 @@ public class Solver implements Runnable
 
     private int depth;
 
+    private int count4;
+
     public Solver(Random random)
     {
         this.random = random;
@@ -41,15 +43,16 @@ public class Solver implements Runnable
         this.updateObserver = updateObserver;
     }
 
-    public void configureSolver(int depth, Heuristic heuristic)
+    public void configureSolver(int depth, int count4, Heuristic heuristic)
     {
         this.depth = depth;
+        this.count4 = count4;
         this.heuristic = heuristic;
     }
 
     public void setGame(GameState state)
     {
-        this.tree = new ExpectimaxTree(state, this.random, depth, this.heuristic);
+        this.tree = new ExpectimaxTree(state, this.random, this.depth, this.count4, this.heuristic);
     }
 
     public void run()

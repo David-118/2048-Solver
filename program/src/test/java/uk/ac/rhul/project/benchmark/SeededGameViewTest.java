@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SeededGameViewTest {
     View seededGameView;
     Model model;
-    GameConfiguration conf = new GameConfiguration(4, 4, 4, new FailSetter(new Monotonic(), -1000));
+    GameConfiguration conf = new GameConfiguration(4, 4, 4, Integer.MAX_VALUE, new FailSetter(new Monotonic(), -1000));
 
     ByteArrayOutputStream outStream;
     PrintStream out;

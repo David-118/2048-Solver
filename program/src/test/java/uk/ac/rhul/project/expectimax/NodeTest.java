@@ -23,7 +23,7 @@ class NodeTest
     @BeforeEach
     void setUp()
     {
-        this.conf = new GameConfiguration(4, 4, 6, new FailSetter(new Monotonic(), -Math.pow(10, 3)));
+        this.conf = new GameConfiguration(4, 4, 6, Integer.MAX_VALUE, new FailSetter(new Monotonic(), -Math.pow(10, 3)));
         this.conf.setSeed(0L);
         this.inital = new GameState(conf);
         this.inital.init();

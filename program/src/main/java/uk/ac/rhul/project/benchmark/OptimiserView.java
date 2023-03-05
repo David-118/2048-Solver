@@ -20,7 +20,7 @@ public class OptimiserView implements View
 
     public static GameConfiguration makeGame(double n)
     {
-        return new GameConfiguration(4, 4, 6, new FailRatio(new DynamicSnake(4, 4), n));
+        return new GameConfiguration(4, 4, 6, Integer.MAX_VALUE, new FailRatio(new DynamicSnake(4, 4), n));
     }
 
 

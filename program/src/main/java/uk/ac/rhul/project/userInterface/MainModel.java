@@ -26,16 +26,16 @@ public final class MainModel implements Model
         this.gameState.init();
         this.rnd = configuration.getRandom();
         this.solver.setRandom(configuration.getRandom());
-        this.initSolver(configuration.getDepth(), configuration.getHeuristic());
+        this.initSolver(configuration.getDepth(), configuration.getCount4(), configuration.getHeuristic());
     }
 
     /**
      * Set the heuristic the solver is using and generate a tree, provide the root of the tree to the
      * solver.
      */
-    private void initSolver(int depth, Heuristic heuristic)
+    private void initSolver(int depth, int count4, Heuristic heuristic)
     {
-        this.solver.configureSolver(depth, heuristic);
+        this.solver.configureSolver(depth, count4, heuristic);
         this.solver.setGame(this.gameState);
         if (!logDir.equals("")) this.solver.enableTreeLog(this.logDir);
     }

@@ -15,6 +15,8 @@ public class GameConfiguration
     private final int depth;
     private final Heuristic heuristic;
 
+    private final int count4;
+
     private Random random;
 
     private Long seed = null;
@@ -44,12 +46,13 @@ public class GameConfiguration
         return random;
     }
 
-    public GameConfiguration(int rows, int cols, int depth, Heuristic heuristic)
+    public GameConfiguration(int rows, int cols, int depth, int count4, Heuristic heuristic)
     {
         this.rows = rows;
         this.cols = cols;
         this.depth = depth;
         this.heuristic = heuristic;
+        this.count4 = count4;
         this.random = new Random();
     }
 
@@ -62,5 +65,9 @@ public class GameConfiguration
     public String getName()
     {
         return String.format("%d x %d game using %s (depth=%d)", rows, cols, heuristic.getName(), depth);
+    }
+
+    public int getCount4() {
+        return count4;
     }
 }

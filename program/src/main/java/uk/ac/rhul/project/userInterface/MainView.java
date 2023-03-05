@@ -214,7 +214,7 @@ public class MainView extends Application implements View
             if (buttonType == submitButton)
             {
                 return new GameConfiguration(heightIn.getValue(), widthIn.getValue(),
-                        depthIn.getValue(), heuristicIn.getValue().make(heightIn.getValue(), widthIn.getValue()));
+                        depthIn.getValue(), Integer.MAX_VALUE, heuristicIn.getValue().make(heightIn.getValue(), widthIn.getValue()));
             }
             return null;
         });

@@ -13,25 +13,26 @@ import java.util.Random;
 public class ExpectimaxTree
 {
     private Node currentRoot;
-    private final int depth;
+    private final DepthFunction depth;
     private int key;
     private final Heuristic heuristic;
 
-    private final int count4 = Integer.MAX_VALUE;
+    private final int count4;
 
     private DmpTxt dmpTxtState = (int k) -> {};
 
-    public ExpectimaxTree(GameState initialState, Random random, int depth, Heuristic heuristic)
+    public ExpectimaxTree(GameState initialState, Random random, DepthFunction depth, int count4, Heuristic heuristic)
     {
         this.depth = depth;
         this.heuristic = heuristic;
         this.currentRoot = new Node(initialState, NodeBehaviourMaximize::generate, random);
+        this.count4 = count4;
         this.key = 0;
     }
 
     public GameState makeMove() throws EndOfGameException
     {
-        this.currentRoot.generateChildren(this.depth, this.count4);
+        this.currentRoot.generateChildren(this.depth.depth(), this.count4);
 
         try
         {
