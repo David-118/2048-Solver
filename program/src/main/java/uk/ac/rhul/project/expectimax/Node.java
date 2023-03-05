@@ -44,9 +44,11 @@ class Node
         return this.behaviour.applyHeuristic(heuristic);
     }
 
-    public void generateChildren(int depth)
+    public void generateChildren(int depth, int count4)
     {
-        if (depth > 0) this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1);
+        if (this.gameState.cell() == 4) count4--;
+        if (depth > 0  && count4 > 0)
+            this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1, count4);
     }
 
 

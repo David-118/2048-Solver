@@ -57,6 +57,8 @@ public class GameState implements Cloneable
      */
     private int score;
 
+    private int cell;
+
     public double getProbability()
     {
         return probability;
@@ -82,6 +84,7 @@ public class GameState implements Cloneable
         this.width = gameConfiguration.getCols();
         this.grid = new int[height][width];
         this.random = gameConfiguration.getRandom();
+        this.cell = 0;
     }
 
     /**
@@ -102,6 +105,7 @@ public class GameState implements Cloneable
         this.height = height;
         this.width = width;
         this.score = 0;
+        this.cell = 0;
         this.grid = new int[this.height][this.width];
         for (int i = 0; i < INITIAL_CELL_COUNT; i++)
         {
@@ -132,6 +136,7 @@ public class GameState implements Cloneable
 
         // Set cell to 4 PROB_OF_4 of the time otherwise set to 2.
         int value = random.nextFloat() < PROB_OF_4 ? 4 : 2;
+        this.cell = value;
         this.grid[cell.x][cell.y] = value;
     }
 
@@ -187,6 +192,7 @@ public class GameState implements Cloneable
                 }
             }
         }
+        this.cell = 0;
         return flag;
     }
 
@@ -229,7 +235,9 @@ public class GameState implements Cloneable
             GameState gameState2 = this.clone();
 
             gameState1.grid[freeCells.get(i).x][freeCells.get(i).y] = 2;
+            gameState1.cell = 2;
             gameState2.grid[freeCells.get(i).x][freeCells.get(i).y] = 4;
+            gameState2.cell = 4;
 
             gameState1.setProbability(CHANCE_OF_2);
             gameState2.setProbability(CHANCE_OF_4);
@@ -397,5 +405,9 @@ public class GameState implements Cloneable
         }
         tableBuilder.append("#").append(this.applyHeuristic(heuristic));
         return tableBuilder.toString();
+    }
+
+    public int cell() {
+        return this.cell;
     }
 }

@@ -10,7 +10,7 @@ class NodeBehaviourMaximize implements NodeBehaviour
 {
     private final Node[] children;
 
-    public static NodeBehaviour generate(GameState state, Random random, int depth)
+    public static NodeBehaviour generate(GameState state, Random random, int depth, int count4)
     {
         NodeBehaviour generated;
         List<GameState> childStates = state.getPossibleMoves();
@@ -22,7 +22,7 @@ class NodeBehaviourMaximize implements NodeBehaviour
             childNodes[i] = new Node(childStates.get(i), NodeBehaviourChance::generate, random);
         }
 
-        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth));
+        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth, count4));
 
         if (childNodes.length > 0)
         {

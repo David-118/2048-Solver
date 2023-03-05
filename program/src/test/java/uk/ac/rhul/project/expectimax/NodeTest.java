@@ -9,6 +9,8 @@ import uk.ac.rhul.project.heursitics.FailSetter;
 import uk.ac.rhul.project.heursitics.Monotonic;
 import uk.ac.rhul.project.heursitics.SumCells;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,14 +42,14 @@ class NodeTest
     @Test
     void nextNode()
     {
-        this.root.generateChildren(1);
+        this.root.generateChildren(1, Integer.MAX_VALUE);
         try
         {
             Node nxt = this.root.nextNode(this.conf.getHeuristic());
             assertEquals("[[2, 0, 0, 2], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]",
                     Arrays.deepToString(nxt.getGameState().getGrid()));
 
-            nxt.generateChildren(1);
+            nxt.generateChildren(1, Integer.MAX_VALUE);
 
             assertEquals("[[2, 0, 0, 2], [0, 0, 0, 0], [0, 0, 4, 0], [0, 0, 0, 0]]",
                     Arrays.deepToString(nxt.nextNode(this.conf.getHeuristic()).getGameState().getGrid()));
@@ -61,7 +63,7 @@ class NodeTest
     void applyHeuristic()
     {
         assertEquals(194D, root.applyHeuristic(conf.getHeuristic()));
-        root.generateChildren(6);
+        root.generateChildren(6, Integer.MAX_VALUE);
 
         assertEquals(165.649045D, root.applyHeuristic(conf.getHeuristic()), 0.0000005D);
     }
@@ -69,7 +71,7 @@ class NodeTest
     @Test
     void generateChildren()
     {
-        root.generateChildren(6);
+        root.generateChildren(6, Integer.MAX_VALUE);
         try
         {
             assertInstanceOf(Node.class,
@@ -102,7 +104,7 @@ class NodeTest
     {
         assertEquals("#0#0#0#0#2#0#0#0#0#0#0#2#0#0#0#0#194.0#194.0L\n", this.root.toTxt(0, conf.getHeuristic()));
         assertEquals(" #0#0#0#0#2#0#0#0#0#0#0#2#0#0#0#0#194.0#194.0L\n", this.root.toTxt(1, conf.getHeuristic()));
-        root.generateChildren(1);
+        root.generateChildren(1, Integer.MAX_VALUE);
         assertEquals(
                 "#0#0#0#0#2#0#0#0#0#0#0#2#0#0#0#0#194.0#202.0M\n" +
                 " #2#0#0#2#0#0#0#0#0#0#0#0#0#0#0#0#202.0#202.0L\n" +
@@ -112,10 +114,23 @@ class NodeTest
                 this.root.toTxt(0, conf.getHeuristic()));
     }
 
+
+    @Test
+    void testPruning() {
+        root.generateChildren(4, 1);
+        String real = root.toTxt(0, conf.getHeuristic());
+
+        try (InputStream stream = getClass().getResourceAsStream("tree-00000000.pruned.tree")) {
+            byte[] expected = stream.readAllBytes();
+            assertEquals(new String(expected), real);
+        } catch (IOException ex) {
+            fail(ex);
+        }
+    }
     @Test
     void testToString()
     {
-        root.generateChildren(1);
+        root.generateChildren(1, Integer.MAX_VALUE);
         assertEquals("[[0, 0, 0, 0], [2, 0, 0, 0], [0, 0, 0, 2], [0, 0, 0, 0]]", this.root.toString());
         try
         {

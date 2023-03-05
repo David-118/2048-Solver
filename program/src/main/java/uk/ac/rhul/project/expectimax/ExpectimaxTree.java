@@ -17,6 +17,8 @@ public class ExpectimaxTree
     private int key;
     private final Heuristic heuristic;
 
+    private final int count4 = Integer.MAX_VALUE;
+
     private DmpTxt dmpTxtState = (int k) -> {};
 
     public ExpectimaxTree(GameState initialState, Random random, int depth, Heuristic heuristic)
@@ -29,7 +31,7 @@ public class ExpectimaxTree
 
     public GameState makeMove() throws EndOfGameException
     {
-        this.currentRoot.generateChildren(this.depth);
+        this.currentRoot.generateChildren(this.depth, this.count4);
 
         try
         {
