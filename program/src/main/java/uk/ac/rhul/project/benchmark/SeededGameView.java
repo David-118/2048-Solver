@@ -17,11 +17,19 @@ public class SeededGameView implements View
     private SolveObserver solveObserver;
 
     private final GameConfiguration gameConfiguration;
-    public SeededGameView(Long seed)
+
+    public SeededGameView(long seed)
     {
         this.gameConfiguration =
-                new GameConfiguration(4, 4, 6, new FailSetter(new Monotonic(), -Math.pow(10, 3)));
+                new GameConfiguration(4, 4, 4, new FailSetter(new Monotonic(), -Math.pow(10, 3)));
+                new GameConfiguration(4, 4, 4, new FailSetter(new Monotonic(), -Math.pow(10, 3)));
 
+        gameConfiguration.setSeed(seed);
+    }
+
+    public SeededGameView(GameConfiguration configuration, long seed)
+    {
+        this.gameConfiguration = configuration;
         gameConfiguration.setSeed(seed);
     }
     @Override
@@ -39,8 +47,7 @@ public class SeededGameView implements View
     @Override
     public void setValues(GameState state)
     {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        System.out.println("Score: " + state.getScore());
         for (int i = 0; i < state.getHeight(); i++)
         {
             System.out.println();
@@ -49,8 +56,8 @@ public class SeededGameView implements View
                 System.out.printf("%5d ", state.getGrid()[i][j]);
             }
             System.out.println();
-
         }
+        System.out.println();
     }
 
     @Override

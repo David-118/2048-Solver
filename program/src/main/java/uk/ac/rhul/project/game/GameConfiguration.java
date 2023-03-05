@@ -50,19 +50,13 @@ public class GameConfiguration
         this.cols = cols;
         this.depth = depth;
         this.heuristic = heuristic;
+        this.random = new Random();
     }
 
 
-    public void setSeed(Long seed)
+    public void setSeed(long seed)
     {
-        if (this.seed == null)
-        {
-            this.random = new Random();
-        }
-        else
-        {
-            this.random = new Random(seed);
-        }
+        this.random = new Random(seed);
     }
 
     public String getName()

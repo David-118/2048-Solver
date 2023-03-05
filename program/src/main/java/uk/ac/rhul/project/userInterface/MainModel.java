@@ -14,47 +14,19 @@ public final class MainModel implements Model
     private GameState gameState;
     private Solver solver;
     private Random rnd;
+    String logDir = "";
 
-    /**
-     * Create a model of the game 2048
-     * @param  rows The height of the games grid
-     * @param cols The width the games grid
-     * @param seed Optional seed for a random number generated
-     */
-    public MainModel(int rows, int cols, long seed)
-    {
-        GameConfiguration conf = new GameConfiguration(rows, cols, -1, null);
-        conf.setSeed(seed);
-        this.gameState = new GameState(conf);
-        this.solver = new Solver(conf.getRandom());
-        this.rnd = conf.getRandom();
+    public MainModel() {
+        this.solver = new Solver(new Random());
     }
 
-    /**
-     * Create a model of the game 2048
-     * @param rows The height of the games grid
-     * @param cols The width the games grid
-     */
-    public MainModel(int rows, int cols)
-    {
-        GameConfiguration conf = new GameConfiguration(rows, cols, -1, null);
-        this.gameState = new GameState(conf);
-        this.solver = new Solver(conf.getRandom());
-        this.rnd = conf.getRandom();
-    }
-
-
-    /**
-     * Start a game with a new size.
-     * @param height The height of the new game.
-     * @param width The width of the new game.
-     */
     public void init(GameConfiguration configuration)
     {
         this.gameState = new GameState(configuration);
         this.gameState.init();
-        this.initSolver(configuration.getDepth(), configuration.getHeuristic());
         this.rnd = configuration.getRandom();
+        this.solver.setRandom(configuration.getRandom());
+        this.initSolver(configuration.getDepth(), configuration.getHeuristic());
     }
 
     /**
@@ -65,6 +37,7 @@ public final class MainModel implements Model
     {
         this.solver.configureSolver(depth, heuristic);
         this.solver.setGame(this.gameState);
+        if (!logDir.equals("")) this.solver.enableTreeLog(this.logDir);
     }
 
     /**
@@ -96,5 +69,9 @@ public final class MainModel implements Model
     {
         if (blocking) this.solver.run();
         else new Thread(this.solver).start();
+    }
+
+    public void enableTreeLog(String logDir) {
+        this.logDir = logDir;
     }
 }

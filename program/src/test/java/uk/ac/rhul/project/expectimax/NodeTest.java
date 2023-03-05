@@ -44,12 +44,12 @@ class NodeTest
         try
         {
             Node nxt = this.root.nextNode(this.conf.getHeuristic());
-            assertEquals("[[0, 0, 0, 0], [0, 2, 0, 0], [2, 0, 0, 0], [0, 0, 0, 0]]",
+            assertEquals("[[2, 0, 0, 2], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]",
                     Arrays.deepToString(nxt.getGameState().getGrid()));
 
             nxt.generateChildren(1);
 
-            assertEquals("[[0, 0, 2, 2], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]",
+            assertEquals("[[2, 0, 0, 2], [0, 0, 0, 0], [0, 0, 4, 0], [0, 0, 0, 0]]",
                     Arrays.deepToString(nxt.nextNode(this.conf.getHeuristic()).getGameState().getGrid()));
         } catch (EndOfGameException e)
         {
@@ -60,7 +60,7 @@ class NodeTest
     @Test
     void applyHeuristic()
     {
-        assertEquals(202D, root.applyHeuristic(conf.getHeuristic()));
+        assertEquals(194D, root.applyHeuristic(conf.getHeuristic()));
         root.generateChildren(6);
 
         assertEquals(165.649045D, root.applyHeuristic(conf.getHeuristic()), 0.0000005D);
@@ -100,8 +100,8 @@ class NodeTest
     @Test
     void toTxt()
     {
-        assertEquals("#0#0#0#0#0#2#0#0#0#2#0#0#0#0#0#0#194.0#194.0L\n", this.root.toTxt(0, conf.getHeuristic()));
-        assertEquals(" #0#0#0#0#0#2#0#0#0#2#0#0#0#0#0#0#194.0#194.0L\n", this.root.toTxt(1, conf.getHeuristic()));
+        assertEquals("#0#0#0#0#2#0#0#0#0#0#0#2#0#0#0#0#194.0#194.0L\n", this.root.toTxt(0, conf.getHeuristic()));
+        assertEquals(" #0#0#0#0#2#0#0#0#0#0#0#2#0#0#0#0#194.0#194.0L\n", this.root.toTxt(1, conf.getHeuristic()));
         root.generateChildren(1);
         assertEquals(
                 "#0#0#0#0#2#0#0#0#0#0#0#2#0#0#0#0#194.0#202.0M\n" +

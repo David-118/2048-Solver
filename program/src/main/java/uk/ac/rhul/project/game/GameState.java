@@ -45,7 +45,7 @@ public class GameState implements Cloneable
     /**
      * Random number generator used to add random cells.
      */
-    private final Random random;
+    private Random random;
 
     /**
      * Represents the grid in 2048, stored as grid[rows][columns].
@@ -349,6 +349,8 @@ public class GameState implements Cloneable
             {
                 clone.grid[i] = this.grid[i].clone();
             }
+
+            clone.random = this.random;
 
             return clone;
         } catch (CloneNotSupportedException e)

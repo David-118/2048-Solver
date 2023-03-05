@@ -66,4 +66,7 @@ public class Solver implements Runnable
         }
     }
 
+    public void enableTreeLog(String logDir) {
+        this.tree.enableTreeLog(logDir);
+    }
 }

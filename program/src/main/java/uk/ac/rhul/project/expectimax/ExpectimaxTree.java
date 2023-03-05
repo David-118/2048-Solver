@@ -6,6 +6,7 @@ import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.io.*;
 
+import java.nio.file.Path;
 import java.util.Random;
 
 
@@ -13,9 +14,10 @@ public class ExpectimaxTree
 {
     private Node currentRoot;
     private final int depth;
-
     private int key;
     private final Heuristic heuristic;
+
+    private DmpTxt dmpTxtState = (int k) -> {};
 
     public ExpectimaxTree(GameState initialState, Random random, int depth, Heuristic heuristic)
     {
@@ -38,18 +40,25 @@ public class ExpectimaxTree
             System.err.println(e.getMessage());
         }
         key++;
-        
+
         this.currentRoot = this.currentRoot.nextNode(this.heuristic).nextNode(this.heuristic);
         return this.currentRoot.getGameState();
     }
 
+    public void enableTreeLog(String logDir)
+    {
+        this.dmpTxtState = (int k) -> this._dmpTxt(k, logDir);
+    }
     public void dmpTxt(int key) throws IOException
+    {
+        this.dmpTxtState.dmpTxt(key);
+    }
+
+    private void _dmpTxt(int key, String logDir) throws IOException
     {
         String txt =  currentRoot.toTxt(0, this.heuristic);
 
-        File folder = new File("trees");
-        folder.delete(); folder.mkdir();
-        File file = new File(String.format("trees/tree-%08d.tree", key));
+        File file = new File(Path.of(logDir, String.format("tree-%08d.tree", key)).toUri());
 
         file.createNewFile();
         FileWriter fileWriter = new FileWriter(file);

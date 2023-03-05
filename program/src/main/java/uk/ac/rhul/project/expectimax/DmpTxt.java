@@ -1,2 +1,8 @@
-package uk.ac.rhul.project.expectimax;public interface DmpTxt {
+package uk.ac.rhul.project.expectimax;
+
+import java.io.IOException;
+
+@FunctionalInterface
+public interface DmpTxt {
+    void dmpTxt(int key) throws IOException;
 }
