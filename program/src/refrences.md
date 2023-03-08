@@ -20,3 +20,5 @@
    [cowtowncoder.medium.com/writing-csv-with-jackson-204fdb3c9dac](https://cowtowncoder.medium.com/writing-csv-with-jackson-204fdb3c9dac)
 10. Robert Xiao, 2048 AI
    [github.com/nnenneo/2048-ai/](https://github.com/nnenneo/2048-ai/)
+11.baeldung, How to Stop Execution After a Certian Time.
+   [https://www.baeldung.com/java-stop-execution-after-certain-time](https://www.baeldung.com/java-stop-execution-after-certain-time)

@@ -1,5 +1,6 @@
 package uk.ac.rhul.project.userInterface;
 
+import uk.ac.rhul.project.expectimax.DepthFunction;
 import uk.ac.rhul.project.expectimax.Solver;
 import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
@@ -33,7 +34,7 @@ public final class MainModel implements Model
      * Set the heuristic the solver is using and generate a tree, provide the root of the tree to the
      * solver.
      */
-    private void initSolver(int depth, int count4, Heuristic heuristic)
+    private void initSolver(DepthFunction depth, int count4, Heuristic heuristic)
     {
         this.solver.configureSolver(depth, count4, heuristic);
         this.solver.setGame(this.gameState);

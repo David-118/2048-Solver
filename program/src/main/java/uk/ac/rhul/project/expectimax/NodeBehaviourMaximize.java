@@ -5,6 +5,7 @@ import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 class NodeBehaviourMaximize implements NodeBehaviour
 {

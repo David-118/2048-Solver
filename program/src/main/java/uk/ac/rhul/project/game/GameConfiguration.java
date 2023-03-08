@@ -1,5 +1,6 @@
 package uk.ac.rhul.project.game;
 
+import uk.ac.rhul.project.expectimax.DepthFunction;
 import uk.ac.rhul.project.expectimax.ExpectimaxTree;
 import uk.ac.rhul.project.heursitics.Heuristic;
 import uk.ac.rhul.project.userInterface.View;
@@ -12,7 +13,7 @@ public class GameConfiguration
 
     private final int rows;
     private final int cols;
-    private final int depth;
+    private final DepthFunction depth;
     private final Heuristic heuristic;
 
     private final int count4;
@@ -31,7 +32,7 @@ public class GameConfiguration
         return cols;
     }
 
-    public int getDepth()
+    public DepthFunction getDepth()
     {
         return depth;
     }
@@ -46,7 +47,11 @@ public class GameConfiguration
         return random;
     }
 
-    public GameConfiguration(int rows, int cols, int depth, int count4, Heuristic heuristic)
+    public GameConfiguration(int rows, int cols, int depth, int count4, Heuristic heuristic) {
+        this(rows, cols, (int k) -> depth, count4, heuristic);
+    }
+
+    public GameConfiguration(int rows, int cols, DepthFunction depth, int count4, Heuristic heuristic)
     {
         this.rows = rows;
         this.cols = cols;

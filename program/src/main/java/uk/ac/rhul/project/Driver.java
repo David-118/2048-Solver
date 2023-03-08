@@ -3,10 +3,20 @@ package uk.ac.rhul.project;
 import uk.ac.rhul.project.benchmark.BenchmarkerView;
 import uk.ac.rhul.project.benchmark.OptimiserView;
 import uk.ac.rhul.project.benchmark.SeededGameView;
+import uk.ac.rhul.project.expectimax.ExpectimaxTree;
+import uk.ac.rhul.project.game.EndOfGameException;
+import uk.ac.rhul.project.game.GameConfiguration;
+import uk.ac.rhul.project.game.GameState;
+import uk.ac.rhul.project.heursitics.FailSetter;
+import uk.ac.rhul.project.heursitics.Monotonic;
 import uk.ac.rhul.project.userInterface.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
+import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Class that starts the whole program.
@@ -32,6 +42,11 @@ public class Driver {
         boolean optimise = false;
         boolean seeded = false;
         long seed = 0;
+        boolean depthTest = false;
+        int rows = 0;
+        int cols = 0;
+        long timeout = 0;
+        int[][] grid = null;
 
         while (i < args.length) {
             switch (args[i]) {
@@ -92,15 +107,41 @@ public class Driver {
                         logDir = args[++i];
                     } else {
                         System.err.println("Must specify location to save trees to.");
+                        System.exit(0);
+                    }
+                }
+                case "-d", "--depth-test" -> {
+                    if (i <= args.length - 2) {
+                        rows = Integer.parseInt(args[++i]);
+                        cols = Integer.parseInt(args[++i]);
+                        grid = new int[rows][cols];
+                        if (i <= args.length - (rows*cols + 1)) {
+                            for (int j = 0; j < rows; j++) {
+                                for (int k = 0; k < rows; k++) {
+                                    grid[j][k] = Integer.parseInt(args[++i]);
+                                }
+                            }
+                            timeout = Long.parseLong(args[++i]);
+                            depthTest = true;
+                        } else {
+                            System.err.println("depth-test requires args <width> <height> <val1> <val2> ... <val height*width> <timeout>");
+                            System.exit(1);
+                        }
+                    } else {
+                        System.err.println("depth-test requires args <width> <height> <val1> <val2> ... <val height*width> <timeout>");
+                        System.exit(1);
                     }
                 }
             }
             i++;
         }
 
-        View view;
+        View view = null;
 
-        if (benchmark) {
+        if (depthTest) {
+            testDepth(grid, timeout);
+            System.exit(0);
+        } else if (benchmark) {
             view = new BenchmarkerView(size);
         } else if (optimise) {
             view = new OptimiserView(size, iterations);
@@ -127,6 +168,46 @@ public class Driver {
                 System.err.println("Failed to open file " + output);
                 System.exit(0);
             }
+        }
+    }
+
+    public static void testDepth(int[][] grid, long timeout) {
+        int i = 2;
+        while (true) {
+            GameConfiguration conf = new GameConfiguration(grid.length, grid[0].length, i, Integer.MAX_VALUE, new FailSetter(new Monotonic(), -1000));
+            GameState initial = new GameState(conf);
+            initial.setGrid(grid);
+            ExpectimaxTree expectimaxTree = new ExpectimaxTree(initial, conf.getRandom(), conf.getDepth(), conf.getCount4(), conf.getHeuristic());
+            Thread tryMove = new Thread(() -> {
+                try {
+                    expectimaxTree.makeMove();
+                } catch (EndOfGameException e) {
+                    System.out.println("End of game state provided");
+                    System.exit(1);
+                }
+            });
+            int finalI = i;
+            TimerTask exit = new TimerTask() {
+                @Override
+                public void run() {
+                    System.out.println(initial.countFreeCells() + "," + (finalI - 1));
+                    System.exit(0);
+                }
+            };
+
+            Timer timeoutTimer = new Timer();
+
+            tryMove.start();
+
+            timeoutTimer.schedule(exit, timeout);
+
+            try {
+                tryMove.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            timeoutTimer.cancel();
+            i++;
         }
     }
 }

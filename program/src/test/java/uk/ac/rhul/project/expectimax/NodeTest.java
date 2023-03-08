@@ -7,36 +7,36 @@ import uk.ac.rhul.project.game.GameConfiguration;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.FailSetter;
 import uk.ac.rhul.project.heursitics.Monotonic;
-import uk.ac.rhul.project.heursitics.SumCells;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.junit.jupiter.api.Assertions.*;
 class NodeTest
 {
     GameConfiguration conf;
     Node root;
-    GameState inital;
+    GameState initial;
 
     @BeforeEach
     void setUp()
     {
         this.conf = new GameConfiguration(4, 4, 6, Integer.MAX_VALUE, new FailSetter(new Monotonic(), -Math.pow(10, 3)));
         this.conf.setSeed(0L);
-        this.inital = new GameState(conf);
-        this.inital.init();
-        this.inital.setProbability(1);
-        this.root = new Node(inital, NodeBehaviourMaximize::generate, conf.getRandom());
+        this.initial = new GameState(conf);
+        this.initial.init();
+        this.initial.setProbability(1);
+        this.root = new Node(initial, NodeBehaviourMaximize::generate, conf.getRandom());
     }
 
     @Test
     void getGameState()
     {
-        assertEquals(this.inital, this.root.getGameState());
+        assertEquals(this.initial, this.root.getGameState());
         assertEquals("[[0, 0, 0, 0], [2, 0, 0, 0], [0, 0, 0, 2], [0, 0, 0, 0]]",
-                Arrays.deepToString(this.inital.getGrid()));
+                Arrays.deepToString(this.initial.getGrid()));
     }
 
     @Test
@@ -90,12 +90,12 @@ class NodeTest
     {
         assertEquals(1.0D, root.getWeight());
 
-        inital.setProbability(0.5);
-        root = new Node(inital, NodeBehaviourMaximize::generate, conf.getRandom());
+        initial.setProbability(0.5);
+        root = new Node(initial, NodeBehaviourMaximize::generate, conf.getRandom());
         assertEquals(0.5D, root.getWeight());
 
-        inital.setProbability(0.25);
-        root = new Node(inital, NodeBehaviourMaximize::generate, conf.getRandom());
+        initial.setProbability(0.25);
+        root = new Node(initial, NodeBehaviourMaximize::generate, conf.getRandom());
         assertEquals(0.25, root.getWeight());
     }
 

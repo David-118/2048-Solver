@@ -5,6 +5,7 @@ import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 class Node
 {

@@ -8,6 +8,7 @@ import java.io.*;
 
 import java.nio.file.Path;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class ExpectimaxTree
@@ -32,7 +33,9 @@ public class ExpectimaxTree
 
     public GameState makeMove() throws EndOfGameException
     {
-        this.currentRoot.generateChildren(this.depth.depth(), this.count4);
+        int count = this.currentRoot.getGameState().countFreeCells();
+        int depth = this.depth.depth(count);
+        this.currentRoot.generateChildren(depth, this.count4);
 
         try
         {

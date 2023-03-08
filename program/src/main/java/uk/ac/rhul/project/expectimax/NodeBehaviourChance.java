@@ -6,6 +6,7 @@ import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 class NodeBehaviourChance implements NodeBehaviour
 {

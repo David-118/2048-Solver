@@ -24,7 +24,7 @@ public class Solver implements Runnable
 
     private Random random;
 
-    private int depth;
+    private DepthFunction depth;
 
     private int count4;
 
@@ -43,7 +43,7 @@ public class Solver implements Runnable
         this.updateObserver = updateObserver;
     }
 
-    public void configureSolver(int depth, int count4, Heuristic heuristic)
+    public void configureSolver(DepthFunction depth, int count4, Heuristic heuristic)
     {
         this.depth = depth;
         this.count4 = count4;

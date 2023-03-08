@@ -171,6 +171,18 @@ public class GameState implements Cloneable
         return freeCells;
     }
 
+    public int countFreeCells() {
+        int count = 0;
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                if (this.grid[i][j] == 0) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
 
     /**
      * Move tiles in a given direction,
