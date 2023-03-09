@@ -15,11 +15,13 @@ import java.util.Arrays;
 
 public class BenchmarkerView implements View
 {
+    public static int depth4_4(int k) {
+        int i = k==0 ? 7 : (int)Math.floor(21 * Math.pow(k, -0.065) - 4);
+        System.out.println(i + " " + k);
+        return Math.max(i, 7);
+    }
     private static final GameConfiguration[] CONFIGURATIONS = new GameConfiguration[] {
-            new GameConfiguration(4, 4, (int k) -> {
-                System.out.println(k);
-                return (int) Math.round(21 * Math.pow(k, -0.11));
-            } , Integer.MAX_VALUE, new FailSetter(new Monotonic(), -Math.pow(10, 3)))
+            new GameConfiguration(4, 4,  BenchmarkerView::depth4_4, 4, new FailSetter(new Monotonic(), -Math.pow(10, 3)))
     };
 
     private NewGameObserver newGameObserver;

@@ -9,5 +9,5 @@ import java.util.concurrent.atomic.AtomicInteger;
 @FunctionalInterface
 interface NodeBehaviourGenerator
 {
-    NodeBehaviour generate(GameState state, Random random, int depth, int count4, AtomicInteger counter, int layer);
+    NodeBehaviour generate(GameState state, Random random, int depth, int count4, int layer);
 }

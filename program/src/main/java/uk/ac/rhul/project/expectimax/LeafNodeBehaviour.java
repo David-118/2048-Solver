@@ -28,4 +28,9 @@ public class LeafNodeBehaviour implements NodeBehaviour
     {
         return "L\n";
     }
+
+    @Override
+    public int baseLineCount(int i) {
+        return 0;
+    }
 }

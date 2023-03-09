@@ -21,11 +21,8 @@ public class SeededGameView implements View
     public SeededGameView(long seed)
     {
         this.gameConfiguration =
-                new GameConfiguration(4, 4, (int k) -> {
-		    double l = Math.pow(15-k, 2) / 14D;
-		    return (int) Math.floor(7 + (l * (3D / 14D)));
-		},
-                Integer.MAX_VALUE, new FailSetter(new Monotonic(), -Math.pow(10, 3)));
+                new GameConfiguration(4, 4, BenchmarkerView::depth4_4,
+                4, new FailSetter(new Monotonic(), -Math.pow(10, 3)));
 
         gameConfiguration.setSeed(seed);
     }

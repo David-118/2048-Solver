@@ -12,22 +12,22 @@ class NodeBehaviourChance implements NodeBehaviour
 {
     private final Node[] children;
     private final Random random;
-    public static NodeBehaviour generate(GameState state, Random random, int depth, int count4, AtomicInteger counter, int layer)
+    public static NodeBehaviour generate(GameState state, Random random, int depth, int count4, int layer)
     {
         NodeBehaviour generated;
         GameState[] childStates = state.getPossibleMutations();
 
         Node[] childNodes = new Node[childStates.length];
 
-        float sum = 0;
-
         for (int i = 0; i < childNodes.length; i++)
         {
-            childNodes[i] = new Node(childStates[i], NodeBehaviourMaximize::generate, random);
+            childNodes[i] = new Node(childStates[i], NodeBehaviourMaximize::generate, random, ExpectimaxTree.BASELINE_DEPTH);
         }
 
 
-        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth, count4, counter, layer));
+        Arrays.stream(childNodes).parallel().forEach((Node child) -> {
+            child.generateChildren(depth, count4, layer);
+        });
 
         if (childNodes.length > 0)
         {
@@ -37,6 +37,8 @@ class NodeBehaviourChance implements NodeBehaviour
         {
             generated = new LeafNodeBehaviour(state);
         }
+
+
         return generated;
     }
 
@@ -78,5 +80,10 @@ class NodeBehaviourChance implements NodeBehaviour
             childBuilder.append(node.toTxt(indent + 1, heuristic));
         }
         return childBuilder.toString();
+    }
+
+    @Override
+    public int baseLineCount(int i) {
+        return Arrays.stream(this.children).mapToInt(c -> c.getBaselineCount((i))).sum();
     }
 }

@@ -11,7 +11,7 @@ class NodeBehaviourMaximize implements NodeBehaviour
 {
     private final Node[] children;
 
-    public static NodeBehaviour generate(GameState state, Random random, int depth, int count4, AtomicInteger counter, int layer)
+    public static NodeBehaviour generate(GameState state, Random random, int depth, int count4, int layer)
     {
         NodeBehaviour generated;
         List<GameState> childStates = state.getPossibleMoves();
@@ -20,10 +20,10 @@ class NodeBehaviourMaximize implements NodeBehaviour
 
         for (int i = 0; i < childNodes.length; i++)
         {
-            childNodes[i] = new Node(childStates.get(i), NodeBehaviourChance::generate, random);
+            childNodes[i] = new Node(childStates.get(i), NodeBehaviourChance::generate, random, ExpectimaxTree.BASELINE_DEPTH);
         }
 
-        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth, count4, counter, layer));
+        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth, count4, layer));
 
         if (childNodes.length > 0)
         {
@@ -66,5 +66,10 @@ class NodeBehaviourMaximize implements NodeBehaviour
             childBuilder.append(node.toTxt(indent + 1, heuristic));
         }
         return childBuilder.toString();
+    }
+
+    @Override
+    public int baseLineCount(int i) {
+        return Arrays.stream(this.children).mapToInt(c -> c.getBaselineCount(i)).sum();
     }
 }
