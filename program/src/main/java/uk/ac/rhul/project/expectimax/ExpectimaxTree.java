@@ -8,7 +8,7 @@ import java.io.*;
 
 import java.nio.file.Path;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class ExpectimaxTree
@@ -17,6 +17,8 @@ public class ExpectimaxTree
     private final DepthFunction depth;
     private int key;
     private final Heuristic heuristic;
+
+    AtomicInteger counter = new AtomicInteger(42650);
 
     private final int count4;
 
@@ -33,9 +35,11 @@ public class ExpectimaxTree
 
     public GameState makeMove() throws EndOfGameException
     {
-        int count = this.currentRoot.getGameState().countFreeCells();
-        int depth = this.depth.depth(count);
-        this.currentRoot.generateChildren(depth, this.count4);
+
+        int i = 0;
+        int depth = this.depth.depth(counter.get());
+        counter.set(0);
+        this.currentRoot.generateChildren(depth, this.count4, counter, i);
 
         try
         {

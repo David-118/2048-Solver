@@ -6,13 +6,13 @@ import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 class NodeBehaviourChance implements NodeBehaviour
 {
     private final Node[] children;
     private final Random random;
-    public static NodeBehaviour generate(GameState state, Random random, int depth, int count4)
+    public static NodeBehaviour generate(GameState state, Random random, int depth, int count4, AtomicInteger counter, int layer)
     {
         NodeBehaviour generated;
         GameState[] childStates = state.getPossibleMutations();
@@ -27,7 +27,7 @@ class NodeBehaviourChance implements NodeBehaviour
         }
 
 
-        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth, count4));
+        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth, count4, counter, layer));
 
         if (childNodes.length > 0)
         {

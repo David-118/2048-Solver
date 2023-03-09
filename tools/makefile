@@ -1,5 +1,15 @@
-CC=gcc
-CFLAGS=-lncurses
+CC = gcc
+CFLAGS = -lncurses
 
-treeview: treeview.c
-	$(CC) $(CFLAGS) -o treeview.o treeview.c
+
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+treeview : treeview.o
+	$(CC) -o treeview treeview.o $(CFLAGS)
+
+info : info.o
+	$(CC) -o info info.o $(CFLAGS)
+
+clean: 
+	rm *.o treeview info

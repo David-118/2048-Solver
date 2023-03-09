@@ -8,6 +8,11 @@ import uk.ac.rhul.project.userInterface.View;
 import java.util.Locale;
 import java.util.Random;
 
+/**
+ * GameConfiguration represents the setup of a game.
+ * This includes config for both algorithm and the
+ * initial board.
+ */
 public class GameConfiguration
 {
 
@@ -69,7 +74,7 @@ public class GameConfiguration
 
     public String getName()
     {
-        return String.format("%d x %d game using %s (depth=%d)", rows, cols, heuristic.getName(), depth);
+        return String.format("%d x %d game using %s", rows, cols, heuristic.getName());
     }
 
     public int getCount4() {

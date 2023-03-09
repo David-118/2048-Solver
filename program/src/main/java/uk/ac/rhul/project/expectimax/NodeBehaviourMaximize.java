@@ -5,13 +5,13 @@ import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 class NodeBehaviourMaximize implements NodeBehaviour
 {
     private final Node[] children;
 
-    public static NodeBehaviour generate(GameState state, Random random, int depth, int count4)
+    public static NodeBehaviour generate(GameState state, Random random, int depth, int count4, AtomicInteger counter, int layer)
     {
         NodeBehaviour generated;
         List<GameState> childStates = state.getPossibleMoves();
@@ -23,7 +23,7 @@ class NodeBehaviourMaximize implements NodeBehaviour
             childNodes[i] = new Node(childStates.get(i), NodeBehaviourChance::generate, random);
         }
 
-        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth, count4));
+        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth, count4, counter, layer));
 
         if (childNodes.length > 0)
         {

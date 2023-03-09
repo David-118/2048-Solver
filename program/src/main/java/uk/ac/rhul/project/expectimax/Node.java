@@ -5,7 +5,7 @@ import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 class Node
 {
@@ -15,6 +15,8 @@ class Node
     private final NodeBehaviourGenerator behaviourGenerator;
 
     private final double weight;
+
+    private static final int BASELINE_DEPTH = 7;
 
     protected Node(GameState gameState, NodeBehaviourGenerator generator, Random random)
     {
@@ -45,11 +47,12 @@ class Node
         return this.behaviour.applyHeuristic(heuristic);
     }
 
-    public void generateChildren(int depth, int count4)
+    public void generateChildren(int depth, int count4, AtomicInteger counter, int i)
     {
+        if (i++ == BASELINE_DEPTH - 2) counter.getAndIncrement();
         if (this.gameState.cell() == 4) count4--;
         if (depth > 0  && count4 > 0)
-            this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1, count4);
+            this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1, count4, counter, i);
     }
 
 
