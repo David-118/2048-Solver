@@ -1,5 +1,53 @@
 # Term 2
+## Week 8
+Created pruning for unlikely possibilities, helped by the previous work. A parameter keep track of how many
+values with 4 have been calculated in a branch. When this parameter reaches 0 a nodes children is not calculated.
+This prunes the children of a 4 node. Limited testing on performance was done this week.
 
+Created DepthFunctions. These are functions that increase the depth of the search for moves with fewer possibilities.
+This can lead to much longer games, in my limited tsting so far, and a slight increase in performance.
+
+One game manged to get a 8192, 4096, 2048, 1024 and 512, which is quite close to the boundary of 16k.
+
+## Week 7
+Created a new txt format to represent trees and simple C program to view these trees in.
+This file format is much more efficient, a depth 6 (seed 0) is no only ~10GiB.
+A long time was spent generating a depth 7 tree for the same game (seed 0) ~82GiB.
+Due to the file sizes I have not created many trees.
+
+I Noticed, that as expected, trees at the beginning of a tree proving, that in at least this game 2048
+the early trees are difficult to calculate compared to that of the later trees. 
+
+Also, generated a depth 4 tree (seed 0) (134 MiB). This tree was much more useful to work with, I statred manualy
+pruing less likely posablites out of the first tree for a test.
+## Week 6
+This week was used to figure out the best way to do pruning. I came to the conclusion that the best two approach's
+were pruning unlikely possibles or pruning bad moves.
+
+Started coming up with methods to analise trees. I started by trying to make a HTML Tree with collapsable nodes.
+Collapsable nodes are not currently done
+
+I determined that HTML was not a scale enough form. The folder with trees generated from a game was 10s of GiB for
+a game of depth 6. The largest file was 260MiB and was not practical to open in any browser. 
+
+## Week 5
+Did further benchmark, tried to find the optimal fail setter/ratio, but for the monotonic heuristic. (Set -1000) turned
+out to be the most optimal value. Again using 201 games. This took a while and limited the work I could do on the code.
+
+I used this time to add to the heuristic section of the report with more information about applying the newer
+heuristics Dynamic Snake and Monotonic to rectangular grids, and other square grids.
+
+## Week 4
+Calculated the best ratio/setter for the dynamic snake heuristic (ratio 0.8), using the newly developed optimiser game view.
+This was initially done by running 100 games for each of {-1, 0.8, 0.6, ..., 0.6, 0.8, 1}. The data was inclusive.
+repeated for running 201 games.
+
+201 was chosen as it was more likely to be useful and the median function used is overly simplistic and works best
+with an odd number.
+
+Tested various modifications to existing heuristics, only mildly benfical one was the Dynamic Snake 'antitrap'.
+This effectively penalises game state with trapped values. This lead to a reduction in median values, but an increase
+in the good values.
 
 ## Week 3
 This week I found the source of the older heuristic under preforming.
