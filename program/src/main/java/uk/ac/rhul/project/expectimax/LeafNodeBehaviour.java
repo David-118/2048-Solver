@@ -4,9 +4,16 @@ import uk.ac.rhul.project.game.EndOfGameException;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class LeafNodeBehaviour implements NodeBehaviour
 {
-    private GameState state;
+    private final GameState state;
+
+    public NodeBehaviour generated(GameState state, Random random, int depth, int count4, int layer) {
+        return this;
+    }
     public LeafNodeBehaviour(GameState state)
     {
         this.state = state;

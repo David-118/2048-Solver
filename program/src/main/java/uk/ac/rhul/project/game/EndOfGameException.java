@@ -2,7 +2,7 @@ package uk.ac.rhul.project.game;
 
 public class EndOfGameException extends Exception
 {
-    private GameState state;
+    private final GameState state;
     public EndOfGameException(GameState state)
     {
         this.state = state;

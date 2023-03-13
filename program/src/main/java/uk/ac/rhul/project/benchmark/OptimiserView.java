@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.time.Clock;
 import java.util.Arrays;
 
 public class OptimiserView implements View
@@ -27,8 +28,8 @@ public class OptimiserView implements View
     private double optimalN;
     private BenchmarkEntry optimalMedian;
 
-    private BenchmarkEntry[] medianScores;
-    private double[] ns;
+    private final BenchmarkEntry[] medianScores;
+    private final double[] ns;
 
     private static final double minN = -1;
 
@@ -72,6 +73,7 @@ public class OptimiserView implements View
                 optimalMedian = median;
                 optimalN = n;
             }
+
 
             this.csvWriter.flushEntries();
             this.configIndex++;
@@ -139,8 +141,10 @@ public class OptimiserView implements View
         {
             this.gameIndex = j;
             this.newGameObserver.notifyObservers(makeGame(n));
+            long start = Clock.systemUTC().millis();
             this.solveObserver.notifyObserver(true);
-            this.csvWriter.add(new BenchmarkEntry("n=" + n, this.currentState));
+            long end = Clock.systemUTC().millis();
+            this.csvWriter.add(new BenchmarkEntry("n=" + n, this.currentState, end-start));
 
             BenchmarkEntry median = csvWriter.median();
             this.medianScores[configIndex] = median;

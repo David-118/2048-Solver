@@ -25,7 +25,7 @@ public class GameConfiguration
 
     private Random random;
 
-    private Long seed = null;
+    private final Long seed = null;
 
     public int getRows()
     {

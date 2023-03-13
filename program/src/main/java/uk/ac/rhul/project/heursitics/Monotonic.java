@@ -97,6 +97,6 @@ public class Monotonic implements Heuristic
     @Override
     public String getName()
     {
-        return String.format("Monotonic");
+        return "Monotonic";
     }
 }

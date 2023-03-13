@@ -22,7 +22,7 @@ public class SeededGameView implements View
     {
         this.gameConfiguration =
                 new GameConfiguration(4, 4, BenchmarkerView::depth4_4,
-                4, new FailSetter(new Monotonic(), -Math.pow(10, 3)));
+                Integer.MAX_VALUE, new FailSetter(new Monotonic(), -Math.pow(10, 3)));
 
         gameConfiguration.setSeed(seed);
     }

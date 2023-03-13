@@ -13,7 +13,7 @@ import java.util.Random;
 public final class MainModel implements Model
 {
     private GameState gameState;
-    private Solver solver;
+    private final Solver solver;
     private Random rnd;
     String logDir = "";
 

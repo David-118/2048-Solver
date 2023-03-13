@@ -1,4 +1,6 @@
 # Term 2
+
+
 ## Week 3
 This week I found the source of the older heuristic under preforming.
 

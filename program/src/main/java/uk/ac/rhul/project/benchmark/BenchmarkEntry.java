@@ -29,7 +29,7 @@ public class BenchmarkEntry implements Comparable<BenchmarkEntry>
      * @param heuristicName The name of the heuristic used to generate the state.
      * @param state The final state of a 2048 game. Max tile and score is extracted form this.
      */
-    public BenchmarkEntry(String heuristicName, GameState state)
+    public BenchmarkEntry(String heuristicName, GameState state, long milliseconds)
     {
         int max = 0;
         for (int i = 0; i < state.getGrid().length; i++)
@@ -45,6 +45,7 @@ public class BenchmarkEntry implements Comparable<BenchmarkEntry>
 
         this.maxTile = max;
         this.score = state.getScore();
+        this.time = milliseconds;
 
         this.heuristicName = heuristicName;
     }
@@ -64,10 +65,12 @@ public class BenchmarkEntry implements Comparable<BenchmarkEntry>
      */
     public final int score;
 
+    public final long time;
+
     @Override
     public String toString()
     {
-        return String.format("score: %d, max-tile: %d", this.score, this.maxTile);
+        return String.format("score: %d, max-tile: %d, time: %d", this.score, this.maxTile, this.time);
     }
 
     public int compareTo(BenchmarkEntry o)

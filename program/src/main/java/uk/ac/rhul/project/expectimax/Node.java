@@ -11,7 +11,7 @@ class Node
     private NodeBehaviour behaviour;
     private final GameState gameState;
     private final Random random;
-    private final NodeBehaviourGenerator behaviourGenerator;
+    private NodeBehaviourGenerator behaviourGenerator;
 
     private final double weight;
 
@@ -52,6 +52,7 @@ class Node
         if (this.gameState.cell() == 4) count4--;
         if (depth > 0  && count4 > 0) {
             this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1, count4, i);
+            this.behaviourGenerator = this.behaviour::generated;
         }
     }
 

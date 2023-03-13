@@ -42,6 +42,13 @@ class NodeBehaviourChance implements NodeBehaviour
         return generated;
     }
 
+    public NodeBehaviour generated(GameState state, Random random, int depth, int count4, int layer) {
+        Arrays.stream(this.children).parallel().forEach((Node child) -> {
+            child.generateChildren(depth, count4, layer);
+        });
+        return this;
+    }
+
     private NodeBehaviourChance(Node[] children, Random random)
     {
         this.children = children;
