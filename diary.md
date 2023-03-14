@@ -1,4 +1,8 @@
 # Term 2
+## Week 9
+Wrote section in report about pruning and the dynamic depth, started gathering data including the time each game took
+(in milliseconds)
+
 ## Week 8
 Created pruning for unlikely possibilities, helped by the previous work. A parameter keep track of how many
 values with 4 have been calculated in a branch. When this parameter reaches 0 a nodes children is not calculated.
