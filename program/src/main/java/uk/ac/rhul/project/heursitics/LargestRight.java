@@ -2,12 +2,15 @@ package uk.ac.rhul.project.heursitics;
 
 import uk.ac.rhul.project.game.GameState;
 
+/**
+ * Rewards games with values towards the right.
+ */
 public class LargestRight implements Heuristic
 {
     /**
      * Rewards game states that have larger values towards the right.
      * @param state The game state to be evaluated.
-     * @return The sum of all the cells multiplied by the (index + 1) of the row they are in..
+     * @return The sum of all the cells multiplied by the (index + 1) of the row they are in.
      */
     @Override
     public double heuristic(GameState state)
@@ -27,7 +30,7 @@ public class LargestRight implements Heuristic
 
     /**
      * Returns the name of the heuristic function.
-     * @return "Largest Lower"
+     * @return "Largest Right"
      */
     @Override
     public String getName()

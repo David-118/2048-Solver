@@ -39,7 +39,7 @@ public class Snake4x4 implements Heuristic
 
     /**
      * Returns the name of the heuristic.
-     * @return "Snake4x4 4x4"
+     * @return "Snake (4x4)"
      */
     @Override
     public String getName()

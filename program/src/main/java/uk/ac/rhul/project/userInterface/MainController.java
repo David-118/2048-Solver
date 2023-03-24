@@ -34,8 +34,7 @@ public class MainController
 
     /**
      * Creates a new 2048 game.
-     * @param height Height of the game.
-     * @param width Width of the game
+     * @param configuration config for new game.
      */
     private void handelNewGame(GameConfiguration configuration)
     {
@@ -45,6 +44,7 @@ public class MainController
 
     /**
      * Handel for solving a 2048 game.
+     * @param blocking if not blocking starts solving in new thread.
      */
     public void handelSolve(boolean blocking)
     {

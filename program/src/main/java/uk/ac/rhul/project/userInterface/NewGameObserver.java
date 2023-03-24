@@ -10,8 +10,7 @@ public interface NewGameObserver
 {
     /**
      * Interface functions called when a new game is created.
-     * @param height
-     * @param width
+     * @param gameConfiguration config for the game.
      */
     void notifyObservers(GameConfiguration gameConfiguration);
 }

@@ -2,12 +2,15 @@ package uk.ac.rhul.project.heursitics;
 
 import uk.ac.rhul.project.game.GameState;
 
+/**
+ * Rewards game states that have larger values towards the bottom.
+ */
 public class LargestLower implements Heuristic
 {
     /**
      * Rewards game states that have larger values towards the bottom.
      * @param state The game state to be evaluated.
-     * @return The sum of all the cells multiplied by the (index + 1) of the row they are in..
+     * @return The sum of all the cells multiplied by the (index + 1) of the row they are in.
      */
     @Override
     public double heuristic(GameState state)

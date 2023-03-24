@@ -25,12 +25,24 @@ public class Driver {
     /**
      * Main function
      *
-     * @param args <p>The arguments supported are<ul>
+     * @param args The arguments supported are<ul>
      *             <li>-b [count]: Benchmark each known heuristic function with count number of games.</li>
      *             <li>--benchmark [count]: same as -b.</li>
      *             <li>-o [output]: output performance data to the csv file output</li>
      *             <li>--output [output]: same as -o</li>
-     *             </ul></p>
+     *             <li>-s [count] [iterations]: run the optimiser to determine the best value for something
+     *                  count is games per iteration, iterations is the number of values to try between min and max.
+     *             </li>
+     *             <li>--optimise [count] [iterations]: same as -s </li>
+     *             <li>-e [seed]: run seed game view with a specfic game</li>
+     *             <li>--seed [seed]: same as -e</li>
+     *             <li><-t: [dir]: output trees to provided dir/li>
+     *             <li>--tree-log: same as -t</li>
+     *             <li>-d [rows] [cols] {game state ...}  [timeout]
+     *                  rows: height of game,cols: width of game, game state: all values in game state,
+     *                  number of milliseconds there are to build tree.
+     *             </li>
+     *             </ul>
      */
     public static void main(String[] args) {
         String output = "";
@@ -171,6 +183,11 @@ public class Driver {
         }
     }
 
+    /**
+     * Test how deep a tree can be from a given game state.
+     * @param grid    Initial game sate.
+     * @param timeout Time given to generate tree.
+     */
     public static void testDepth(int[][] grid, long timeout) {
         int i = 2;
         while (true) {

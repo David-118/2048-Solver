@@ -6,8 +6,7 @@ import uk.ac.rhul.project.game.GameState;
 /**
  * Diagonal4x4 is heurstic based on [8, grid.js:108]
  */
-public class Diagonal4x4 implements Heuristic
-{
+public class Diagonal4x4 implements Heuristic {
     /**
      * Rewards games where the largest cells are diagonal from the top left. Penalises when large number are next to
      * small neighbors.
@@ -16,35 +15,23 @@ public class Diagonal4x4 implements Heuristic
      * @param state The game state to be evaluated.
      * @return sum of  each cell multiplied by an internal weight.
      */
-    public double heuristic(GameState state)
-    {
-        int[][] weights = new int[][]{
-                {6, 5, 4, 1},
-                {5, 4, 1, 0},
-                {4, 1, 0, -1},
-                {1, 0, -1, -2},
-        };
+    public double heuristic(GameState state) {
+        int[][] weights = new int[][]{{6, 5, 4, 1}, {5, 4, 1, 0}, {4, 1, 0, -1}, {1, 0, -1, -2},};
 
         double score = 0;
         double penalty = 0;
 
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 float cell = state.getGrid()[i][j];
 
                 score += weights[i][j] * cell * cell;
 
-                if (cell != 0)
-                {
-                    for (Direction dir : Direction.values())
-                    {
-                        if (state.nextCellInGrid(i, j, dir))
-                        {
+                if (cell != 0) {
+                    for (Direction dir : Direction.values()) {
+                        if (state.nextCellInGrid(i, j, dir)) {
                             float neighbour = state.getGrid()[i + dir.getRows()][j + dir.getCols()];
-                            if (neighbour != 0)
-                            {
+                            if (neighbour != 0) {
                                 penalty += (Math.abs(neighbour - cell));
                             }
                         }
@@ -55,8 +42,12 @@ public class Diagonal4x4 implements Heuristic
         return score - penalty;
     }
 
-    public String getName()
-    {
+    /**
+     * Get the name of heuristic
+     *
+     * @return Diagonal (4 x 4)
+     */
+    public String getName() {
         return "Diagonal (4 x 4)";
     }
 

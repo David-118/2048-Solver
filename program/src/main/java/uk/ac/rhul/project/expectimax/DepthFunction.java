@@ -1,9 +1,14 @@
 package uk.ac.rhul.project.expectimax;
 
-import uk.ac.rhul.project.heursitics.FailSetter;
-import uk.ac.rhul.project.heursitics.Monotonic;
-
+/**
+ * DepthFunction is a function used to determine the depth of an expectation tree.
+ */
 @FunctionalInterface
-public interface DepthFunction { 
-    int depth(int cells);
+public interface DepthFunction {
+    /**
+     * Call the depth function
+     * @param k number of nodes on the baseline level of the tree.
+     * @return depth of the next tree.
+     */
+    int depth(int k);
 }

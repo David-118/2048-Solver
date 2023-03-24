@@ -26,6 +26,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Optional;
 
+/**
+ * JavaFX based view for solving a game.
+ */
 public class MainView extends Application implements View
 {
     /**
@@ -60,7 +63,7 @@ public class MainView extends Application implements View
 
 
     /**
-     *  The background colour associated with each tile <= 2048
+     *  The background colour associated with each tile &le; 2048
      *  <br><br>
      *  Colour comes from [5]
      */
@@ -226,199 +229,6 @@ public class MainView extends Application implements View
     /**
      * Get an instance of the singleton MainView.
      * @return Either a new instance or the one existing instance of MainView.
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
      */
     public static synchronized MainView getInstance()
     {
@@ -508,6 +318,8 @@ public class MainView extends Application implements View
 
     /**
      * Prepare the game view and window for a game of a given size.
+     * @param height number of rows in game view.
+     * @param width number of cols in game view.
      */
     private void prepareGameView(int height, int width)
     {
@@ -529,7 +341,7 @@ public class MainView extends Application implements View
     }
 
     /**
-     * Builds the new grid for a game of giiden size.
+     * Builds the new grid for a game of given size.
      * @param height Height of the game.
      * @param width Width of the game.
      */
@@ -589,15 +401,21 @@ public class MainView extends Application implements View
         this.score.setText(Integer.toString(state.getScore()));
     }
 
+    /**
+     * Update grid values from another thread.
+     * @param state Current game state.
+     */
     @Override
     public void updateGrid(GameState state)
     {
         Platform.runLater(() -> this.setValues(state));
     }
 
+    /**
+     * Ignored, this is a graphical view.d
+     */
     @Override
-    public void startIfTerminal(File log) throws IOException
-    {
+    public void startIfTerminal(File log) {
 
     }
 

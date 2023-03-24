@@ -30,7 +30,7 @@ class NodeTest
         this.initial = new GameState(conf);
         this.initial.init();
         this.initial.setProbability(1);
-        this.root = new Node(initial, NodeBehaviourMaximize::generate, conf.getRandom(), 0);
+        this.root = new Node(initial, NodeBehaviourMaximize::generate, conf.getRandom());
         this.counter = new AtomicInteger(0);
     }
 
@@ -94,11 +94,11 @@ class NodeTest
         assertEquals(1.0D, root.getWeight());
 
         initial.setProbability(0.5);
-        root = new Node(initial, NodeBehaviourMaximize::generate, conf.getRandom(), 0);
+        root = new Node(initial, NodeBehaviourMaximize::generate, conf.getRandom());
         assertEquals(0.5D, root.getWeight());
 
         initial.setProbability(0.25);
-        root = new Node(initial, NodeBehaviourMaximize::generate, conf.getRandom(), 0);
+        root = new Node(initial, NodeBehaviourMaximize::generate, conf.getRandom());
         assertEquals(0.25, root.getWeight());
     }
 

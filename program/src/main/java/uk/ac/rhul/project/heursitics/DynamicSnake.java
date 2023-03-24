@@ -4,12 +4,26 @@ import uk.ac.rhul.project.game.GameState;
 
 import java.util.Arrays;
 
+/**
+ * A variable sized version of the snake heuristic based on [7]
+ */
 public class DynamicSnake implements Heuristic
 {
+    /**
+     * Weight matrix for the heuristic.
+     */
     double[][] powers;
 
+    /**
+     * Size of the weight matrix.
+     */
     private final int rows, cols;
 
+    /**
+     * Create a dynamic snake heuristic
+     * @param row Game height.
+     * @param col Game width.
+     */
     public DynamicSnake(int row, int col)
     {
         this.powers = new double[row][col];
@@ -24,6 +38,12 @@ public class DynamicSnake implements Heuristic
             }
         }
     }
+
+    /**
+     * Apply the dynamic snake heuristic to a game sate.
+     * @param state The game state to be evaluated.
+     * @return heurstic score of the state.
+     */
     @Override
     public double heuristic(GameState state)
     {
@@ -42,6 +62,10 @@ public class DynamicSnake implements Heuristic
         return sum;
     }
 
+    /**
+     * Get the name of the herustic
+     * @return Dynamic Snake {rows}x{cols}
+     */
     @Override
     public String getName()
     {
