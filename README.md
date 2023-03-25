@@ -38,6 +38,27 @@ However there are many diffrent ways the program can be run, using various comma
 * -t/--tree-log *dir*: log trees from 2048 game to diretory *dir*.
 * -d *rows* *cols* *val<sub>1</sub>* ... *val*<sub>n</sub> *timeout*. Generate a tree from a game state of size *rows* x *cols* with values *value*<sub>1</sub> ... *value*<sub>n</sub>. Outputs depth of tree generated in *timeout* ms.
 ### Graphical View
+
+To open in graphical, simply run the jar file, by double clicking or running the comand `java -jar {path/to/jar}`
+
+When openned you will se a window like this:
+
+![gui main](screenshots/gui1.png){width=300px}
+
+To create a new game click the 'New Game' button, a popup window will appear.
+
+![gui popup](screenshots/gui2.png){width=300px}
+
+Enter the width and height of the game. Beware, with large games or depths , it is very easy to crash the program.
+
+You can select the heustic from a pre set list of options, if you want to use more advananced featuers, like pruning, dynamic depth or more spefcifc heuristics it is advlisable to use the seeded game view.
+
+Once you have filled in the dialouge and clicked submit, a game will be drawn onto the game view.
+
+![gui solve](screenshots/gui3.png){width=300px}
+
+Click the solve button and the game will begin playiing itself.
+
 ### Benchmark View
 Enter the dir `program/src/main/java/uk/ac/rhul/project/benchmark/BenchmarkView.java` to change what heurstics are being benchmarked.
 On line 29 there is an array that looks somthing like
