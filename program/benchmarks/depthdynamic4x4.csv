@@ -1,0 +1,10 @@
+heuristicName,maxTile,score,time
+4 x 4 game using Monotonic(With Fail),8192,175868,5179196
+4 x 4 game using Monotonic(With Fail),16384,269512,7640634
+4 x 4 game using Monotonic(With Fail),8192,174948,5050310
+4 x 4 game using Monotonic(With Fail),8192,134144,4432112
+4 x 4 game using Monotonic(With Fail),8192,134092,4552420
+4 x 4 game using Monotonic(With Fail),8192,125544,4444804
+4 x 4 game using Monotonic(With Fail),4096,74824,2896079
+4 x 4 game using Monotonic(With Fail),8192,134664,4428082
+4 x 4 game using Monotonic(With Fail),8192,157704,4917691

@@ -16,7 +16,12 @@ public class Diagonal4x4 implements Heuristic {
      * @return sum of  each cell multiplied by an internal weight.
      */
     public double heuristic(GameState state) {
-        int[][] weights = new int[][]{{6, 5, 4, 1}, {5, 4, 1, 0}, {4, 1, 0, -1}, {1, 0, -1, -2},};
+        int[][] weights = new int[][]{
+                {6, 5, 4, 1},
+                {5, 4, 1, 0},
+                {4, 1, 0, -1},
+                {1, 0, -1, -2},
+        };
 
         double score = 0;
         double penalty = 0;

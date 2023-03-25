@@ -1,0 +1,7 @@
+heuristicName,maxTile,score,time
+"2 x 2 game using Sum Cells",32,140,51
+"2 x 2 game using Largest Lower",32,140,24
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",32,128,15
+"2 x 2 game using Monotonic(With Fail)",32,140,19
+"3 x 3 game using Sum Cells",128,940,148
+"3 x 3 game using Largest Lower",64,596,152

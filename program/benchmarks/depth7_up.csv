@@ -1,0 +1,801 @@
+heuristicName,maxTile,score,time
+"2 x 2 game using Sum Cells",32,140,153
+"2 x 2 game using Sum Cells",32,116,95
+"2 x 2 game using Sum Cells",16,52,54
+"2 x 2 game using Sum Cells",16,68,74
+"2 x 2 game using Sum Cells",16,68,67
+"2 x 2 game using Sum Cells",16,64,53
+"2 x 2 game using Sum Cells",16,68,48
+"2 x 2 game using Sum Cells",16,60,36
+"2 x 2 game using Sum Cells",16,56,35
+"2 x 2 game using Sum Cells",8,16,24
+"2 x 2 game using Sum Cells",16,68,43
+"2 x 2 game using Sum Cells",32,140,68
+"2 x 2 game using Sum Cells",16,56,47
+"2 x 2 game using Sum Cells",16,60,42
+"2 x 2 game using Sum Cells",16,68,51
+"2 x 2 game using Sum Cells",16,68,50
+"2 x 2 game using Sum Cells",16,64,45
+"2 x 2 game using Sum Cells",16,64,45
+"2 x 2 game using Sum Cells",16,64,48
+"2 x 2 game using Sum Cells",8,20,30
+"2 x 2 game using Sum Cells",16,68,45
+"2 x 2 game using Sum Cells",16,60,50
+"2 x 2 game using Sum Cells",16,56,55
+"2 x 2 game using Sum Cells",32,140,95
+"2 x 2 game using Sum Cells",16,60,59
+"2 x 2 game using Sum Cells",16,60,54
+"2 x 2 game using Sum Cells",16,68,52
+"2 x 2 game using Sum Cells",16,68,52
+"2 x 2 game using Sum Cells",16,64,50
+"2 x 2 game using Sum Cells",16,56,49
+"2 x 2 game using Sum Cells",16,68,61
+"2 x 2 game using Sum Cells",16,64,67
+"2 x 2 game using Sum Cells",16,64,48
+"2 x 2 game using Sum Cells",16,52,30
+"2 x 2 game using Sum Cells",32,140,67
+"2 x 2 game using Sum Cells",32,164,82
+"2 x 2 game using Sum Cells",8,16,28
+"2 x 2 game using Sum Cells",16,68,50
+"2 x 2 game using Sum Cells",16,68,55
+"2 x 2 game using Sum Cells",32,140,87
+"2 x 2 game using Sum Cells",8,20,33
+"2 x 2 game using Sum Cells",16,64,64
+"2 x 2 game using Sum Cells",16,52,57
+"2 x 2 game using Sum Cells",16,64,56
+"2 x 2 game using Sum Cells",16,60,57
+"2 x 2 game using Sum Cells",16,60,64
+"2 x 2 game using Sum Cells",16,64,56
+"2 x 2 game using Sum Cells",16,60,68
+"2 x 2 game using Sum Cells",32,140,100
+"2 x 2 game using Sum Cells",16,60,54
+"2 x 2 game using Sum Cells",32,136,93
+"2 x 2 game using Sum Cells",16,68,68
+"2 x 2 game using Sum Cells",16,48,58
+"2 x 2 game using Sum Cells",16,60,82
+"2 x 2 game using Sum Cells",16,60,43
+"2 x 2 game using Sum Cells",16,60,57
+"2 x 2 game using Sum Cells",16,60,61
+"2 x 2 game using Sum Cells",16,64,56
+"2 x 2 game using Sum Cells",16,64,79
+"2 x 2 game using Sum Cells",16,56,41
+"2 x 2 game using Sum Cells",8,16,32
+"2 x 2 game using Sum Cells",16,68,59
+"2 x 2 game using Sum Cells",8,20,38
+"2 x 2 game using Sum Cells",16,64,61
+"2 x 2 game using Sum Cells",16,64,46
+"2 x 2 game using Sum Cells",16,64,62
+"2 x 2 game using Sum Cells",16,64,75
+"2 x 2 game using Sum Cells",8,16,39
+"2 x 2 game using Sum Cells",16,56,74
+"2 x 2 game using Sum Cells",16,60,82
+"2 x 2 game using Sum Cells",16,68,60
+"2 x 2 game using Sum Cells",16,60,66
+"2 x 2 game using Sum Cells",16,52,79
+"2 x 2 game using Sum Cells",16,64,55
+"2 x 2 game using Sum Cells",16,64,46
+"2 x 2 game using Sum Cells",16,64,52
+"2 x 2 game using Sum Cells",16,64,63
+"2 x 2 game using Sum Cells",16,64,47
+"2 x 2 game using Sum Cells",16,64,52
+"2 x 2 game using Sum Cells",16,64,67
+"2 x 2 game using Sum Cells",16,60,49
+"2 x 2 game using Sum Cells",16,60,69
+"2 x 2 game using Sum Cells",16,60,81
+"2 x 2 game using Sum Cells",16,56,59
+"2 x 2 game using Sum Cells",16,64,67
+"2 x 2 game using Sum Cells",16,52,55
+"2 x 2 game using Sum Cells",16,60,42
+"2 x 2 game using Sum Cells",16,64,68
+"2 x 2 game using Sum Cells",16,64,43
+"2 x 2 game using Sum Cells",16,68,44
+"2 x 2 game using Sum Cells",16,64,49
+"2 x 2 game using Sum Cells",16,64,59
+"2 x 2 game using Sum Cells",16,64,63
+"2 x 2 game using Sum Cells",16,64,70
+"2 x 2 game using Sum Cells",16,56,75
+"2 x 2 game using Sum Cells",16,68,62
+"2 x 2 game using Sum Cells",8,20,29
+"2 x 2 game using Sum Cells",16,64,60
+"2 x 2 game using Sum Cells",16,64,56
+"2 x 2 game using Sum Cells",16,68,80
+"2 x 2 game using Largest Lower",32,140,92
+"2 x 2 game using Largest Lower",32,116,64
+"2 x 2 game using Largest Lower",16,40,41
+"2 x 2 game using Largest Lower",16,68,67
+"2 x 2 game using Largest Lower",16,68,70
+"2 x 2 game using Largest Lower",16,64,47
+"2 x 2 game using Largest Lower",16,68,76
+"2 x 2 game using Largest Lower",16,60,34
+"2 x 2 game using Largest Lower",16,56,38
+"2 x 2 game using Largest Lower",8,16,32
+"2 x 2 game using Largest Lower",16,68,63
+"2 x 2 game using Largest Lower",16,64,45
+"2 x 2 game using Largest Lower",16,56,52
+"2 x 2 game using Largest Lower",16,60,69
+"2 x 2 game using Largest Lower",16,68,109
+"2 x 2 game using Largest Lower",16,68,92
+"2 x 2 game using Largest Lower",8,20,25
+"2 x 2 game using Largest Lower",16,64,56
+"2 x 2 game using Largest Lower",16,64,69
+"2 x 2 game using Largest Lower",16,60,63
+"2 x 2 game using Largest Lower",16,68,81
+"2 x 2 game using Largest Lower",16,60,69
+"2 x 2 game using Largest Lower",16,44,33
+"2 x 2 game using Largest Lower",32,124,92
+"2 x 2 game using Largest Lower",16,60,69
+"2 x 2 game using Largest Lower",16,60,99
+"2 x 2 game using Largest Lower",16,68,127
+"2 x 2 game using Largest Lower",16,68,61
+"2 x 2 game using Largest Lower",16,68,77
+"2 x 2 game using Largest Lower",16,56,58
+"2 x 2 game using Largest Lower",16,68,98
+"2 x 2 game using Largest Lower",16,64,110
+"2 x 2 game using Largest Lower",16,64,77
+"2 x 2 game using Largest Lower",16,52,58
+"2 x 2 game using Largest Lower",32,128,138
+"2 x 2 game using Largest Lower",32,164,193
+"2 x 2 game using Largest Lower",16,60,94
+"2 x 2 game using Largest Lower",16,64,99
+"2 x 2 game using Largest Lower",16,68,108
+"2 x 2 game using Largest Lower",32,140,162
+"2 x 2 game using Largest Lower",8,20,72
+"2 x 2 game using Largest Lower",16,64,103
+"2 x 2 game using Largest Lower",16,60,107
+"2 x 2 game using Largest Lower",16,52,116
+"2 x 2 game using Largest Lower",16,56,43
+"2 x 2 game using Largest Lower",16,64,63
+"2 x 2 game using Largest Lower",16,64,90
+"2 x 2 game using Largest Lower",16,60,60
+"2 x 2 game using Largest Lower",32,140,103
+"2 x 2 game using Largest Lower",16,60,87
+"2 x 2 game using Largest Lower",32,136,137
+"2 x 2 game using Largest Lower",16,68,97
+"2 x 2 game using Largest Lower",16,60,90
+"2 x 2 game using Largest Lower",16,60,97
+"2 x 2 game using Largest Lower",16,60,73
+"2 x 2 game using Largest Lower",16,60,48
+"2 x 2 game using Largest Lower",16,60,61
+"2 x 2 game using Largest Lower",16,64,61
+"2 x 2 game using Largest Lower",16,64,59
+"2 x 2 game using Largest Lower",16,56,67
+"2 x 2 game using Largest Lower",16,56,70
+"2 x 2 game using Largest Lower",16,68,120
+"2 x 2 game using Largest Lower",16,60,79
+"2 x 2 game using Largest Lower",16,64,83
+"2 x 2 game using Largest Lower",16,64,68
+"2 x 2 game using Largest Lower",16,64,79
+"2 x 2 game using Largest Lower",16,64,105
+"2 x 2 game using Largest Lower",16,44,52
+"2 x 2 game using Largest Lower",16,40,61
+"2 x 2 game using Largest Lower",16,60,91
+"2 x 2 game using Largest Lower",16,68,115
+"2 x 2 game using Largest Lower",16,60,103
+"2 x 2 game using Largest Lower",16,64,92
+"2 x 2 game using Largest Lower",16,64,88
+"2 x 2 game using Largest Lower",16,64,84
+"2 x 2 game using Largest Lower",16,64,104
+"2 x 2 game using Largest Lower",16,64,101
+"2 x 2 game using Largest Lower",16,64,101
+"2 x 2 game using Largest Lower",8,16,53
+"2 x 2 game using Largest Lower",16,64,69
+"2 x 2 game using Largest Lower",16,60,83
+"2 x 2 game using Largest Lower",16,60,68
+"2 x 2 game using Largest Lower",16,60,44
+"2 x 2 game using Largest Lower",16,56,68
+"2 x 2 game using Largest Lower",16,64,93
+"2 x 2 game using Largest Lower",16,52,80
+"2 x 2 game using Largest Lower",16,60,119
+"2 x 2 game using Largest Lower",16,68,77
+"2 x 2 game using Largest Lower",16,64,51
+"2 x 2 game using Largest Lower",16,68,69
+"2 x 2 game using Largest Lower",16,64,49
+"2 x 2 game using Largest Lower",16,64,55
+"2 x 2 game using Largest Lower",32,144,125
+"2 x 2 game using Largest Lower",16,52,84
+"2 x 2 game using Largest Lower",16,56,95
+"2 x 2 game using Largest Lower",16,68,100
+"2 x 2 game using Largest Lower",8,20,33
+"2 x 2 game using Largest Lower",16,64,78
+"2 x 2 game using Largest Lower",16,52,75
+"2 x 2 game using Largest Lower",16,68,60
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",32,140,94
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",32,124,81
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,52,49
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,77
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,90
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,96
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,94
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,109
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,56,100
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",8,16,74
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,149
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,106
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,40,48
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,101
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,56
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,84
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",8,20,43
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,66
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",8,16,35
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,56,68
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,83
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,84
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,44,64
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",32,124,100
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,86
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,92
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,148
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,134
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,110
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,52,67
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,66
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,71
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,82
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,52,73
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",32,128,137
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,121
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",8,16,59
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,138
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,167
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",32,140,114
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",8,20,53
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,84
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,52,71
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,66
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,55
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,45
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,62
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,52
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",32,140,128
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,91
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",32,136,143
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,131
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,61
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,56,72
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,67
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,72
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,71
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,91
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,93
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,56,87
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",32,112,118
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,84
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,103
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,119
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,115
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,120
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,127
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,44,95
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,56,88
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,124
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,151
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,118
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,52,113
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,101
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,140
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,138
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,114
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,80
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,67
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,96
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,96
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,69
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,107
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",8,16,29
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,79
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,52,86
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,60,125
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,112
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",32,136,176
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,142
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",8,20,67
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,126
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",32,144,186
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,79
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,56,82
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,116
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,44,77
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",8,20,45
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,64,91
+"2 x 2 game using Dynamic Snake 2x2(With Fail)",16,68,101
+"2 x 2 game using Monotonic(With Fail)",32,140,104
+"2 x 2 game using Monotonic(With Fail)",32,116,93
+"2 x 2 game using Monotonic(With Fail)",16,52,70
+"2 x 2 game using Monotonic(With Fail)",16,68,117
+"2 x 2 game using Monotonic(With Fail)",16,68,102
+"2 x 2 game using Monotonic(With Fail)",16,64,101
+"2 x 2 game using Monotonic(With Fail)",16,68,84
+"2 x 2 game using Monotonic(With Fail)",16,60,64
+"2 x 2 game using Monotonic(With Fail)",16,56,45
+"2 x 2 game using Monotonic(With Fail)",8,16,35
+"2 x 2 game using Monotonic(With Fail)",16,68,61
+"2 x 2 game using Monotonic(With Fail)",32,140,120
+"2 x 2 game using Monotonic(With Fail)",16,56,86
+"2 x 2 game using Monotonic(With Fail)",16,60,93
+"2 x 2 game using Monotonic(With Fail)",16,68,60
+"2 x 2 game using Monotonic(With Fail)",16,68,79
+"2 x 2 game using Monotonic(With Fail)",16,64,80
+"2 x 2 game using Monotonic(With Fail)",16,64,103
+"2 x 2 game using Monotonic(With Fail)",16,64,108
+"2 x 2 game using Monotonic(With Fail)",8,20,57
+"2 x 2 game using Monotonic(With Fail)",16,68,72
+"2 x 2 game using Monotonic(With Fail)",16,60,70
+"2 x 2 game using Monotonic(With Fail)",16,56,77
+"2 x 2 game using Monotonic(With Fail)",32,140,126
+"2 x 2 game using Monotonic(With Fail)",16,60,86
+"2 x 2 game using Monotonic(With Fail)",16,60,95
+"2 x 2 game using Monotonic(With Fail)",16,68,84
+"2 x 2 game using Monotonic(With Fail)",16,68,106
+"2 x 2 game using Monotonic(With Fail)",16,64,98
+"2 x 2 game using Monotonic(With Fail)",16,56,80
+"2 x 2 game using Monotonic(With Fail)",16,68,96
+"2 x 2 game using Monotonic(With Fail)",16,64,68
+"2 x 2 game using Monotonic(With Fail)",16,64,70
+"2 x 2 game using Monotonic(With Fail)",16,52,36
+"2 x 2 game using Monotonic(With Fail)",32,140,65
+"2 x 2 game using Monotonic(With Fail)",32,164,75
+"2 x 2 game using Monotonic(With Fail)",8,16,26
+"2 x 2 game using Monotonic(With Fail)",16,68,61
+"2 x 2 game using Monotonic(With Fail)",16,68,83
+"2 x 2 game using Monotonic(With Fail)",32,140,118
+"2 x 2 game using Monotonic(With Fail)",8,20,59
+"2 x 2 game using Monotonic(With Fail)",16,64,48
+"2 x 2 game using Monotonic(With Fail)",16,52,57
+"2 x 2 game using Monotonic(With Fail)",16,64,80
+"2 x 2 game using Monotonic(With Fail)",16,60,61
+"2 x 2 game using Monotonic(With Fail)",16,60,81
+"2 x 2 game using Monotonic(With Fail)",16,64,92
+"2 x 2 game using Monotonic(With Fail)",16,60,88
+"2 x 2 game using Monotonic(With Fail)",32,140,115
+"2 x 2 game using Monotonic(With Fail)",16,60,88
+"2 x 2 game using Monotonic(With Fail)",32,136,90
+"2 x 2 game using Monotonic(With Fail)",16,68,84
+"2 x 2 game using Monotonic(With Fail)",16,48,67
+"2 x 2 game using Monotonic(With Fail)",16,60,60
+"2 x 2 game using Monotonic(With Fail)",16,60,48
+"2 x 2 game using Monotonic(With Fail)",16,60,51
+"2 x 2 game using Monotonic(With Fail)",16,60,66
+"2 x 2 game using Monotonic(With Fail)",16,64,84
+"2 x 2 game using Monotonic(With Fail)",16,64,88
+"2 x 2 game using Monotonic(With Fail)",16,56,57
+"2 x 2 game using Monotonic(With Fail)",16,56,63
+"2 x 2 game using Monotonic(With Fail)",16,68,69
+"2 x 2 game using Monotonic(With Fail)",16,64,67
+"2 x 2 game using Monotonic(With Fail)",16,64,56
+"2 x 2 game using Monotonic(With Fail)",16,64,47
+"2 x 2 game using Monotonic(With Fail)",16,64,86
+"2 x 2 game using Monotonic(With Fail)",16,64,88
+"2 x 2 game using Monotonic(With Fail)",16,56,28
+"2 x 2 game using Monotonic(With Fail)",16,56,51
+"2 x 2 game using Monotonic(With Fail)",16,60,69
+"2 x 2 game using Monotonic(With Fail)",16,68,76
+"2 x 2 game using Monotonic(With Fail)",16,60,74
+"2 x 2 game using Monotonic(With Fail)",16,52,75
+"2 x 2 game using Monotonic(With Fail)",16,64,78
+"2 x 2 game using Monotonic(With Fail)",16,64,100
+"2 x 2 game using Monotonic(With Fail)",16,64,100
+"2 x 2 game using Monotonic(With Fail)",16,64,106
+"2 x 2 game using Monotonic(With Fail)",16,64,95
+"2 x 2 game using Monotonic(With Fail)",16,64,94
+"2 x 2 game using Monotonic(With Fail)",16,64,89
+"2 x 2 game using Monotonic(With Fail)",16,60,93
+"2 x 2 game using Monotonic(With Fail)",16,60,88
+"2 x 2 game using Monotonic(With Fail)",16,60,87
+"2 x 2 game using Monotonic(With Fail)",16,56,75
+"2 x 2 game using Monotonic(With Fail)",16,64,115
+"2 x 2 game using Monotonic(With Fail)",16,52,82
+"2 x 2 game using Monotonic(With Fail)",16,60,103
+"2 x 2 game using Monotonic(With Fail)",16,64,108
+"2 x 2 game using Monotonic(With Fail)",16,64,124
+"2 x 2 game using Monotonic(With Fail)",16,68,137
+"2 x 2 game using Monotonic(With Fail)",16,64,52
+"2 x 2 game using Monotonic(With Fail)",16,64,43
+"2 x 2 game using Monotonic(With Fail)",16,64,50
+"2 x 2 game using Monotonic(With Fail)",16,64,72
+"2 x 2 game using Monotonic(With Fail)",16,56,75
+"2 x 2 game using Monotonic(With Fail)",16,68,114
+"2 x 2 game using Monotonic(With Fail)",8,20,50
+"2 x 2 game using Monotonic(With Fail)",16,64,95
+"2 x 2 game using Monotonic(With Fail)",16,64,111
+"2 x 2 game using Monotonic(With Fail)",16,68,76
+"3 x 3 game using Sum Cells",64,784,2216
+"3 x 3 game using Sum Cells",128,1184,1726
+"3 x 3 game using Sum Cells",64,616,1691
+"3 x 3 game using Sum Cells",64,624,1752
+"3 x 3 game using Sum Cells",128,1192,1649
+"3 x 3 game using Sum Cells",128,1240,1416
+"3 x 3 game using Sum Cells",64,528,1485
+"3 x 3 game using Sum Cells",128,1056,1716
+"3 x 3 game using Sum Cells",64,552,1380
+"3 x 3 game using Sum Cells",128,992,1927
+"3 x 3 game using Sum Cells",128,1180,2113
+"3 x 3 game using Sum Cells",64,636,2135
+"3 x 3 game using Sum Cells",64,520,1332
+"3 x 3 game using Sum Cells",128,920,1876
+"3 x 3 game using Sum Cells",128,1248,1816
+"3 x 3 game using Sum Cells",32,336,1028
+"3 x 3 game using Sum Cells",128,1068,1642
+"3 x 3 game using Sum Cells",64,436,1241
+"3 x 3 game using Sum Cells",64,548,2217
+"3 x 3 game using Sum Cells",64,552,1391
+"3 x 3 game using Sum Cells",128,952,1157
+"3 x 3 game using Sum Cells",128,1128,1372
+"3 x 3 game using Sum Cells",32,312,896
+"3 x 3 game using Sum Cells",64,484,1050
+"3 x 3 game using Sum Cells",64,552,1323
+"3 x 3 game using Sum Cells",64,532,1632
+"3 x 3 game using Sum Cells",64,608,1985
+"3 x 3 game using Sum Cells",64,532,2200
+"3 x 3 game using Sum Cells",64,588,1649
+"3 x 3 game using Sum Cells",64,500,1575
+"3 x 3 game using Sum Cells",64,504,1939
+"3 x 3 game using Sum Cells",64,524,1919
+"3 x 3 game using Sum Cells",64,628,1932
+"3 x 3 game using Sum Cells",128,920,1717
+"3 x 3 game using Sum Cells",32,328,1847
+"3 x 3 game using Sum Cells",64,540,1703
+"3 x 3 game using Sum Cells",128,972,2123
+"3 x 3 game using Sum Cells",64,536,1762
+"3 x 3 game using Sum Cells",128,996,2116
+"3 x 3 game using Sum Cells",128,940,2301
+"3 x 3 game using Sum Cells",128,980,2046
+"3 x 3 game using Sum Cells",128,1148,1965
+"3 x 3 game using Sum Cells",32,320,1137
+"3 x 3 game using Sum Cells",256,2148,2882
+"3 x 3 game using Sum Cells",128,936,2197
+"3 x 3 game using Sum Cells",128,976,2067
+"3 x 3 game using Sum Cells",64,620,2081
+"3 x 3 game using Sum Cells",128,940,1659
+"3 x 3 game using Sum Cells",64,528,1690
+"3 x 3 game using Sum Cells",64,556,1805
+"3 x 3 game using Sum Cells",64,588,1941
+"3 x 3 game using Sum Cells",128,988,2048
+"3 x 3 game using Sum Cells",128,1180,2140
+"3 x 3 game using Sum Cells",64,520,1526
+"3 x 3 game using Sum Cells",32,288,1204
+"3 x 3 game using Sum Cells",128,944,1735
+"3 x 3 game using Sum Cells",128,1028,1887
+"3 x 3 game using Sum Cells",128,1244,1928
+"3 x 3 game using Sum Cells",128,960,2078
+"3 x 3 game using Sum Cells",128,960,1470
+"3 x 3 game using Sum Cells",128,1288,2377
+"3 x 3 game using Sum Cells",128,1136,2693
+"3 x 3 game using Sum Cells",128,1164,2111
+"3 x 3 game using Sum Cells",128,1064,2091
+"3 x 3 game using Sum Cells",64,644,1028
+"3 x 3 game using Sum Cells",128,1240,1747
+"3 x 3 game using Sum Cells",64,532,1705
+"3 x 3 game using Sum Cells",128,1168,1378
+"3 x 3 game using Sum Cells",32,236,699
+"3 x 3 game using Sum Cells",64,492,867
+"3 x 3 game using Sum Cells",64,484,848
+"3 x 3 game using Sum Cells",64,484,1058
+"3 x 3 game using Sum Cells",64,616,1336
+"3 x 3 game using Sum Cells",128,932,1224
+"3 x 3 game using Sum Cells",64,540,1082
+"3 x 3 game using Sum Cells",64,428,1855
+"3 x 3 game using Sum Cells",128,1228,1875
+"3 x 3 game using Sum Cells",128,980,2469
+"3 x 3 game using Sum Cells",32,228,1937
+"3 x 3 game using Sum Cells",64,508,1196
+"3 x 3 game using Sum Cells",64,652,1067
+"3 x 3 game using Sum Cells",256,1956,1614
+"3 x 3 game using Sum Cells",64,580,1728
+"3 x 3 game using Sum Cells",128,1292,2346
+"3 x 3 game using Sum Cells",256,2328,2774
+"3 x 3 game using Sum Cells",64,532,1018
+"3 x 3 game using Sum Cells",64,568,2118
+"3 x 3 game using Sum Cells",128,988,2300
+"3 x 3 game using Sum Cells",64,440,1759
+"3 x 3 game using Sum Cells",128,996,2622
+"3 x 3 game using Sum Cells",128,1076,1670
+"3 x 3 game using Sum Cells",64,520,2471
+"3 x 3 game using Sum Cells",128,1176,2048
+"3 x 3 game using Sum Cells",64,532,1685
+"3 x 3 game using Sum Cells",128,928,1446
+"3 x 3 game using Sum Cells",64,536,1835
+"3 x 3 game using Sum Cells",128,944,1769
+"3 x 3 game using Sum Cells",128,956,1951
+"3 x 3 game using Sum Cells",256,2252,2939
+"3 x 3 game using Sum Cells",128,944,2433
+"3 x 3 game using Largest Lower",128,1320,2379
+"3 x 3 game using Largest Lower",128,1244,2728
+"3 x 3 game using Largest Lower",64,632,1899
+"3 x 3 game using Largest Lower",128,1272,2587
+"3 x 3 game using Largest Lower",64,628,2272
+"3 x 3 game using Largest Lower",128,1248,3093
+"3 x 3 game using Largest Lower",256,2008,3386
+"3 x 3 game using Largest Lower",128,1060,2240
+"3 x 3 game using Largest Lower",128,1072,1801
+"3 x 3 game using Largest Lower",64,624,1473
+"3 x 3 game using Largest Lower",64,644,2258
+"3 x 3 game using Largest Lower",128,1252,3029
+"3 x 3 game using Largest Lower",256,2852,3408
+"3 x 3 game using Largest Lower",64,412,1565
+"3 x 3 game using Largest Lower",128,1388,2527
+"3 x 3 game using Largest Lower",256,2568,3057
+"3 x 3 game using Largest Lower",128,1048,2686
+"3 x 3 game using Largest Lower",128,1240,2825
+"3 x 3 game using Largest Lower",128,1260,3564
+"3 x 3 game using Largest Lower",128,1600,3335
+"3 x 3 game using Largest Lower",128,1304,2575
+"3 x 3 game using Largest Lower",128,1068,3141
+"3 x 3 game using Largest Lower",256,2308,2324
+"3 x 3 game using Largest Lower",256,2284,2760
+"3 x 3 game using Largest Lower",64,620,2310
+"3 x 3 game using Largest Lower",128,968,2929
+"3 x 3 game using Largest Lower",128,996,3065
+"3 x 3 game using Largest Lower",256,2572,3813
+"3 x 3 game using Largest Lower",128,1256,3009
+"3 x 3 game using Largest Lower",128,1548,2658
+"3 x 3 game using Largest Lower",128,1232,3462
+"3 x 3 game using Largest Lower",128,1228,3484
+"3 x 3 game using Largest Lower",128,1240,3167
+"3 x 3 game using Largest Lower",64,560,1568
+"3 x 3 game using Largest Lower",256,2760,2502
+"3 x 3 game using Largest Lower",128,1252,2116
+"3 x 3 game using Largest Lower",64,632,2335
+"3 x 3 game using Largest Lower",128,1048,2840
+"3 x 3 game using Largest Lower",128,1372,3126
+"3 x 3 game using Largest Lower",128,1348,3139
+"3 x 3 game using Largest Lower",256,2556,3563
+"3 x 3 game using Largest Lower",128,1524,2799
+"3 x 3 game using Largest Lower",64,616,1962
+"3 x 3 game using Largest Lower",128,1060,3440
+"3 x 3 game using Largest Lower",128,900,2919
+"3 x 3 game using Largest Lower",256,3008,4467
+"3 x 3 game using Largest Lower",128,1440,2440
+"3 x 3 game using Largest Lower",256,2220,3771
+"3 x 3 game using Largest Lower",128,1536,2776
+"3 x 3 game using Largest Lower",128,936,2917
+"3 x 3 game using Largest Lower",128,1544,3334
+"3 x 3 game using Largest Lower",128,1372,3618
+"3 x 3 game using Largest Lower",128,1056,3155
+"3 x 3 game using Largest Lower",256,2608,3428
+"3 x 3 game using Largest Lower",128,1044,1799
+"3 x 3 game using Largest Lower",128,1076,2816
+"3 x 3 game using Largest Lower",256,2252,4033
+"3 x 3 game using Largest Lower",128,980,2641
+"3 x 3 game using Largest Lower",128,936,3411
+"3 x 3 game using Largest Lower",128,976,2401
+"3 x 3 game using Largest Lower",256,2724,3686
+"3 x 3 game using Largest Lower",128,1436,3785
+"3 x 3 game using Largest Lower",128,1064,3482
+"3 x 3 game using Largest Lower",256,2820,4230
+"3 x 3 game using Largest Lower",256,2840,2977
+"3 x 3 game using Largest Lower",64,624,1485
+"3 x 3 game using Largest Lower",256,2336,2176
+"3 x 3 game using Largest Lower",256,2256,2636
+"3 x 3 game using Largest Lower",128,1344,1614
+"3 x 3 game using Largest Lower",128,1180,1815
+"3 x 3 game using Largest Lower",128,1032,1741
+"3 x 3 game using Largest Lower",64,624,2512
+"3 x 3 game using Largest Lower",128,1596,2894
+"3 x 3 game using Largest Lower",256,1908,2607
+"3 x 3 game using Largest Lower",128,1256,2554
+"3 x 3 game using Largest Lower",256,2224,2871
+"3 x 3 game using Largest Lower",128,1232,2813
+"3 x 3 game using Largest Lower",128,1240,2967
+"3 x 3 game using Largest Lower",128,1044,1709
+"3 x 3 game using Largest Lower",256,2248,2732
+"3 x 3 game using Largest Lower",128,1432,2411
+"3 x 3 game using Largest Lower",256,1984,2437
+"3 x 3 game using Largest Lower",128,1172,2777
+"3 x 3 game using Largest Lower",256,2452,3537
+"3 x 3 game using Largest Lower",64,620,2594
+"3 x 3 game using Largest Lower",128,1064,2245
+"3 x 3 game using Largest Lower",256,2232,3282
+"3 x 3 game using Largest Lower",256,2932,3842
+"3 x 3 game using Largest Lower",256,2248,3097
+"3 x 3 game using Largest Lower",128,1240,3153
+"3 x 3 game using Largest Lower",256,2132,3804
+"3 x 3 game using Largest Lower",128,1076,2723
+"3 x 3 game using Largest Lower",256,2752,3299
+"3 x 3 game using Largest Lower",128,980,2507
+"3 x 3 game using Largest Lower",128,1364,1902
+"3 x 3 game using Largest Lower",64,616,1443
+"3 x 3 game using Largest Lower",128,1404,3426
+"3 x 3 game using Largest Lower",256,2048,3405
+"3 x 3 game using Largest Lower",256,2508,3414
+"3 x 3 game using Largest Lower",64,632,2266
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1140,3424
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2988,3823
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2244,3667
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,3004,4404
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2988,2907
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2540,2733
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2996,4333
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,3000,4397
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1544,3183
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2732,4062
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2980,3482
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2252,2892
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",512,5140,4720
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2636,3147
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2252,4278
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2300,3182
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2780,3686
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",64,552,2443
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2220,3878
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2004,3102
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2280,4261
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1224,2726
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,976,2438
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2232,3538
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,3020,4674
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2216,3909
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",512,4568,4761
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2708,3882
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,3012,4582
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2656,4388
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,1844,4006
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,3012,4632
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2132,3850
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1340,2552
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,3004,5163
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",64,528,2390
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1424,3579
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2336,2984
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",512,4540,4627
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,3048,4126
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2932,4130
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1540,3330
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2252,2435
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2808,4203
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2944,3579
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2676,4008
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2216,3533
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2968,3620
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,3000,3334
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2244,3115
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1288,3238
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1252,3521
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2988,4006
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1240,2987
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2680,3819
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2940,4083
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2260,4254
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1152,2773
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",64,548,2645
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2792,3381
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1340,3240
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1252,3585
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2284,3378
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2884,3870
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2256,3687
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2248,3630
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2244,3848
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1264,2495
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2988,2958
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1196,1984
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2904,2406
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2892,2472
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1248,2314
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2232,2505
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2292,2180
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2292,2852
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2868,3512
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2892,4418
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2940,4159
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2936,4653
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1208,2579
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2240,3591
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2692,3627
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2708,4264
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2724,4553
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2948,3565
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1252,3032
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2680,3942
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1240,2004
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2864,3515
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",512,5152,4684
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1380,3719
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2988,3689
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,3004,4008
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",128,1244,2490
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",512,4504,5229
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,3000,4833
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2972,3805
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2980,4131
+"3 x 3 game using Dynamic Snake 3x3(With Fail)",256,2216,3735
+"3 x 3 game using Monotonic(With Fail)",128,1260,3530
+"3 x 3 game using Monotonic(With Fail)",256,2552,3481
+"3 x 3 game using Monotonic(With Fail)",256,2960,3757
+"3 x 3 game using Monotonic(With Fail)",512,5952,5912
+"3 x 3 game using Monotonic(With Fail)",256,2980,4302
+"3 x 3 game using Monotonic(With Fail)",256,2356,4183
+"3 x 3 game using Monotonic(With Fail)",256,2344,4191
+"3 x 3 game using Monotonic(With Fail)",256,2708,4460
+"3 x 3 game using Monotonic(With Fail)",128,1244,3220
+"3 x 3 game using Monotonic(With Fail)",256,2692,3916
+"3 x 3 game using Monotonic(With Fail)",256,2808,4248
+"3 x 3 game using Monotonic(With Fail)",512,5048,5129
+"3 x 3 game using Monotonic(With Fail)",512,5120,4632
+"3 x 3 game using Monotonic(With Fail)",512,5208,4753
+"3 x 3 game using Monotonic(With Fail)",256,2376,4309
+"3 x 3 game using Monotonic(With Fail)",256,2988,4856
+"3 x 3 game using Monotonic(With Fail)",256,2680,4340
+"3 x 3 game using Monotonic(With Fail)",256,2376,4251
+"3 x 3 game using Monotonic(With Fail)",256,2348,3455
+"3 x 3 game using Monotonic(With Fail)",256,2292,3513
+"3 x 3 game using Monotonic(With Fail)",256,3000,4614
+"3 x 3 game using Monotonic(With Fail)",256,2676,4031
+"3 x 3 game using Monotonic(With Fail)",512,5252,5559
+"3 x 3 game using Monotonic(With Fail)",256,2920,3805
+"3 x 3 game using Monotonic(With Fail)",128,1672,4105
+"3 x 3 game using Monotonic(With Fail)",256,2984,2856
+"3 x 3 game using Monotonic(With Fail)",256,2696,2983
+"3 x 3 game using Monotonic(With Fail)",256,2808,3136
+"3 x 3 game using Monotonic(With Fail)",256,2996,4158
+"3 x 3 game using Monotonic(With Fail)",256,2960,3825
+"3 x 3 game using Monotonic(With Fail)",256,2928,4731
+"3 x 3 game using Monotonic(With Fail)",256,3020,4306
+"3 x 3 game using Monotonic(With Fail)",512,5932,5662
+"3 x 3 game using Monotonic(With Fail)",256,2348,4208
+"3 x 3 game using Monotonic(With Fail)",128,1268,3414
+"3 x 3 game using Monotonic(With Fail)",256,2984,3884
+"3 x 3 game using Monotonic(With Fail)",256,3008,4601
+"3 x 3 game using Monotonic(With Fail)",128,1332,3095
+"3 x 3 game using Monotonic(With Fail)",512,4512,4874
+"3 x 3 game using Monotonic(With Fail)",256,2996,5138
+"3 x 3 game using Monotonic(With Fail)",256,2972,3836
+"3 x 3 game using Monotonic(With Fail)",512,6624,5084
+"3 x 3 game using Monotonic(With Fail)",512,5216,4846
+"3 x 3 game using Monotonic(With Fail)",512,5212,5558
+"3 x 3 game using Monotonic(With Fail)",512,4772,5176
+"3 x 3 game using Monotonic(With Fail)",256,2788,4027
+"3 x 3 game using Monotonic(With Fail)",256,2856,4100
+"3 x 3 game using Monotonic(With Fail)",256,2968,3924
+"3 x 3 game using Monotonic(With Fail)",256,2736,4239
+"3 x 3 game using Monotonic(With Fail)",256,2568,3796
+"3 x 3 game using Monotonic(With Fail)",256,2360,3904
+"3 x 3 game using Monotonic(With Fail)",256,2992,4694
+"3 x 3 game using Monotonic(With Fail)",256,2352,4071
+"3 x 3 game using Monotonic(With Fail)",128,1276,2298
+"3 x 3 game using Monotonic(With Fail)",256,2384,2853
+"3 x 3 game using Monotonic(With Fail)",256,2980,3088
+"3 x 3 game using Monotonic(With Fail)",128,1224,3059
+"3 x 3 game using Monotonic(With Fail)",256,2976,4254
+"3 x 3 game using Monotonic(With Fail)",256,2988,4929
+"3 x 3 game using Monotonic(With Fail)",256,2796,3447
+"3 x 3 game using Monotonic(With Fail)",256,2228,4537
+"3 x 3 game using Monotonic(With Fail)",256,1984,3217
+"3 x 3 game using Monotonic(With Fail)",256,2984,4384
+"3 x 3 game using Monotonic(With Fail)",256,2964,4032
+"3 x 3 game using Monotonic(With Fail)",256,2960,3614
+"3 x 3 game using Monotonic(With Fail)",256,2876,4254
+"3 x 3 game using Monotonic(With Fail)",256,2716,4286
+"3 x 3 game using Monotonic(With Fail)",512,6088,5381
+"3 x 3 game using Monotonic(With Fail)",128,1224,2865
+"3 x 3 game using Monotonic(With Fail)",256,2972,4407
+"3 x 3 game using Monotonic(With Fail)",512,4512,5138
+"3 x 3 game using Monotonic(With Fail)",128,1408,3961
+"3 x 3 game using Monotonic(With Fail)",128,1356,3560
+"3 x 3 game using Monotonic(With Fail)",512,4540,4703
+"3 x 3 game using Monotonic(With Fail)",256,2996,4297
+"3 x 3 game using Monotonic(With Fail)",256,2944,4576
+"3 x 3 game using Monotonic(With Fail)",512,5244,5668
+"3 x 3 game using Monotonic(With Fail)",256,2300,4203
+"3 x 3 game using Monotonic(With Fail)",256,2968,3901
+"3 x 3 game using Monotonic(With Fail)",128,1292,3003
+"3 x 3 game using Monotonic(With Fail)",512,4400,4237
+"3 x 3 game using Monotonic(With Fail)",128,1544,3510
+"3 x 3 game using Monotonic(With Fail)",512,5224,5830
+"3 x 3 game using Monotonic(With Fail)",256,2932,3835
+"3 x 3 game using Monotonic(With Fail)",512,5136,5438
+"3 x 3 game using Monotonic(With Fail)",512,4504,4292
+"3 x 3 game using Monotonic(With Fail)",128,1276,2871
+"3 x 3 game using Monotonic(With Fail)",256,2632,4802
+"3 x 3 game using Monotonic(With Fail)",256,2952,4132
+"3 x 3 game using Monotonic(With Fail)",256,2980,4645
+"3 x 3 game using Monotonic(With Fail)",256,2640,4295
+"3 x 3 game using Monotonic(With Fail)",256,2992,4849
+"3 x 3 game using Monotonic(With Fail)",512,6224,5805
+"3 x 3 game using Monotonic(With Fail)",256,2972,3695
+"3 x 3 game using Monotonic(With Fail)",256,2360,2334
+"3 x 3 game using Monotonic(With Fail)",256,2956,3004
+"3 x 3 game using Monotonic(With Fail)",256,2716,3168
+"3 x 3 game using Monotonic(With Fail)",256,2980,2576
+"3 x 3 game using Monotonic(With Fail)",128,1532,2687
+"3 x 3 game using Monotonic(With Fail)",512,6016,5058

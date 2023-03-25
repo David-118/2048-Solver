@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>574</y>
+      <w>231</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>bg=orange
+/uk.ac.rhul.project.heursitics::FailWrapper/
+--
+-heuristic: Heuristic
+--
++FailWrapper(Heuristic heuristic): ctor
++heuristic(GameState state): double
+#applyChildHeuristic(GameState state): double
+#isLoss(GameState state): boolean
++getName(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1162</x>
+      <y>693</y>
+      <w>210</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>bg=red
+uk.ac.rhul.project.heursitics::DynamicSnake
+--
+~powers: double[][]
+-rows, cols: int
+--
++DynamicSnake(int row, int col): ctor
++heuristic(GameState state): double
++getName(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1015</x>
+      <y>581</y>
+      <w>224</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>bg=red
+&lt;&lt;singleton&gt;&gt;
+uk.ac.rhul.project.heursitics::Monotonic
+--
+--
++heuristic(GameState state): double
++sumEdges(GameState state): double
++monotonicPenalty(GameState state): double
++freeCells(GameState state): double
++getName(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>623</x>
+      <y>707</y>
+      <w>231</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>uk.ac.rhul.project.heursitics::FailRatio
+bg=orange
+--
+-ratio: double
+--
++FailRatio(Heuristic heuristic, double ratio): ctor
++heuristic(GameState state): double
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>868</x>
+      <y>707</y>
+      <w>252</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>uk.ac.rhul.project.heursitics::FailSetter
+bg=orange
+--
+-failScore: double
+--
++FailSetter(Heuristic heuristic, double failScore): ctor
++heuristic(GameState state): double
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>791</x>
+      <y>448</y>
+      <w>189</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+bg=red
+uk.ac.rhul.project.heursitics::Heuristic
+--
+--
+~heuristic(GameState state): double
+~getName(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1288</x>
+      <y>595</y>
+      <w>203</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+bg=red
+uk.ac.rhul.project.heursitics::Diagonal4x4
+--
+--
++heuristic(GameState state): double
++getName(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>546</x>
+      <y>609</y>
+      <w>210</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+uk.ac.rhul.project.heursitics::LargestLower
+bg=red
+--
+--
++heuristic(GameState state): double
++getName(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>399</x>
+      <y>700</y>
+      <w>203</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+uk.ac.rhul.project.heursitics::LargestRight
+bg=red
+--
+--
++heuristic(GameState state): double
++getName(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>196</x>
+      <y>700</y>
+      <w>189</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+uk.ac.rhul.project.heursitics::Snake4x4
+bg=red
+--
+--
++heuristic(GameState state): double
++getName(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>287</x>
+      <y>616</y>
+      <w>189</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+uk.ac.rhul.project.heursitics::SumCells
+bg=red
+--
+--
++heuristic(GameState state): double
++getName(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1008</x>
+      <y>476</y>
+      <w>140</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>None of the  &lt;&lt;singleton&gt;&gt; 
+values area  actully singleton. 
+Theoreticly they should be 
+singletons.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>875</x>
+      <y>518</y>
+      <w>21</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>245</x>
+      <y>539</y>
+      <w>651</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;10.0;910.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>371</x>
+      <y>539</y>
+      <w>21</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>539</y>
+      <w>21</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>539</y>
+      <w>21</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>875</x>
+      <y>539</y>
+      <w>525</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;730.0;10.0;730.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1260</x>
+      <y>539</y>
+      <w>21</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1113</x>
+      <y>539</y>
+      <w>21</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>847</x>
+      <y>679</y>
+      <w>28</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>20.0;10.0;20.0;50.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>861</x>
+      <y>707</y>
+      <w>21</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>392</x>
+      <y>84</y>
+      <w>371</w>
+      <h>434</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;visitor&gt;&gt;
+uk.ac.rhul.project.game::GameState
+bg=green
+--
+-PROB_OF_4 = 0.1f: float
+-INITIAL_CELL_COUNT = 2: int
+-height: int
+-width: int
+-random: Random
+-grid: int[][]
+-score: int
+-cell: int
+-probability: double
+--
++GameState(GameConfiguration gameConfiguration): ctor
++getProbability(): double
++setProbability(double probability): void
++init(): void
++init(int height, int width): void
+-addRandomCell(): void
+-getFreeCells(): List&lt;Point&gt;
++countFreeCells(): int
+-move(Direction dir): boolean
++getPossibleMoves(): List&lt;GameState&gt;
++getPossibleMutations(): GameState[]
+-slideTile(final int row, final int col, Direction dir, boolean[][] merged): boolean
+-nextCellValue(int row, int col, Direction dir): int
++nextCellInGrid(int row, int col, Direction dir): boolean
++getGrid(): int[][]
++setGrid(int[][] grid): void
++getScore(): int
++clone(): GameState
++getWidth(): int
++getHeight(): int
++applyHeuristic(Heuristic heuristic): double
++toString(): String
++toTxt(Heuristic heuristic): String
++cell(): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>343</y>
+      <w>140</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>180.0;150.0;180.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>854</x>
+      <y>707</y>
+      <w>28</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;20.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>168</x>
+      <y>483</y>
+      <w>1253</w>
+      <h>392</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>320.0;10.0;20.0;10.0;10.0;540.0;1770.0;540.0;1770.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>287</x>
+      <y>756</y>
+      <w>21</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>483</x>
+      <y>756</y>
+      <w>21</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>385</x>
+      <y>672</y>
+      <w>21</w>
+      <h>203</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;270.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>602</x>
+      <y>665</y>
+      <w>21</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>721</x>
+      <y>777</y>
+      <w>21</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1127</x>
+      <y>672</y>
+      <w>21</w>
+      <h>203</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>966</x>
+      <y>777</y>
+      <w>21</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1253</x>
+      <y>784</y>
+      <w>21</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+</diagram>

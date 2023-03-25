@@ -1,0 +1,4 @@
+heuristicName,maxTile,score,time
+"4 x 4 game using Monotonic(With Fail)",4096,74824,2896079
+"4 x 4 game using Monotonic(With Fail)",8192,134664,4428082
+"4 x 4 game using Monotonic(With Fail)",8192,157704,4917691
