@@ -1,4 +1,8 @@
 # Term 2
+## Week 10/ Week 11
+Finailsied report, tidyed up code and collected data to discuss in report.
+
+
 ## Week 9
 Wrote section in report about pruning and the dynamic depth, started gathering data including the time each game took
 (in milliseconds)
