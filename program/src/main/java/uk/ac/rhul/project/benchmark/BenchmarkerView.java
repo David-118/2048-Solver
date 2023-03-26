@@ -27,10 +27,7 @@ public class BenchmarkerView implements View {
      * The games to be played in a benchmark should be placed in this array before building.
      */
     private static final GameConfiguration[] CONFIGURATIONS = new GameConfiguration[]{
-        new GameConfiguration(4, 4, 7, 3, new FailSetter(new Monotonic(), -1000)),
-       new GameConfiguration(4, 4, 7, 2, new FailSetter(new Monotonic(), -1000)),
-       new GameConfiguration(4, 4, 7, 1, new FailSetter(new Monotonic(), -1000))
-
+        new GameConfiguration(5, 5, 6, Integer.MAX_VALUE, new FailRatio(new DynamicSnake(5,5), 0.6)),
     };
 
     /**
@@ -103,7 +100,7 @@ public class BenchmarkerView implements View {
             System.out.print("Starting with heuristic: ");
             System.out.println(CONFIGURATIONS[configIndex].getName());
 
-            for (int j = 0; j < this.count; j++) {
+            for (int j = count -1; j >= 0; j--) {
                 // Initialise Games
                 this.gameIndex = j;
                 CONFIGURATIONS[configIndex].setSeed(this.gameIndex);

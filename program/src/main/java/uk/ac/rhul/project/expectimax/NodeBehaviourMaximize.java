@@ -1,6 +1,5 @@
 package uk.ac.rhul.project.expectimax;
 
-import uk.ac.rhul.project.game.EndOfGameException;
 import uk.ac.rhul.project.game.GameState;
 import uk.ac.rhul.project.heursitics.Heuristic;
 

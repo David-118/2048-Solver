@@ -18,6 +18,9 @@
 \usepackage{qtree}
 \usepackage{xcolor}
 \usepackage[toc,page]{appendix}
+\usepackage{multirow}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
 
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{textcomp}
@@ -35,7 +38,7 @@ This project aimed to make an optimised algorithm to solve a 2048 game using the
 
 Many previous solutions of this project have been unable to get past 4096 reliably using the expectimax algorithm. Early on in this project, 4096 was also the maximum value that could be achieved in a reasonable amount of time. The introduction of multi-threading was the main advantage that allowed this implementation to reach 8192 with reasonable constancy.
 
-For a demo of the program produces see Appendix~\ref{subsec:vid}.
+For a demo of the program produced, see Appendix~\ref{subsec:vid}.
 \end{abstract}
 \section{Introduction}
 \label{sec:intro}
@@ -51,11 +54,11 @@ Pre-computing a traditional 2048 decision tree is impractical, particularly when
 
 Expetimax is also the algorithm used by \cite{_16k2048ai}, the implementation capable of reaching a tile of 32k; however, it does not have much accompanying documentation. It is difficult to understand what is happening.
 
-Some optimisations could be applied to the expetimax algorithm to improve the performance restraints caused by the complexity of this project. Due to the time constraints of this project there was not time to test all of these approaches.
+Some optimisations could be applied to the expetimax algorithm to improve the performance restraints caused by this project's complexity. Due to the time constraints of this project, there was not enough time to test all of these approaches.
 \begin{itemize}
     \item Pruning unlikely possibilities.
     \item Pruning moves that are likely to be poor decisions.
-    \item Dynamic Depth: when there are fewer possibilities, the tree can be searched to a greater depth.
+    \item Dynamic Depth: When fewer possibilities exist, the tree can be searched to a greater depth.
     \item Multi-Threading: Expectimax is a relatively simple algorithm to implement multi-threading with.
     \item Memorisation: Prompted by my \cite{_16k2048ai}, I discovered there are actually a reasonable number of repeated nodes in a 2048 tree; only calculating entire branches of the 
     tree once may be significant.
@@ -114,11 +117,12 @@ public class Node {
 \end{minted}
 This is a node with an array of references to its child nodes. Traversing this entire tree will have a time complexity of 
 $O(n)$. Arranging these nodes into a tree structure takes $O(n)$ and finally picking a direct child of a node takes $O(1)$,
-This simple tree implementation is adequate for the job, so more complex tree solutions are not necessary.
+This simple tree implementation is adequate for the job, so more complex tree solutions are unnecessary.
 
 See Appendix \ref{subsubsec:apendixdt} for full code.
 \subsection{Expectimax}
 The expectiminimax algorithm allows games to play with two rational agents and an element of chance \cite[p.~200]{russell2010artificial}. A simplified version of this algorithm, using only one rational agent, called expectimax, can perfectly model a game 2048. I intended to create an arbitrary expectimax tree and calculate the scores of each node.
+
 \label{subsec:expectimax}
 \begin{figure}
     \centering
@@ -134,18 +138,20 @@ The decision tree required in the expectiminimax algorithm (Figure \ref{fig:expe
     \item Maximising nodes: These nodes take the score of the maximum-scoring child.
     \item Minimising nodes: These nodes take the score of the minimum-scoring child (Not used in this project).
 \end{itemize}
+
+Figure \ref{fig:expectree} has an example expetiminimax tree. To calculate the best move to be made from the root node, we would first evaluate the two leftmost minimising nodes. These would score $2$ and $1$, respectively.
+Next is the leftmost chance node, which takes the average value of its children, $1.5$. This is then repeated for the rightmost sub-tree, the minimising nodes score $0$ and $-1$, respectively and there parent chance node score $-1.5$. The highest scoring move that can be made from the right move it therefore left.
+
 Each of these three relevant types of nodes has been converted to individual java classes, caching the scores in a float
 attribute, so they only need to be calculated once.
-
-Figure \ref{fig:expectree} has
+For the complete code for this proof of concept, see Appendix \ref{subsec:apendixexpecti}
 
 \subsection{2048}
 \label{subsec:2048}
-This proof of concept was primarily created using one source \cite{source2048}, the original 2048 source code. While I did not
-directly copy any of the code, I read through most of the code relevant to the key features of the game and tried to understand 
-why things were done that way. I then re-wrote the code in java using similar approaches.
+This proof of concept was primarily created using one source \cite{source2048}, the original 2048 source code. While not
+directly copying any code, relevant features are based on the original code. This has also been adapted to support any $n \times m$ game.
 
-I learnt a few things that were very useful while writing this prototype. For example: 
+This prototype helpfully highlighted some behaviours to avoid when implementing the final version.
 \begin{itemize}
     \item If you loop over the numbers in the wrong order, a tile may collide with a tile that will be moved later. 
     See Figure \ref{fig:slidebug} for an example.
@@ -154,31 +160,33 @@ I learnt a few things that were very useful while writing this prototype. For ex
         \includegraphics[width=0.3\textwidth]{2048_slide.png}
         \includegraphics[width=0.3\textwidth]{2048_slide2.png}
         \includegraphics[width=0.3\textwidth]{2048_slide3.png}
-        \caption{The first image shows a state shown before a left slide, the second one shows after an incorrect left slide, and the third one shows after a correct left slide.}
+        \caption{The first image shows a state before a left slide, the second one after an incorrect left slide, and the third one after a correct left slide.}
         \label{fig:slidebug}
     \end{figure}
-    \item When merging tiles, you need to ensure that you do not merge a tile multiple times. See Figure \ref{fig:mergebug} for an example.
+    \item When merging tiles, you must ensure that you do not merge a tile multiple times. See Figure \ref{fig:mergebug} for an example.
     \begin{figure}
         \centering
         \includegraphics[width=0.3\textwidth]{2048_merge.png}
         \includegraphics[width=0.3\textwidth]{2048_merge3.png}
         \includegraphics[width=0.3\textwidth]{2048_merge2.png}
-        \caption{The first image shows a state shown before a left slide, the second one shows after an incorrect left slide, and the third one shows after a correct left slide.}
+        \caption{The first image shows a state before a left slide, the second one after an incorrect left slide, and the third one after a correct left slide.}
         \label{fig:mergebug}
     \end{figure}
 \end{itemize}
-My test suite picked up the first issue; however, I had not considered the second case before writing the proof of concept. I only caught the second issue because I wrote a command line user interface (see figure \ref{fig:2048_cli} allowing me to play the game and pick up on bugs). 
-
+The test suite picked up the first issue; however, I had not considered the second case before writing the proof of concept. I only caught the second issue because I wrote a command line user interface (see figure \ref{fig:2048_cli}), allowing me to play the game and pick up on bugs. 
     \begin{figure}
         \centering
         \includegraphics[width=0.8\textwidth]{Screenshot_20221201_231121.png}
         \caption{Command line user interface used by 2048 prototype playing a 4 x 8 game.}
         \label{fig:2048_cli}
     \end{figure}
+    For full proof of concept, code see Appendix \ref{subsec:apendix2048}
 \subsection{2048 with Expectimax}
+
+
 \label{subsec:2048_expectimax}
 A working prototype of expectimax has been developed (see \ref{subsec:expectimax}). A working 2048 prototype has already been developed (see \ref{subsec:2048}).  These components need to be modified to apply the expectimax algorithm to the 2048 game. 
-The aim is to generate the full tree instead of using a heuristic but to do this, the 2048 puzzle must be simplified.
+The aim is to generate the full tree instead of using a heuristic, but to do this, the 2048 puzzle must be simplified.
 
 Two modifications were made to the setup of 2048 to ensure the tree was a reasonable size:
 \begin{itemize}
@@ -188,7 +196,8 @@ Two modifications were made to the setup of 2048 to ensure the tree was a reason
 With these modifications, there are at most only three possible free cells where a tile can be added. With possible moves, the tree can only grow by $3 \times 4 = 12$ for each move.
 A traditional 2048 game has four possible moves and 15 possible free cells where a tile can be added, meaning the tree can grow by $15 \times 4 = 60$ for each move.
 
-Originally the only modification to the game was making it $2 \times 2$ to increase the tree by $6 \times 4 = 24$ for each move. However, the prototype could not calculate the tree within a reasonable time. Hence, the new tiles are limited to just the '2' tile to further reduce the complexity.
+Originally the only modification to the game was making it $2 \times 2$ to increase the tree by $6 \times 4 = 24$ for each move. However, the prototype could not calculate the tree within a reasonable time. Hence, the new tiles are limited to just the '2' tile to reduce the complexity further.
+For complete code for this proof of concept, see Appendix \ref{subsec:apendixauto2048}
 \subsection{Heuristic for 2048}
 \label{subsec:heuristic}
 In this prototype, the restrictions were removed from the game. The size of the game is now $n \times m$, and either a $2$ or $4$ can appear in the grid. This makes it impracticable to calculate the full tree. To do this, an arbitrary  %depth% limit is chosen for the tree. At the leaf nodes in the tree, a heuristic value is calculated.
@@ -199,7 +208,7 @@ Two different heuristic functions were implemented.
     \item Sum up all the values multiplied by the row they are in (Top row = 1 and bottom row = n). The most rewarding path was placing larger numbers lower in the grid.  This heuristic was much more effective, reaching a tile of 512.
 \end{itemize}
 
-With this, the algorithm can theoretically be applied to any 2048 game, which becomes impractical for a large $depth, n$ or $m$. The original plan was to apply this to a 2x2 game; however, due to the nature of the heuristics, I removed this requirement and allowed any size of the grid, as the $depth$ limit makes this practical.
+With this, the algorithm can theoretically be applied to any 2048 game, which becomes impractical for a large $depth, n$ or $m$. The original plan was to apply this to a 2x2 game; however, due to the nature of the heuristics, I removed this requirement and allowed any grid size, as the $depth$ limit makes this practical. For the complete code see Appendix \ref{subsec:apendix2048H}.
 \section{User Interface Design}
 \label{sec:ui}
 
@@ -232,7 +241,7 @@ When creating a new game, it is important that the user can enter the size of th
 \end{figure}
 \section{Design Patterns for AI Search}
 \label{sec:dp}
-There are many ways design patterns can be used in AI search algorithms, specifically in the expectimax algorithm. Figure \ref{fig:alg_uml} shows the structure of the code used for the algorithm; there are a few changes that have been made that have not yet been implemented.
+There are many ways design patterns can be used in AI search algorithms, specifically in the expectimax algorithm. Figure \ref{fig:alg_uml} shows the structure of the code used for the algorithm; a few changes have been made that have not yet been implemented.
 
 
 \subsection{Factory Design Pattern}
@@ -245,64 +254,56 @@ A factory design pattern is a creational design pattern used to hide the complex
 \end{itemize}
 The  expectimax tree will always start with a maximising node. This means that despite the complexity of the Node classes, given a game state and the maximum depth of the tree, it is very simple to create the root node of the initial tree. Generating the child nodes is slightly more complex than the initial root node. Depending on the parent and if the node has children, it can be any of the three node types. For this, two creational methods can be created. One is to create an initial root node that only takes in a small amount of information and one that is package private that takes in more data to determine what type of node it is.
 
-Since implementing multi-threading, the process of making nodes is slightly simpler. There is one node class \mintinline{java}{Node}. Its behaviour comes from a class implementing the \mintinline{java}{NodeBehaviour} interface. See section \ref{subsec:state} for more about this.
-
-Another potential use case for the Factory design pattern would be making a class to generate the correct views from a given set of command line arguments. Previously the Driver class' main method was used as a proto-factory for the views. Based on the inputs, this function determined which view to create.
+Since implementing multi-threading, the process of making nodes is slightly more straightforward. There is one node class \mintinline{java}{Node}. Its behaviour comes from a class implementing the \mintinline{java}{NodeBehaviour} interface. See section \ref{subsec:state} for more about this.
 
 
 \subsection{State Design Pattern}
 \label{subsec:state}
-A state is a behavioural design pattern used when an object\textquotesingle s behaviour needs to change based on some condition \cite{CS2800_behavioural}. A class using that state design pattern has an attribute that will be referred to as \mintinline{java}{objectState}. \mintinline{java}{state} will have the type of some interface or superclass. When the 'state' of the object is changed, the \mintinline{java}{objectState} is changed to a different implementation of the interface. Any features of the class that depend on the state are delegated the concrete implementations of this interface.
+A state is a behavioural design pattern used when an object\textquotesingle s behaviour needs to change based on some condition \cite{CS2800_behavioural}. A class using that state design pattern has an attribute that will be referred to as \mintinline{java}{objectState}. \mintinline{java}{state} will have the type of some interface or superclass. When the 'state' of the object is changed, the \mintinline{java}{objectState} is changed to a different implementation of the interface. Any features of the class that depend on the state are delegated to the concrete implementations of this interface.
 
-The state design pattern is used in the \mintinline{java}{Node} class. Each node has a behaviour which manages what happens when a heuristic is applied to the node, when the next node is requested and manages the node's children. Every node starts as a \mintinline{java}{LeafNodeBehaviour} whih has the following features:
+The state design pattern is used in the \mintinline{java}{Node} class. Each node has a behaviour which manages what happens when a heuristic is applied to the node, when the next node is requested and manages the node's children. Every node starts as a \mintinline{java}{LeafNodeBehaviour} which has the following features:
 \begin{itemize}
-    \item Stores no data related to children; it is known there aren\textquotesingle t any.
+    \item Stores no data related to children; it is known their aren\textquotesingle t any.
     \item \mintinline{java}{nextNode (Heuristic)} simply throws EndOfGameException. This relies on the assumption that the tree has a depth of at least two.
     \item \mintinline{java}{applyHeurstic(Heuristic)} applies the heuristic to the games state.
 \end{itemize}
 
-There are two other behaviours \mintinline{java}{NodeBehaviourMaximize} \mintinline{java}{NodeBehaviourChance}. Each stores child nodes in an array, applying the heuristic to their child nodes, taking the most significant or weighted average value. The next node method will either make the best move or pick a random one.
+There are two other behaviours \mintinline{java}{NodeBehaviourMaximize} \mintinline{java}{NodeBehaviourChance}. Each stores child nodes in an array, applying the heuristic to their child nodes, taking the most significant or weighted average value. The following node method will make the best move or pick a random one.
 
 When \mintinline{java}{generateChildren(...)} is called on a node, an appropriate Node Behaviour will be generated (based on a method passed to the constructor), and the node 'state' will be switched to this new behaviour.
 
+For a UML diagram see Appendix \ref{subsec:apendixns}.
 
 \subsection{Singleton Design Pattern}
 \label{subsec:singleton}
 A singleton is a creational design pattern that ensures at most one class instance; if an object is required multiple times, the same object is returned each time \cite{CS2800_creational}.
 
-The most clear-cut case for this design pattern is the heuristic classes. The existing heuristic classes have no attributes, just two methods. This means that if multiple class instances were created, they would
-always be equivalent. This means there is no benefit from having multiple objects for these; a Singleton design pattern is a logical choice.
+The most clear-cut case for this design pattern is the heuristic classes. Apart from the Dynamic Snake and Fail Wrapper heuristics, none of the heuristics takes any attributes. This is an obvious example of where implementing a singleton design pattern would be a good idea. If multiple instances of a heuristic are made, they would be precisely the same.
 
-Another case where a singleton pattern could be used is for the Node Factory. Currently, this is just a class containing only static methods. The only situation where two different instances of this factory would be useful is playing multiple 2048 games simultaneously with different random number generators, which seems unlikely.
+For UML Diagram, see Appendix \ref{subsec:apendixVS}
 \subsection{Observer Design Pattern}
 \label{subsec:observer}
 An observer is a behavioural design pattern that is particularly useful when something needs to happen in an object based on an event in another object.
-A common example of where this design pattern can be used is event handlers in a user interface \cite{CS2800_behavioural}.
+A typical example of where this design pattern can be used is event handlers in a user interface \cite{CS2800_behavioural}.
 
 An observer interface consists of one function, often called \mintinline{java}{notify()}, or \mintinline{java}{update()}. This function is called by an observable object when some event occurs.
 
-In this project, there is a class called \mintinline{java}{Solver}, which contains the code for the expectimax algorithm. Each time it calculates, and makes, a move, this needs to be updated in the View. To make
-this happen, an observer design pattern is used. Each time the observer is notified, it includes a parameter that describes the current state of the game, which is passed to the view to be displayed.
+In this project, a class called \mintinline{java}{Solver} contains the code for the expectimax algorithm. Each time it calculates and makes, a move, this needs to be updated in the View. To make
+this happen, an observer design pattern is used. Each time the observer is notified, it includes a parameter that describes the game's current state, which is passed to the view to be displayed.
 \subsection{Visitor Design Pattern}
 \label{subsec:visitor}
 Allows some processing to be done externally from the object (A). A second object (B) can visit object A, which accepts object B and finally runs the process on object A.  This is particularly uLeafNodefseful when there are multiple ways something can be evaluated or multiple things to be evaluated \cite{CS2800_behavioural}.
 
 To be practical, the expectimax algorithm applied to 2048 requires a heuristic function. There are many different heuristic functions, and there may be various reasons to use one over another in certain scenarios; it is convenient to separate the heuristic code from the \mintinline{java}{GameState} and apply the correct heuristic function when needed.
 
-\begin{landscape}
-\begin{figure}
-    \centering
-    \includegraphics[width=1.5\textwidth]{algorithm_uml.png}
-    \caption{[[UPDATE DIAGRAM]].}
-    \label{fig:alg_uml}
-\end{figure}
-\end{landscape}
+For UML Diagram, see Appendix \ref{subsec:apendixVS}
+
 \section{Techniques used to solve the game}
 \label{sec:techniques}
 
 \subsection{Human Approaches}
 \label{subsec:human_techniques}
-It can be difficult to automate a human strategy however, it is possible to reward or penalise certain states, and human strategies can be a good place to start when looking for features to reward or penalise.
+It can be difficult to automate a human strategy. However, it is possible to reward or penalise certain states, and human strategies can be a good place to start when looking for features to reward or penalise.
 
 One human strategy is to keep the largest number in a corner and have a gradient leading to the smaller values like in figure \ref{fig:gradient} \cite{strategy2048}. In testing, this way of arranging the grid makes it relatively easy to merge multiple tiles in a few moves and reduces the risk of trapped values. However, it does lead to many duplicate values that are difficult to merge, so there is often insufficient space to reach the larger tiles.
 
@@ -332,7 +333,7 @@ A trapped value is surrounded by larger numbers \cite{strategy2048}, such as the
 \end{figure}
 
 Another approach is to try and order the tiles into ascending order using a snake shape (Figure \ref{fig:snake} \cite{aiplays2048}. The source for this approach describes an automated method; however,
-humans can also use this. In testing, this was found to be a very reliable strategy, even reaching tile 8192. The main drawback of this approach was that when merging the row with the largest numbers, there is a risk of producing a trapped value. With careful planning and some luck, it is possible to recover from these states.
+humans can also use this. This was found to be a very reliable strategy in testing, even reaching tile 8192. The main drawback of this approach was that when merging the row with the largest numbers, there is a risk of producing a trapped value. With careful planning and some luck, it is possible to recover from these states.
 \subsection{Automated Approaches}
 \label{subsec:automated_techniques}
 Many algorithms can be used to solve 2048, to varying degrees of success. Some of these algorithms are \cite{approches2048}:
@@ -513,7 +514,7 @@ Fail Setter was a similar approach; this was made with the Monotonic  (see \ref{
      8192 &3.48\%&1.49\%&5.97\%&9.45\%&5.97\%&0.50\%\\
      \hline
 \end{tabular}
-    \caption{Results for Dynamic Snake With Fail Ratio. Ratio 1 is the same as not using it}
+    \caption{Results for Dynamic Snake With Fail Ratio. Ratio 1 is the same as not using it. (Depth=6)}
     \label{tab:dsfail}
 \end{table}
 
@@ -545,9 +546,78 @@ As the monotony of a game is forced into one direction
 Using the original approach, I could not get a score higher than 1024 regularly.
 
 As the monotony is forced in one direction horizontally and one direction vertically, this heuristic could be seen as a more flexible variant of the diagonal heuristic. Unlike the snake heuristic, it turned out that the increased flexibility is a positive thing.
+\subsection{Square Performance}
+Now that the two new heuristics have been developed, it will be interesting to compare them to each other of various square game sizes. A third heuristic, the largest lower, will also be compared as a baseline. The comparisons will cover 2 × 2 to 4 × 4 for a depth of 4, 6 and 7. 5 × 5 will only be run at a depth of 4. 
+\begin{table}
+    \centering
+    \begin{tabular}{|cc|ccc|}
+    \hline
+    Grid Size&Tiles Reached&LL&DS&Mon\\
+    \hline
+\multirow{3}{*}{2x2 D=4}&8&100&100&100\\
+&16&94&87&92\\
+&32&2&2&9\\
+\hline
+\multirow{4}{*}{3x3 D=4}&32&99&100&100\\
+&64&94&97&100\\
+&128&46&85&95\\
+&256&1&24&40\\
+\hline
+\multirow{4}{*}{4x4 D=4}&512&99&98&99\\
+&1024&54&91&87\\
+&2048&2&72&50\\
+&4096&0&9&1\\
+\hline
+\multirow{5}{*}{5x5 D=4}
+&2048&100&97&99\\
+&4096&100&80&98\\
+&8192&81&62&87\\
+&16384&21&32&73\\
+&32768&0&5&27\\
+\hline
+\multirow{3}{*}{2x2 D=6}&8&98&97&96\\
+&16&94&83&51\\
+&32&9&8&7\\
+\hline
+\multirow{3}{*}{3x3 D=6}&64&99&99&100\\
+&128&66&94&99\\
+&256&15&57&68\\
+&512&0&0&7\\
+\hline
+\multirow{3}{*}{4x4 D=6}&1024&94&100&99\\
+&2048&34&95&90\\
+&4096&0&73&57\\
+&8192&0&9&5\\
+\hline
+\multirow{2}{*}{2x2 D=7}&16&95&92&93\\
+&32&9&10&10\\
+\hline
+\multirow{3}{*}{3x3 D=7}&128&87&96&97\\
+&256&33&63&84\\
+&512&0&6&19\\
+\hline
+\multirow{5}{*}{4x4 D=7}&512&99&100&100\\
+&1024&92&100&100\\
+&2048&64&97&99\\
+&4096&4&82&76\\
+&8192&0&23&22\\
+\hline
+    \end{tabular}
+    \caption{Square game performance}
+    \label{tab:square}
+\end{table}
+
+On a depth of 6 2x2 (See table \ref{tab:square}, it very clearly performs best using the largest lower. Interestingly, the heuristics have evened out by the time we reach a depth of 7. I suspect that on a depth of 7, any reasonable heuristic will work for a 2x2 game. These games are very short, and all three heuristics are close to the maximum rate of achieving 32. In a 2 × 2 game, achieving 32 in more than 10\% on average is impossible. To get 32, you must first have a game state with a 16, 8 and 4 before a cell is added, e.g. $\big[\begin{smallmatrix}
+  16 & 8\\
+  4 & -
+\end{smallmatrix}\big]$,
+when a random cell is inserted, it must be a four. Otherwise, the game will end, which will only happen 10\% of the time. Very intriguingly, 2 × 2 Monotonic actually outperforms itself on depth 4, over depth 6. A similar situation occurs for the lower 2 × 2 Dynamic Snake values.
+
+For the 3 × 3 games, the monotonic heuristic is the strongest by a long lead for depths 4, 6 and 7. Monotonic is often the most effective heuristic across the results in Tables \ref{tab:square} and \ref{tab:LLLR}, showing that his heuristic is very flexible. On the other hand, Dynamic-Snake is the most effective only for 4 × 4 games of depth 4 and 6. This suggests Dynamic Snake has optimised very effectively for lower depth 4 × 4 games; however, as the algorithm is more efficient, its usefulness reduces.
+In 4 x 4 games, we can see that at depths of 4, the dynamic snake heuristic significantly outperforms. It is possible that changing the powers in the heuristic could yield different results. However, this is likely because the snake heuristic enforces a human strategy. This is very effective for humans as keeping track of everything that could happen in the next few moves is challenging. Following a strategy makes it easy to minimise the risk without looking further ahead. Past a certain point, a more flexible heuristic allows for good moves a human may struggle to see. For example, when using the Monotonic heuristic is quite common for the algorithm to switch the corner the greatest value is in. This is a sequence of moves where a human player may not risk it, as it is difficult to imagine the side effects. Similarly, the Dynamic Snake heuristic is effective on lower depths as it can minimise the risk; however, on deeper searches, the risk can be minimised more effectively by the expectimax algorithm.  
 
 \subsection{Rectangular Performance}
-There are several different factors to investigate here to determine the best heuristic and adaptions for each heuristic. An adaption of a heuristic made early, Largest Lower, on a test was used to get a baseline performance for each shape. To accompany this heuristic, a Largest Right heuristic was also made. They are equivalent to a weighted sum for each of these matrices (Given a $n \times m$ game).
+There are several factors to investigate here to determine the best heuristic and adaptions for each. An adaption of a heuristic made early, Largest Lower, on a test was used to get a baseline performance for each shape. To accompany this heuristic, a Largest Right heuristic was also made. They are equivalent to a weighted sum for each of these matrices (Given a $n \times m$ game).
 $$
 \begin{matrix}
     \begin{bmatrix}
@@ -563,11 +633,11 @@ $$
         1 & 2 & \hdots & m
     \end{bmatrix}
     \\
-    \text{Largest Lower}&\text{Largst Right}
+    \text{Largest Lower}&\text{Largest Right}
 \end{matrix}
 $$
 
-The first job was to determine if there is a rule for which of these two heuristics performed the best on a verity of different-sized games. The games were chosen for having or being close to having 16 squares. This meant the theoretical maximums were relatively similar, and the decision trees would not be much larger than a topical 4x4 game. The sizes are chosen were 2 × 9, 3 × 6 and 4 × 5; each game was played with a depth of 6.
+The first job was to determine if there was a rule for which of these two heuristics performed the best on a variety of different-sized games. The games were chosen for having or being close to having 16 squares. This meant the theoretical maximums were relatively similar, and the decision trees would not be much larger than a topical 4x4 game. The sizes chosen were 2 × 9, 3 × 6 and 4 × 5; each game was played with a depth of 6.
 \begin{table}
     \centering
 \begin{tabular}{|c|cccccc|}
@@ -705,7 +775,7 @@ The term for generating the tree is still more significant, so the time complexi
 \newpage
 \section{Optimisations}  
 \subsection{Multi-threading}
-Simple multi-threading is relatively easy to implement, in theory. Node children are independent of each other so that each child can be processed in a different thread. For example, when processing \ref{fig:threadtree}, you would start by generating the children of the root node; once these are generated, you would start four threads, one processing nodes A, B, C and D. The thread representing the root node would be set to inactive while waiting for the child threads to finish processing. Each child thread will generate its children and produce two threads for each node. A, B, C and D would be inactive until their children are calculated. There would be at most eight active threads simultaneously for this small example. For the game with the grid below, the tree (depth=7) contains over 4 million leaf nodes.
+Simple multi-threading is relatively easy to implement, in theory. Node children are independent of each other so that each child can be processed in a different thread. For example, when processing \ref{fig:threadtree}, you would start by generating the children of the root node; once these are generated, you would start four threads, one processing nodes A, B, C and D. The thread representing the root node would be set to inactive while waiting for the child threads to finish processing. Each child thread will generate its children and produce two threads for each node. A, B, C and D would be inactive until their children are calculated. There would be at most eight active threads simultaneously for this small example. The tree (depth=7) contains over 4 million leaf nodes for the game with the grid below.
 $$
 \begin{bmatrix}
      0 &0 &0 &0 \\2 &0 &0 &0 \\0 &0 &0 &2 \\0 &0 &0 &0
@@ -715,9 +785,7 @@ This would lead to the maximum amount of threads at one time is four million.
 
 While this is relatively simple, there are some series inefficiencies, partially in the number of threads created. Creating four million threads uses a lot of memory and stresses the scheduling algorithm, so another approach is needed. The solution is only to run a small number of threads from the tree. Ideally, a purpose-built system would be used to process the tree in a given number of threads; however, this would have been a very time-consuming process. Java has a feature called Parallel Streams \cite{pstreams} that can process an entire tree with the number of threads available on the system.
 
-If processing the tree in figure \ref{fig:threadtree} using parallel java streams on a dual-core system (assuming the time each node is processed is identical) instead of the execution order of (Root), (A, B, C, D), (A1, A2, B1, B2, C1, C2, D1, D2) the new executive order would be (Root), (A, B), (A1, A2, B1, B2), (C, D), (C1, C2, D1, D2). This still leads to too many threads being generated at some stages of the tree; however, it is no longer a series issue.
-
-
+If processing the tree in figure \ref{fig:threadtree} using parallel java streams on a dual-core system (assuming the time each node is processed is identical) instead of the execution order of (Root), (A, B, C, D), (A1, A2, B1, B2, C1, C2, D1, D2) the new executive order would be (Root), (A, B), (A1, A2, B1, B2), (C, D), (C1, C2, D1, D2). This still leads to too many threads being generated at some stages of the tree; however, it is no longer a serious issue. The ideal solution would be creating a scheduling class to allocate tasks to a set number of threads on the same dual-core system; the previous example may look like this: (A, B), (A1, A2), (B1, B2), (C, D), (C1, C2), (D1, D2).
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{tree.png}
@@ -728,15 +796,16 @@ If processing the tree in figure \ref{fig:threadtree} using parallel java stream
 Before multi-threading, for a 4x4 game, a depth of 4 was the best depth that could be processed reasonably. After implementing a threading approach with parallel streams, it could now process trees with a depth of 7. It also pushed enough to be able to reach 8192 somewhat regularly.
 
 \subsection{Pruning}
+\label{subsec:Pruning}
 Pruning a tree is when you remove a branch from a tree without processing it. When done well, pruning should not impact which moves are chosen and, in some cases, may not even change the scores for those moves. For this problem, we will have to settle for unlikely to impact the moves chosen. 
 
 The approaches used will be pruning unlikely possibilities. Due to the weighting of the nodes, unlikely possibilities have very little impact on the overall score. If their possibilities are unlikely enough it seems improbable, they would have much impact on what move is chosen. 
 
 The other approach is pruning relatively bad moves; if a move is not the best option, it will not impact the score. Using the expectimax algorithm, it is not straightforward to determine with 100\% certainty that a move is not the best without calculating it. However, an educated guess can be made about how good a move is relative to its siblings.
 
-To help analyse this, a simple text format was made to help view the tree
+To help analyse this, a simple text format was made to help view the tree; an example of this format is included at Apendix \ref{subsec:apendixtfile}.
 
-The '\#' at before each number notes that a number follows. The second from last number notes the Heuristic value of a given state, and the final value represents the derived or calculated score. Finally, the letter C, M or L represents if the node is a chance node, maximising node or leaf node. The number of space characters at the beginning of the line represents how deep it is in the tree. A small tool was written in C, using the library ncurses, to view these files in a collapsible form quickly.
+The '\#' at before each number notes that a number follows. The second from the last number notes the Heuristic value of a given state, and the final value represents the derived or calculated score. Finally, the letter C, M or L represents if the node is a chance node, maximising node or leaf node. The number of space characters at the beginning of the line represents how deep it is in the tree. A small tool was written in C, using the library ncurses, to view these files in a collapsible form quickly.
 \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{Screenshot_2023-03-22_03-21-57.png}
@@ -750,25 +819,47 @@ The '\#' at before each number notes that a number follows. The second from last
     \caption{Caption}
     \label{fig:unlikley}
 \end{figure}
-This approach is the simplest of the three in this section. It works by pruning unlikely possibilities. For example, if we take Figure \ref{fig:unlikley}, assume that the tree continues bellow nodes H - O. The nodes. For each respective move, there is only a 1\% chance of their $M$ or $O$ occurring. These nodes can be completely removed from the tree.
+This approach is the simplest of the three in this section. It works by pruning unlikely possibilities. For example, if we take Figure \ref{fig:unlikley}, assume that the tree continues bellow nodes H - O. The nodes. For each respective move, there is only a 1\% chance of their $M$ or $O$ occurring. These nodes can be removed entirely from the tree.
 
-Implementing this would have some complexities in the current implementation of expetimax, I decided not to generate th children for pruned nodes. While this is not ideal, it would still be effective.
-   \subsubsection{Pruning Poor Moves}
+Due to how my algorithm works internally, it is easier to prune all the children of a node rather simply pruning the node itself; however, due to the low weighting involved with these nodes, this show has very little impact on the final result. Determining which nodes to prune was quite a simple job. When generating an expetimax tree, a new parameter $count4$ (See Appendix \ref{subsec:apendixmulti}). When nodes and children are generated, and the node adds a four to the game, the value of $count4$ is decremented before being passed to the children. If the value of $count4$ is 0, the children will not be generated.
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|c|ccc|}
+    \hline
+Tile Reached&No Pruning&3&2\\
+\hline
+1024&100&100&100\\
+2048&99&99&99\\
+4096&76&86&76\\
+8192&22&24&14\\
+\hline
+Median Time&11m21.390s&8m15895ms&6m23.285s\\
+Improvement&&1.37&1.78\\
+\hline
+    \end{tabular}
+    \caption{Pruning (Monotonic /w FailSetter, d=7)}
+    \label{tab:pruning}
+\end{table}
+
+The results were somewhat surprising for this. At least for the settings chosen, it turned out that pruning after seeing three 4s had a gain in both time and results. Even pruning after seeing two 4s only offered an 8\% reduction in the number of 8192 achieved and yet completed 1.78x faster. It is possible the increase in results may have be because the algorithm unlikely extremes are being pruned from the tree. If there is an unlikely but very rewarding or penalised state being pruned. This would mean that the unlikely extremes would be ignored, when they later don't happen the algorithm hasn't taken them into account.
+
+\subsubsection{Pruning Poor Moves}
 The first difficulty here is defining what a poor move is; there are two definitions below:
 \begin{itemize}
     \item Moves which score a significantly lower heuristic than parent nodes even after a few moves.
     \item Moves that are currently scoring worse than already calculated siblings.
 \end{itemize}
 
-While both of these approaches seem straightforward, they both have their complexities; due to time constraints, neither approach has yet been implemented.
+While both of these approaches seem straightforward, they have their complexities; due to time constraints, neither approach has yet been implemented.
 
 A threshold value is needed to determine how unlikely a node must be before it is pruned.
 
-The approach is easy when using multi-threading to help calculate the tree. However, it could be problematic in a situation where there are only poor moves. It is not difficult to imagine a situation where the game instead gives up because no moves meet the threshold for a good move. Ensuring it does not prune the best move on a specific branch is challenging.
+The approach is easy when using multi-threading to help calculate the tree. However, it could be problematic when there are only poor moves. It is not difficult to imagine a situation where the game instead gives up because no moves meet the threshold for a good move. Ensuring it does not prune the best move on a specific branch is challenging.
 
 A solution to this would be comparing nodes to their siblings; we can say with much more certainty if we are pruning moves that are likely worse than their siblings.
 
-For example, using the tree in figure \ref{fig:prunepmoves}, if we assume that the nodes D, E, F and G all contain large sub-trees that are not shown. We would calculate node B's score as 100, as the average of D and E is 100; next, we would begin calculating C. With F having a score 1, $x \ge 199$. While it is possible, it seems unlikely that $x \ge 199 \times v(F)$. The exact number we can say where this is unlikely would likely vary by the heuristic. For example, using the sum cells heuristic, you would expect the siblings of a chance node to be quite similar, as there is no weighting. However, a strongly weighted heuristic like Snake can see significant changes from rearranging tiles.
+For example, using the tree in figure \ref{fig:prunepmoves}, if we assume that the nodes D, E, F and G all contain large sub-trees that are not shown. We would calculate node B's score as 100, as the average of D and E is 100; next, we would begin calculating C. With F having a score of 1, $x \ge 199$. While it is possible, it seems unlikely that $x \ge 199 \times v(F)$. The exact number we can say where this is unlikely would likely vary by the heuristic. For example, using the sum cells heuristic, you would expect the siblings of a chance node to be quite similar, as there is no weighting. However, a strongly weighted heuristic like Snake can see significant changes from rearranging tiles.
 
 There is one large floor with this approach for this current project, which is multi-threading will no longer be straightforward. The child branches are no longer independent from each other.
 
@@ -787,32 +878,39 @@ While I don\textquotesingle t have data supporting this, I suspect that Pruning 
 
 
 \begin{landscape}
-    \begin{figure}
+\begin{figure}
     \centering
-    \includegraphics[width=1.30\textwidth]{depth.png}
+    \includegraphics[width=1.30\textwidth]{dynamic_depth.png}
     \caption{Graph of Number of L5 Nodes to depth (4x4 game)}
     \label{fig:dynamic_depth_graph}
+\end{figure}
+    \begin{figure}
+    \centering
+    \includegraphics[width=1.30\textwidth]{dynamic_depth_free_cells.png}
+    \caption{Graph of Number of L5 Nodes to depth (4x4 game)}
+    \label{fig:dynamic_depth_free_graph}
 \end{figure}
 \end{landscape}
 
 \subsection{Dynamic Depth}
-There is a strong trend in the data that deeper searches achieve large tiles more frequently (table \ref{tab:depth}).
+\label{subsec:dyndep}
+There is a strong trend in the data that deeper searches achieve large tiles more frequently (table \ref{tab:depth}). This idea was inspired by \cite{expectimax2048}; this implementation of expectimax uses a depth of eight when if there are less than four empty tiles on the grid; otherwise, a depth of 6 is used. This is possible because there are fewer possible outcomes with more free cells.
 
 \begin{table}
     \centering
-    \begin{tabular}{|c| c c c | c |}
+    \begin{tabular}{|c| c c  cc | c |}
 \hline
-Tiles Reached&2&4&6&$d(x)^*$\\
+Tiles Reached&2&4&6&7&$d(x)^*$\\
 \hline
-256&92&100&100&100\\
-512&60&99&100&100\\
-1024&15&87&99&100\\
-2048&0&50&90&100\\
-4096&0&1&57&100\\
-8192&0&0&5&80\textsc{**}\\
-16384&0&0&0&10\\
+256&92&100&100&100&100\\
+512&60&99&100&100&100\\
+1024&15&87&99&100&100\\
+2048&0&50&90&99&100\\
+4096&0&1&57&76&100\\
+8192&0&0&5&22&80\textsc{**}\\
+16384&0&0&0&0&10\\
 \hline
-Median Time & 40ms & 711.5ms & 1m23.259s & 1h15m52.420s\\
+Median Time & 40ms & 711.5ms & 1m23.259s & 11m22.593s & 1h15m52.420s\\
 \hline
     \end{tabular}
     \caption{Tiles achieved by depth (4x4 Monotonic /w Fail Setter).  }
@@ -821,16 +919,18 @@ Median Time & 40ms & 711.5ms & 1m23.259s & 1h15m52.420s\\
     \par{\textsc{**} One game ran out of memory on 4096.}
 \end{table}
 
-When there are fewer free cells in the grid, the tree can be explored deeper. As the branching factor on the tree is lower. Creating a function $d(x)$ was a complex process. I started by including a simple feature in the program. When the program is started with the command line argument '-d', it is able to probe the tree to see how far be generated in a given period. Using a python script, I picked 10 random game states with 0-14 free cells from a game I had saved to my laptop. I created a CSV file which contained the number of nodes in each layer of the tree, the number of free cells in the state and the maximum depth achieved in 3 seconds.
+When there are fewer free cells in the grid, the tree can be explored deeper. As the branching factor on the tree is lower. Creating a function $d(x)$ was a complex process. I started by including a simple feature in the program. When the program is started with the command line argument '-d', it can probe the tree to see how far be generated in a given period. Using a python script, I picked ten random game states with each of 0-14 free cells from a game I had saved to my laptop. I created a CSV file which contained the number of nodes in each layer of the tree, the number of free cells in the state and the maximum depth achieved in 3 seconds. The game states that more available cells didn't have ten samples to pick from some groups.
 
-As I can always process depth 7 on a tree, this means after each move a tree of depth five is already available, except on the first move. When plotted on a scatter graph, there was quite a clear trend between the number of nodes on the 5th layer and how deep the tree can be processed, see Figure \ref{fig:dynamic_depth_graph}.
+I created a tool in c, reusing some code from tree view (See Section \ref{subsec:Pruning}) to analyse the trees for these nodes reporting how many nodes there were in each tree layer.
 
+When creating a depth function, it is important to ensure that it doesn't overestimate, if an overestimate is produced, the program will hang until it runs out of memory. \cite{expectimax2048} used an approach based on the number of free cells in the grid, however, while avoiding overestimates this would limit me to at most a depth of 10 (Figure \ref{fig:dynamic_depth_free_graph}). Despite what is shown on Figure \ref{fig:dynamic_depth_graph} it is possible to complete an entire 4 × 4 game of 2048 with a depth of 7. This means that after a move is made, there is a depth 5 expectimax tree already calculated. If we count the number of nodes at the 5th level of this tree, and call it $k$, we can use this as the predictor for how deep the tree can be generated (See Figure \ref{fig:dynamic_depth_graph}). The function $f(x)$ from figure \ref{fig:dynamic_depth_graph}, however, will regularly overestimate.
 
-The function $f(x)$ overestimates some points. I started by instead computing $\text{floor}(f(x))$; however, this is still overestimated. Over-estimates were common on higher values; to solve this, the power was updated to $h(x) = \text{floor}(max(21 x^{-0.065} - 3.75, 7))$. 
+The first thing I tried using $h(x) = \text{max} (\text{floor}~f(x), 7)$. This function only worked well towards the upper end of depth 8, where it was prone to overestimating. I rewrote the function $f(x)$ in the format $f(x) = 21x^{-b} -c$ i.e. $f(x)$ i.e. $b\approx 0.113$ and $c = 0$, and plotted it. I gradually decreased the value of b and increased c.
 
-This test has been very difficult, as games take over 1hr. To get a hint of how well this was working, I picked a heuristic (Monotonic with the score set to -1000) when it failed. Using this heuristic, a seed of 0, and a depth of 6 and 7, the complete tree had already been computed (These files have not been included as they total 91.8 GiB). Comparing how this specific game determined that a slight improvement had been achieved for at least this game. Considering the time difference, this improvement was not massively significant.  
+Checking that $floor~f'(x)$ was less than or equal to each point in the scatter graph. I eventually settled on $f'(x)=21x^{-0.065} - 3.75$. As with the original $f(x)$, this new depth function was modified to $d(x) = \text{max}(\text{floor}~f'(x), 7)$
+ 
+To increase the certain this function was valid I ran a test on a game with seed=0 using the Monotonic Heuristic, however, my testing was limited as the game took approximately 1h 30m to run. My results for death, 6, 7 and $d(x)$ are below.
 
-When the testing was extended to 10 games, I noticed that the algorithm could not reach 16k 1 in 10 times; however, it failed 1 in 10 times, and the out-of-memory exception had not been eliminated.
 \[
 \begin{matrix}
 \begin{bmatrix}
@@ -852,12 +952,15 @@ When the testing was extended to 10 games, I noticed that the algorithm could no
     8&2&4&2
 \end{bmatrix}
 \\
-d=6&d=7&d=h(x)
+d=6&d=7&d=d(x)
 \end{matrix}
 \]
+After this, the performance of the algorithm was benchmarked by running it on 10 different games (See Table \ref{tab:depth}). This showed that the function $d(x)$ was very effective, reaching at least $8192$ in $8$ games, and even getting 16k once. However, in one game the function produced an overestimate, this game was not completed and instead was abandoned with a max tile of 4096.
+
+The other drawback of this approach is the great reduction of performance. When using a constant depth, a game normally takes a while to get started but towards the end, is becomes relatively easy to calculate the trees. When using Dynamic Depth your are not only maximising the results from an expetimimax implementation but maximising the time it takes on a problem.
 \section{Professional Issues: Licensing}
 \label{sec:prof_issues}
-Licensing is relevant to this project as the game 2048's source code is available under the MIT Licence on GitHub \cite{source2048}. This is a very permissive licence, meaning there are few restrictions on how one can use the published work for \cite{osi_faq}. This allows for dubious ethical situations where a large company uses the code internally without publishing, paying for or even acknowledging the use of that code. To deal with this issue, copyleft licenses were created (see \ref{subsec:oss}).
+Licensing is relevant to this project as the game 2048's source code is available under the MIT Licence on GitHub \cite{source2048}. This is a very permissive licence, meaning there are few restrictions on how one can use the published work for \cite{osi_faq}. This allows for dubious ethical situations where a large company uses the code internally without publishing, paying for or even acknowledging the use of that code. Copyleft licenses were created to deal with this issue (see \ref{subsec:oss}).
 
 \subsection{Open-source Software}
 \label{subsec:oss}
@@ -911,20 +1014,25 @@ Currently, no source code has been used under a copyleft license in this project
 While the license does not require it, if this code were ever published, it would be worth putting a link to the 2048 GitHub page \cite{game2048} in the README file, as it was an inspiration to work on the project. Though this project \cite{game2048} has been described as the source code for 2048, however, in the README file, Gabriele Cirulli clearly states that the project is a clone of the Android app 1024 and Saming's 2048. While the source code for neither of these is public, and Saming's 2048 is no longer available, I have been incorrectly implying that Gabriele Cirulli created the concept of 2048.
 
 \subsection{Unlicensed Source Code and Copyright}
-Many publicly available GitHub projects, partially small ones, have never been licensed. In many of these situations, likely, the original developer does not object to people using their code, as they have been through the work of publishing it in the first place. Technically, using code from a project like this breaches the owner's copyright. GitHub makes it very easy to accidentally make the mistake of including unlicensed code or even basing an entire project on it. For example, even if the licence on a project does not allow for modification of the project, a fork button is displayed to the user. A fork can be created without the user even being warned.
+Many publicly available, partially small, GitHub projects have never been licensed. In many of these situations, likely, the original developer does not object to people using their code, as they have been through the work of publishing it in the first place. Technically, using code from a project like this breaches the owner's copyright. GitHub makes it very easy to accidentally make the mistake of including unlicensed code or even basing an entire project on it. For example, even if the licence on a project does not allow for modification of the project, a fork button is displayed to the user. A fork can be created without the user even being warned.
 
-The heuristic function, diagonal's (see \ref{subsubsec:diag} code is currently heavily based on the code from the unlicensed GitHub project 2048-Game-Using-Expectimax \cite{expectimax2048}, as the educational exception to copyright covers this project, this is not a problem. From an ethical perspective, as long as the code remains publicly available and isn't used commercially, there is unlikely to be an issue, however, it does leave the project vulnerable to copyright claims if it is published. To avoid the risk of copyright claims, either the unlicensed code must be removed from the project or permission must be obtained to use the code.
+The heuristic function, diagonal's (see \ref{subsubsec:diag} code is currently heavily based on the code from the unlicensed GitHub project 2048-Game-Using-Expectimax \cite{expectimax2048}, as the educational exception to copyright covers this project, this is not a problem. From an ethical perspective, as long as the code remains publicly available and isn't used commercially, there is unlikely to be an issue; however, it does leave the project vulnerable to copyright claims if it is published. To avoid the risk of copyright claims, either the unlicensed code must be removed from the project or permission must be obtained to use the code.
 \section{Self Evaluation}
-Overall, this project has gone quite well. I have achieved an algorithm that can consistently reach the higher end of what humans can achieve. Some decisions, I think, held this project back, many of which were made very early in the project.
+Overall, this project has gone quite well. I have achieved an algorithm that can consistently reach the higher end of what humans can achieve. Some decisions, I think, held this project back, many of which were made very early in the project. Given enough time it is able to achieve 16k, which is more than expected to be able to reach when starting this project. Even more, performance can likely be extracted with minor tweaks to how the code works. For example very little testing has been done with some of the constraints inside most of the heuristics. One could likely extract better results by changing some of the constants in the monotonic heuristic or subtly changing the weights in the Dynamic-Snake heuristic.
+
+Despite not being what I expected, the Monotonic heuristic is also very flexible; it can achieve a reasonable score highly on all the size games it has been tested on. For many of those games, it is the most effective I have made. Sadly due to the lack of other research in different-sized 2048 games, there is very little to compare these results to; however, out of all the published expectimax 2048 solvers, I found only one was able to achieve beyond 8192. This one was able to acheive 32k \cite{_16k2048ai}.
+
+
+If I were to make another attempt at this project, there are a few things I would change early on.
 \begin{enumerate}
     \item Using Java - Java was chosen because it was the most appropriate language I am confident in, not because it was the best language for the job. A faster language such as C++ or Rust would have been more appropriate.
-    \item The game is tied too closely to the algorithm. Early in the project I decided that the next state of the game would be obtained from the algorithm. This means the algorithm has to keep track of irrelevant data, such as the game score. There are many repeated 'states' in an expectimax tree; however, there are very few situations where the scores are the same. This decision made it awkward and inelegant when I attempted to implement a form of memorisation.
-    \item Early on, I applied my algorithm to $n \times m$ games. While this was an interesting problem, the best implementation I found \cite{_16k2048ai}, managed to store the game in a 64-bit integer. The operations were done entirely with bit shift and mask operations. The variable-sized game makes optimisations such as that more difficult.
+    \item The game is tied too closely to the algorithm. Early in the project, I decided that the next stage of the game would be obtained from the algorithm. This means the algorithm has to keep track of irrelevant data, such as the game score. There are many repeated 'states' in an expectimax tree; however, there are very few situations where the scores are the same. This decision made it awkward and inelegant when I attempted to implement a form of memorisation. The close nature of the algorithm and the game makes it possible for an algorithm to cheat. A chance node could theoretically maliciously pick the next state to maximise results.
+    \item I would investigate the possibility of more efficient ways of storing a game board. For example, \cite{_16k2048ai} stores the game in a 64-bit integer. This brings in a lot of new options for bringing down the processing time in heuristics, making moves quickly modifying the grid. This is particularly true with grids at most 4 × 4, which can easily be stored in a single 64-bit integer.
 \end{enumerate}
 Despite these problems, this implementation has some strengths.
 \begin{enumerate}
-    \item The program is very flexible. The MVC design pattern allows new models and views to be made to meet the different needs of the program. When benchmarking performance, the 'benchmark view' can be used, or when optimising a value, the 'optimiser view' can be used.
-    \item The program can utilise all available resources on a CPU for more resource-intensive games.
+    \item The multi-threading is very effective at utilising a CPU'S available resources to maximise performance.
+    \item The implementation is very flexible in certain areas. Adding a new heuristic can be done quickly, and setting up the code for dynamic depth was also easy. Adding a new tree-based algorithm such as mini-max could be done by adding a new Node Behaviour; minimising nodes would have to return the smallest scoring node when asked for their score but return a random node when asked for the next node. New views and even models could be added with almost no extra work.
 \end{enumerate}
 \newpage
 \appendix
@@ -932,7 +1040,7 @@ Despite these problems, this implementation has some strengths.
 \section{Video}
 \label{subsec:vid}
 \par{Some footage of the program running has been recorded and uploaded to YouTube.}
-\par{\hyperlink{youtu.be/qqOG4FJfQEE}{https://youtu.be/qqOG4FJfQEE}}
+\href{https://youtu.be/WisBoM4lkQQ}{https://youtu.be/WisBoM4lkQQ}
 \section{Proof Of Concepts}
 \subsection{Decision Tree}
 \label{subsubsec:apendixdt}
@@ -962,7 +1070,7 @@ public class TreeNode {
 }
 \end{minted}
 \subsection{Expectimax}
-\label{subsubsec:expecti}
+\label{subsec:apendixexpecti}
 \begin{minted}{java}
 package ProofOfConcept.Expectimax;
 
@@ -1016,6 +1124,7 @@ public class MaxNode extends TreeNode {
 \end{minted}
 
 \subsection{2048 Game}
+\label{subsec:apendix2048}
 \begin{minted}{java}
 package ProofOfConcept.Game2048;
 
@@ -1232,7 +1341,7 @@ public class Driver {
 
 \end{minted}
 \subsection{2048 expectimax}
-\label{sucsec:apendixauto2048}
+\label{subsec:apendixauto2048}
 \begin{minted}{java}
 package ProofOfConcept.Auto2048;
 
@@ -2110,7 +2219,109 @@ public class Monotonic implements Heuristic {
     }
 }
 \end{minted}
+\subsection{Multi-Threading}
+\label{subsec:apendixmulti}
+\begin{minted}{java}
+public class Node {
+    ...
+    /**
+     * Generate the children of this node. Once this has been called on a node it will simply call this method
+     * on its child notes and return this existing behaviour.
+     *
+     * @param depth  Depth on the tree
+     * @param count4 The number of 4s that can occur bowing pruning its children,
+     * @param i Current layer of node.
+     */
+    public void generateChildren(int depth, int count4, int i) {
+        if (this.gameState.cell() == 4) count4--;
+        if (depth > 0 && count4 > 0) {
+            this.behaviour = this.behaviourGenerator.generate(this.gameState, random, depth - 1, count4, i);
+
+            // Stop a node from being regenerated.
+            this.behaviourGenerator = this.behaviour::generated;
+        }
+    }
+    ....
+}
+
+public class NodeBehvaiourChance {
+    ...
+    /**
+     * Generate the node behaviour for a chance node.
+     *
+     * @param state   The state of the node.
+     * @param random  Random  number generater used to pick next node, and passed down to child node.
+     * @param depth   Depth of the subtree starting from this node.
+     * @param count4  Number of '4s' before a node is pruned
+     * @param layer   Layer in the tree currently on.
+     * @return if the node children a chance node is returned <br>
+     *         otherwise a leaf node behaviour is returned
+     */
+    public static NodeBehaviour generate(GameState state, Random random, int depth, int count4, int layer) {
+        NodeBehaviour generated;
+        GameState[] childStates = state.getPossibleMutations();
+
+        Node[] childNodes = new Node[childStates.length];
+
+        for (int i = 0; i < childNodes.length; i++) {
+            childNodes[i] = new Node(childStates[i], NodeBehaviourMaximize::generate, random);
+        }
+
+
+        Arrays.stream(childNodes).parallel().forEach((Node child) -> {
+            child.generateChildren(depth, count4, layer);
+        });
+
+        if (childNodes.length > 0) {
+            generated = new NodeBehaviourChance(childNodes, random);
+        } else {
+            generated = new LeafNodeBehaviour(state);
+        }
+
+
+        return generated;
+    }
+    ...
+}
+
+public class NodeBehaviourChance {
+    ...
+    /**
+     * Generate the node behaviour for a maximizing node.
+     *
+     * @param state   The state of the node.
+     * @param random  Random  number generator passed down to child node.
+     * @param depth   Depth of the subtree starting from this node.
+     * @param count4  Number of '4s' before a node is pruned
+     * @param layer   Layer in the tree currently on.
+     * @return if the node children a maximizing node is returned <br>
+     *         otherwise a leaf node behaviour is returned
+     */
+    public static NodeBehaviour generate(GameState state, Random random, int depth, int count4, int layer) {
+        NodeBehaviour generated;
+        List<GameState> childStates = state.getPossibleMoves();
+
+        Node[] childNodes = new Node[childStates.size()];
+
+        for (int i = 0; i < childNodes.length; i++) {
+            childNodes[i] = new Node(childStates.get(i), NodeBehaviourChance::generate, random);
+        }
+
+        Arrays.stream(childNodes).parallel().forEach((Node child) -> child.generateChildren(depth, count4, layer));
+
+        if (childNodes.length > 0) {
+            generated = new NodeBehaviourMaximize(childNodes);
+        } else {
+            generated = new LeafNodeBehaviour(state);
+        }
+        return generated;
+    }
+    ...
+}
+\end{minted}
+
 \subsection{Example Tree File Format}
+\label{subsec:apendixtfile}
 This is a tree (depth 4) from towards the end of an expectimax tree, as these trees tend to be smaller.
 \begin{minted}{text}
 #16#2#8#2#32#4#16#64#2#64#512#2#2048#1024#8#2#4106.0#-482.77997926592843M
@@ -2134,6 +2345,26 @@ This is a tree (depth 4) from towards the end of an expectimax tree, as these tr
   #16#2#8#4#32#4#16#2#2#64#512#64#2048#1024#8#4#-1000.0#-1000.0L
 
 \end{minted}
+\begin{landscape}
+\section{UML Diagrams}
+\subsection{Node State}
+\label{subsec:apendixns}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.6\textwidth]{NodeState.png}
+    \caption{Node State UML Diagram}
+    \label{fig:my_label}
+\end{figure}
+\subsection{Heuristic Visitor}
+\label{subsec:apendixVS}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.6\textwidth]{Heuristics.png}
+    \caption{Visitor/Singlton UML Diagram}
+    \label{fig:my_label}
+\end{figure}
+\end{landscape}
+
 \newpage
 \bibliographystyle{IEEEtran}
 \bibliography{refrences}

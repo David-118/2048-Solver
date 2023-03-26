@@ -1,3 +1,5 @@
 heuristicName,maxTile,score,time
 "5 x 5 game using Largest Lower",4096,97364,1690867
 "5 x 5 game using Largest Lower",32768,831764,5562298
+"5 x 5 game using Largest Lower",16384,336308,3105404
+"5 x 5 game using Largest Lower",32768,842760,5467899

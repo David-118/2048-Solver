@@ -12,8 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * This defines behaviours related to a nodes children applying heuristics.
  */
-interface NodeBehaviour
-{
+interface NodeBehaviour {
     /**
      * Defines how to treat a node after it has been generated.
      * @param state The state of the current game.
